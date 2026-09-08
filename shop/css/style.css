@@ -276,6 +276,33 @@ input,select,textarea{font-family:inherit;font-size:14px}
   /* 咨询页服务列表(3 列 → 1 列) */
   div[style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr !important}
   /* 例外:6 大业务卡片在 768 上是 2x3 而不是 1x6,单独处理后这条可只针对其他 */
+
+  /* 子页面通用 grid 转 1 列(全站适配) */
+  div[style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:1fr !important}
+  div[style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:1fr !important}
+  div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important}
+  div[style*="grid-template-columns:1fr 320px"]{grid-template-columns:1fr !important}
+  div[style*="grid-template-columns:280px 1fr"]{grid-template-columns:1fr !important}
+  div[style*="grid-template-columns:auto 1fr"]{grid-template-columns:1fr !important}
+  div[style*="grid-template-columns:2fr 1fr"]{grid-template-columns:1fr !important}
+
+  /* 排除 #categoryGrid(6 大业务已在 768 变 2 列) */
+  #categoryGrid[style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr 1fr !important}
+
+  /* detail.html 营养师 3 列 → 1 列(更明确) */
+  #advisorGrid{grid-template-columns:1fr !important}
+
+  /* checkout.html 步骤条:3 段折行 */
+  .stepper{gap:14px !important;flex-wrap:wrap !important}
+  .stepper > div[style*="flex:0 0 60px"]{display:none}
+
+  /* 优惠/支付方式 4 列 → 2 列 */
+  .pay-method-grid{grid-template-columns:repeat(2,1fr) !important}
+  div[style*="grid-template-columns:repeat(4,1fr);gap:12px"]{grid-template-columns:repeat(2,1fr) !important}
+
+  /* user.html tab 横向滚动 */
+  .user-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap !important}
+  .user-tab{white-space:nowrap;flex-shrink:0}
 }
 
 /* 小屏手机(< 480px)再优化 */
