@@ -237,6 +237,56 @@ input,select,textarea{font-family:inherit;font-size:14px}
   .footer .container{grid-template-columns:1fr 1fr}
   .navbar .container{flex-wrap:wrap;gap:14px}
   .nav-search{order:3;flex:1 0 100%}
+
+  /* 首页 6 大业务 3 列 → 1 列(避免 390px 太挤) */
+  #categoryGrid{grid-template-columns:1fr 1fr !important;gap:10px !important}
+  #categoryGrid .product,#categoryGrid a{padding:18px 12px !important}
+  #categoryGrid div[style*="font-size:46px"]{font-size:36px !important}
+  #categoryGrid div[style*="font-size:17px"]{font-size:15px !important}
+
+  /* 首页双入口(服务详情 + 管理后台)上下堆叠 */
+  #categoryGrid + div[style*="grid-template-columns:2fr 1fr"],
+  div[style*="grid-template-columns:2fr 1fr"]{grid-template-columns:1fr !important;gap:10px !important}
+  div[style*="grid-template-columns:2fr 1fr"] a{padding:18px 20px !important}
+
+  /* 首页 hero banner 右侧 2 小卡在 mobile 堆叠 */
+  div[style*="display:grid;grid-template-columns:2fr 1fr;gap:14px"],
+  div[style*="grid-template-columns:2fr 1fr;gap:14px"]{grid-template-columns:1fr !important}
+
+  /* 首页 4 大保障区(4 列 → 2 列) */
+  div[style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr) !important}
+
+  /* service.html 章节(svc-body 1.4fr 1fr)→ 1 列 */
+  .svc-section .svc-body{grid-template-columns:1fr !important;gap:18px}
+  .svc-section{padding:24px 18px !important}
+  .svc-section h2{font-size:20px !important}
+  .svc-section .svc-icon{width:52px;height:52px;font-size:28px}
+
+  /* 详情页(图片+信息 1fr 1fr)→ 1 列 */
+  #detailMain > div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;padding:20px !important}
+  div[style*="height:480px"]{height:340px !important}
+
+  /* 咨询页服务列表(3 列 → 1 列) */
+  div[style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr !important}
+  /* 例外:6 大业务卡片在 768 上是 2x3 而不是 1x6,单独处理后这条可只针对其他 */
+}
+
+/* 小屏手机(< 480px)再优化 */
+@media (max-width:480px){
+  /* 商品 grid 1 列 */
+  .product-grid,.product-grid-3,.product-grid-5{grid-template-columns:1fr !important}
+  /* 6 大业务单列 */
+  #categoryGrid{grid-template-columns:1fr !important}
+  /* footer 单列 */
+  .footer .container{grid-template-columns:1fr !important}
+  /* nav 文字更小 */
+  .nav-links{font-size:13px;gap:8px}
+  .nav-links a{white-space:nowrap}
+  /* 容器内边距缩小 */
+  .container{padding:0 12px}
+  /* banner 内容缩小 */
+  h2{font-size:24px !important}
+  h1{font-size:22px !important}
 }
 
 /* ===== Checkout 结算页 ===== */
