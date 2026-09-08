@@ -296,16 +296,13 @@ input,select,textarea{font-family:inherit;font-size:14px}
   .stepper{gap:14px !important;flex-wrap:wrap !important;padding:14px !important}
   .stepper > div[style*="flex:0 0 60px"]{display:none}
 
-  /* cart.html 步骤条:连接线换行,3 段紧凑 */
+  /* cart.html 步骤条:垂直排列 3 段 */
   div[style*="display:flex;align-items:center;justify-content:center;gap:30px;padding:20px;background:#fff"]{
-    gap:6px !important;padding:12px !important;flex-wrap:wrap;justify-content:space-between !important;font-size:13px
+    flex-direction:column !important;gap:10px !important;padding:14px !important;font-size:13px
   }
-  /* 步骤条连接线在 mobile 转为短横线 */
+  /* 步骤条连接线在 mobile 旋转 90°(变成短竖线) */
   div[style*="display:flex;align-items:center;justify-content:center;gap:30px;padding:20px;background:#fff"] > span{
-    flex:0 0 16px;overflow:hidden;height:1px;background:#d1d5db;color:transparent !important;font-size:0
-  }
-  div[style*="display:flex;align-items:center;justify-content:center;gap:30px;padding:20px;background:#fff"] > span::before{
-    content:"———"
+    transform:rotate(90deg);width:20px !important;height:1px !important;background:#d1d5db;color:transparent !important;font-size:0
   }
 
   /* 优惠/支付方式 4 列 → 2 列 */
