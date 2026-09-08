@@ -249,9 +249,16 @@ input,select,textarea{font-family:inherit;font-size:14px}
   div[style*="grid-template-columns:2fr 1fr"]{grid-template-columns:1fr !important;gap:10px !important}
   div[style*="grid-template-columns:2fr 1fr"] a{padding:18px 20px !important}
 
-  /* 首页 hero banner 右侧 2 小卡在 mobile 堆叠 */
-  div[style*="display:grid;grid-template-columns:2fr 1fr;gap:14px"],
-  div[style*="grid-template-columns:2fr 1fr;gap:14px"]{grid-template-columns:1fr !important}
+  /* 首页 hero banner 右侧 2 小卡在 mobile 堆叠(1.6fr 1fr / 2fr 1fr 都匹配) */
+  div[style*="grid-template-columns:1.6fr 1fr"],
+  div[style*="grid-template-columns:2fr 1fr;gap:14px"],
+  div[style*="display:grid;grid-template-columns:2fr 1fr;gap:14px"]{grid-template-columns:1fr !important}
+
+  /* banner 容器在 mobile 高度降低 */
+  #heroBanners{height:280px !important}
+  #heroBanners img{max-height:200px !important}
+  #heroBanners h2{font-size:22px !important;margin-bottom:8px !important}
+  #heroBanners p{font-size:13px !important;margin-bottom:14px !important}
 
   /* 首页 4 大保障区(4 列 → 2 列) */
   div[style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr) !important}
