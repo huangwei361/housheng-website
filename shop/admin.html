@@ -8,6 +8,9 @@
 <style>
 body{background:#f5fafa;margin:0;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
 .admin-page{margin:0;min-height:100vh;background:#f5fafa}
+.admin-menu-btn{display:none;width:36px;height:36px;border-radius:8px;background:#f5fafa;border:1px solid #e5e7eb;align-items:center;justify-content:center;font-size:20px;cursor:pointer;color:#006d77;flex-shrink:0}
+.admin-menu-btn:hover{background:#e6f3f1}
+.admin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:49;cursor:pointer}
 
 /* 侧栏 */
 .admin-sidebar{background:linear-gradient(180deg,#1a1a1a,#0f0f0f);color:#9ca3af;width:220px;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:50}
@@ -283,6 +286,36 @@ body{background:#f5fafa;margin:0;font-family:"PingFang SC","Microsoft YaHei",san
   .admin-sidebar.open{transform:translateX(0)}
   .admin-main{margin-left:0}
   .admin-stats-row.cols-4,.admin-stats-row.cols-5,.admin-stats-row.cols-3{grid-template-columns:1fr 1fr}
+  .admin-topbar .left h2{font-size:18px}
+  .admin-topbar .right input{width:160px !important;font-size:12px}
+  .admin-topbar{padding:0 14px}
+  .admin-menu-btn{display:flex !important}
+  .admin-sidebar.open ~ .admin-overlay{display:block}
+
+  /* main 内部 grid 全部转 1 列 */
+  .admin-content{padding:14px !important}
+  .admin-content div[style*="grid-template-columns:repeat(6,1fr)"]{grid-template-columns:repeat(2,1fr) !important}
+  .admin-content div[style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr !important}
+  .admin-content div[style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:1fr 1fr !important}
+  .admin-content div[style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:1fr !important}
+  .channel-grid,.settings-grid{grid-template-columns:1fr !important}
+
+  /* 表格横向滚动 */
+  .admin-content table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+
+  /* canvas 图缩小 */
+  .admin-content canvas{max-width:100%;height:auto !important}
+
+  /* 调整 padding */
+  .admin-content > div[style*="padding:20px"]{padding:14px !important}
+}
+
+@media (max-width:480px){
+  .admin-stats-row.cols-4,.admin-stats-row.cols-5,.admin-stats-row.cols-3{grid-template-columns:1fr !important}
+  .admin-content div[style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:1fr !important}
+  .admin-topbar .right input{display:none}
+  .admin-topbar .left h2{font-size:16px}
+  .admin-content h3{font-size:16px !important}
 }
 </style>
 <style>
@@ -385,13 +418,17 @@ body{background:#f5fafa;margin:0;font-family:"PingFang SC","Microsoft YaHei",san
   </div>
 
   <!-- 主体 -->
+  <div class="admin-overlay" onclick="HS.toggleAdminSidebar(true)"></div>
   <div class="admin-main">
 
     <!-- 顶栏 -->
     <div class="admin-topbar">
-      <div class="left">
-        <h2 id="pageTitle">📊 仪表盘</h2>
-        <span class="breadcrumb-mini" id="pageSub">实时数据 · 今日 2026-09-04</span>
+      <div class="left" style="display:flex;align-items:center;gap:12px">
+        <button class="admin-menu-btn" onclick="HS.toggleAdminSidebar()" title="菜单">☰</button>
+        <div>
+          <h2 id="pageTitle">📊 仪表盘</h2>
+          <span class="breadcrumb-mini" id="pageSub">实时数据 · 今日 2026-09-04</span>
+        </div>
       </div>
       <div class="right">
         <input type="text" placeholder="🔍 全局搜索 订单/商品/客户..." style="width:280px;padding:7px 14px;border:1px solid #e5e7eb;border-radius:18px;font-size:13px;outline:none"/>
@@ -1760,6 +1797,14 @@ body{background:#f5fafa;margin:0;font-family:"PingFang SC","Microsoft YaHei",san
 const $  = s => document.querySelector(s);
 const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
 let orderFilter = "all";
+
+// ========== 移动端 sidebar 切换 ==========
+HS.toggleAdminSidebar = function(close){
+  const sb = document.querySelector(".admin-sidebar");
+  if(!sb) return;
+  if(close === true){ sb.classList.remove("open"); return; }
+  sb.classList.toggle("open");
+};
 
 // ========== 登录 ==========
 function adminLogin(){
