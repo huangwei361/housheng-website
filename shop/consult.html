@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>营养师咨询 - 厚生 HOUSHENG</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="navMount"></div>
+
+<div class="container" style="padding:20px">
+
+  <div class="breadcrumb">
+    <a href="index.html">首页</a> <span class="sep">/</span>
+    <a href="user.html?tab=advisor">营养师</a> <span class="sep">/</span>
+    <span class="current">预约咨询</span>
+  </div>
+
+  <div style="background:linear-gradient(135deg,var(--primary),#1a5d52);color:#fff;border-radius:var(--radius-lg);padding:30px;margin-bottom:20px;position:relative;overflow:hidden">
+    <div style="display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1">
+      <div>
+        <h1 style="font-size:24px;font-weight:700;margin-bottom:8px">🩺 1v1 营养师咨询</h1>
+        <p style="font-size:14px;opacity:0.9">专业营养师团队 · 视频/语音/图文 · 个性化方案</p>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:13px;opacity:0.85">📋 我的预约</div>
+        <div style="font-size:28px;font-weight:800" id="myBookingCount">0</div>
+        <a href="user.html?tab=advisor" style="font-size:12px;opacity:0.85;text-decoration:underline">查看 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="consult-grid">
+
+    <div>
+
+      <!-- Step 1: 选议题 -->
+      <div class="consult-step">
+        <h3><span class="consult-step-num">1</span>选择咨询议题</h3>
+        <div class="consult-topic-grid" id="topicGrid"></div>
+      </div>
+
+      <!-- Step 2: 选顾问 -->
+      <div class="consult-step">
+        <h3><span class="consult-step-num">2</span>选择营养师</h3>
+        <div id="advisorList"></div>
+      </div>
+
+      <!-- Step 3: 选时段 -->
+      <div class="consult-step">
+        <h3><span class="consult-step-num">3</span>选择时间</h3>
+        <div style="margin-bottom:14px;font-size:13px;color:var(--gray)">所有时间均为北京时间,可提前 2 小时取消</div>
+        <div id="slotContainer"></div>
+      </div>
+
+      <!-- Step 4: 补充信息 -->
+      <div class="consult-step">
+        <h3><span class="consult-step-num">4</span>补充信息(选填)</h3>
+        <div class="admin-form-grid" style="grid-template-columns:1fr 1fr">
+          <label>年龄<input type="number" id="age" placeholder="如 35" /></label>
+          <label>性别
+            <select id="gender">
+              <option>男</option>
+              <option>女</option>
+              <option>不透露</option>
+            </select>
+          </label>
+          <label class="full">主要诉求
+            <textarea id="symptom" placeholder="如:血脂偏高,想调理 ..."></textarea>
+          </label>
+          <label class="full">是否有过敏/慢病
+            <input type="text" id="allergy" placeholder="如:对海鲜过敏 / 糖尿病" />
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 右:预约摘要 -->
+    <div>
+      <div class="booking-summary" id="summary">
+        <h4>📋 预约摘要</h4>
+        <div class="booking-row"><span>议题</span><span id="sumTopic">-</span></div>
+        <div class="booking-row"><span>顾问</span><span id="sumAdvisor">-</span></div>
+        <div class="booking-row"><span>时间</span><span id="sumTime">-</span></div>
+        <div class="booking-row"><span>方式</span><span id="sumMethod">视频</span></div>
+        <div class="booking-row"><span>原价</span><span style="text-decoration:line-through;color:var(--gray)">¥498</span></div>
+        <div class="booking-row"><span>新人首单</span><span style="color:var(--green)">免费 🎉</span></div>
+        <div class="booking-row" style="font-size:16px;font-weight:700;margin-top:10px;padding-top:10px;border-top:2px solid var(--border)">
+          <span>实付</span>
+          <span class="price">¥0</span>
+        </div>
+        <button class="btn btn-primary btn-block btn-lg" style="margin-top:16px" onclick="submitBooking()">确认预约</button>
+        <p style="font-size:11px;color:var(--gray);text-align:center;margin-top:8px">预约后营养师 5 分钟内会主动联系您</p>
+      </div>
+
+      <!-- 我的预约 -->
+      <div class="admin-section" style="margin-top:14px">
+        <h3 style="font-size:14px;margin-bottom:10px">📅 我的预约</h3>
+        <div id="myBookingsList"></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="footerMount"></div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+
+let selTopic = null;
+let selAdvisor = null;
+let selSlot = null;
+let selMethod = "视频";
+
+function renderTopics(){
+  $("#topicGrid").innerHTML = HS.consultTopics.map(t => `
+    <div class="consult-topic ${selTopic===t.key?'active':''}" onclick="pickTopic('${t.key}', this)">
+      <div class="icon">${t.icon}</div>
+      <div class="name">${t.name}</div>
+      <div class="desc">${t.desc}</div>
+    </div>
+  `).join("");
+}
+
+function pickTopic(key, el){
+  selTopic = key;
+  $$(".consult-topic").forEach(t => t.classList.remove("active"));
+  el.classList.add("active");
+  const t = HS.consultTopics.find(x => x.key===key);
+  $("#sumTopic").textContent = t ? t.name : "-";
+  // 联动顾问
+  pickAdvisorAuto();
+}
+
+function renderAdvisors(){
+  $("#advisorList").innerHTML = HS.advisors.map(a => `
+    <div class="consult-advisor-card ${selAdvisor===a.id?'active':''}" onclick="pickAdvisor('${a.id}', this)">
+      <div class="avatar" style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;flex-shrink:0">${a.avatar}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:15px;font-weight:700">${a.name} <span style="font-size:12px;color:var(--gray);font-weight:400">· ${a.title}</span></div>
+        <div style="font-size:12px;color:var(--primary);margin-top:2px">专长: ${a.specialty}</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:4px">${a.bio}</div>
+        <div style="display:flex;gap:14px;margin-top:6px;font-size:12px;color:var(--gray)">
+          <span>⭐ ${a.rating}</span>
+          <span>📋 ${a.orders} 单</span>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="color:var(--red);font-weight:700">¥498</div>
+        <div style="font-size:11px;color:var(--green)">首单免费</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function pickAdvisor(id, el){
+  selAdvisor = id;
+  $$(".consult-advisor-card").forEach(c => c.classList.remove("active"));
+  el.classList.add("active");
+  const a = HS.advisors.find(x => x.id===id);
+  $("#sumAdvisor").textContent = a ? a.name : "-";
+}
+
+function pickAdvisorAuto(){
+  // 根据议题推荐最合适的顾问
+  if(!selTopic) return;
+  const map = {
+    "三高":"A01", "减脂":"A03", "肠胃":"A01", "助眠":"A02",
+    "母婴":"A01", "运动":"A03", "术后":"A01", "亚健康":"A01"
+  };
+  const id = map[selTopic] || "A01";
+  selAdvisor = id;
+  const a = HS.advisors.find(x => x.id===id);
+  if(a) $("#sumAdvisor").textContent = a.name;
+  renderAdvisors();
+}
+
+function renderSlots(){
+  $("#slotContainer").innerHTML = HS.consultSlots.map(d => `
+    <div style="margin-bottom:14px">
+      <div style="font-size:13px;color:var(--gray);margin-bottom:8px">📅 ${d.date}</div>
+      <div class="consult-slot-grid">
+        ${d.slots.map(s => `
+          <div class="consult-slot ${selSlot===`${d.date}-${s}`?'active':''}" onclick="pickSlot('${d.date}', '${s}', this)">${s}</div>
+        `).join("")}
+      </div>
+    </div>
+  `).join("");
+}
+
+function pickSlot(date, time, el){
+  selSlot = `${date}-${time}`;
+  $$(".consult-slot").forEach(s => s.classList.remove("active"));
+  el.classList.add("active");
+  $("#sumTime").textContent = `${date} ${time}`;
+}
+
+function renderMyBookings(){
+  const list = HS.myBookings;
+  $("#myBookingCount").textContent = list.length;
+  $("#myBookingsList").innerHTML = list.length === 0 ? '<div style="text-align:center;color:var(--gray);font-size:13px;padding:20px 0">暂无预约</div>' :
+    list.map(b => `
+      <div style="padding:10px 0;border-bottom:1px solid var(--border);font-size:13px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-weight:600">${b.advisor} · ${b.topic}</div>
+            <div style="color:var(--gray);margin-top:2px">${b.date} ${b.time}</div>
+          </div>
+          <span class="status ${b.status==='completed'?'completed':b.status==='upcoming'?'shipped':'pending'}" style="font-size:11px;padding:2px 8px;border-radius:10px">${b.status==='completed'?'已完成':b.status==='upcoming'?'待开始':'已取消'}</span>
+        </div>
+        <div style="display:flex;gap:6px;margin-top:6px">
+          ${b.status==='upcoming' ? `<button class="btn btn-ghost btn-sm" onclick="HS.Toast.show('已取消','success')">取消</button><button class="btn btn-outline btn-sm" onclick="joinCall()">加入</button>` : ''}
+          ${b.status==='completed' ? `<button class="btn btn-ghost btn-sm" onclick="HS.Toast.show('查看咨询报告','success')">报告</button>` : ''}
+        </div>
+      </div>
+    `).join("");
+}
+
+function joinCall(){
+  HS.Toast.show("正在连接顾问...", "success");
+  setTimeout(() => location.href = "chat.html", 800);
+}
+
+function submitBooking(){
+  if(!selTopic){ HS.Toast.show("请选择咨询议题", "error"); return; }
+  if(!selAdvisor){ HS.Toast.show("请选择营养师", "error"); return; }
+  if(!selSlot){ HS.Toast.show("请选择咨询时间", "error"); return; }
+
+  const [date, time] = selSlot.split("-");
+  const adv = HS.advisors.find(a => a.id===selAdvisor);
+  const topic = HS.consultTopics.find(t => t.key===selTopic);
+
+  // 演示版:首单免费
+  const booking = {
+    id:"BK" + Date.now(),
+    advisor: adv.name,
+    topic: topic.name,
+    date: date, time: time,
+    status: "upcoming",
+    price: 0,
+    rating: 0
+  };
+
+  // 保存
+  const list = JSON.parse(localStorage.getItem("hs_bookings")||"null") || HS.myBookings.slice();
+  list.unshift(booking);
+  localStorage.setItem("hs_bookings", JSON.stringify(list));
+
+  HS.Toast.show("✓ 预约成功!顾问 5 分钟内会主动联系您", "success");
+  setTimeout(() => {
+    location.href = "chat.html?tid=t-advisor";
+  }, 1200);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderTopics();
+  renderAdvisors();
+  renderSlots();
+  renderMyBookings();
+
+  // 从 URL 读默认
+  const params = new URLSearchParams(location.search);
+  const adv = params.get("advisor");
+  if(adv) selAdvisor = adv;
+});
+</script>
+
+</body>
+</html>

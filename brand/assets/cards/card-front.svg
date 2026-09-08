@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 900" width="540" height="900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#006d77"/>
+      <stop offset="100%" stop-color="#1a5d52"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f77f00"/>
+      <stop offset="100%" stop-color="#e29578"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 底色 -->
+  <rect width="540" height="900" fill="url(#bg)"/>
+
+  <!-- 装饰圈 -->
+  <circle cx="60" cy="60" r="120" fill="#ffffff" opacity="0.04"/>
+  <circle cx="480" cy="840" r="180" fill="#ffffff" opacity="0.04"/>
+  <circle cx="460" cy="100" r="60" fill="none" stroke="#f77f00" stroke-width="1" opacity="0.3"/>
+  <circle cx="460" cy="100" r="40" fill="none" stroke="#f77f00" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- 品牌 logo 圆 -->
+  <g transform="translate(70, 200)">
+    <circle cx="50" cy="50" r="50" fill="#ffffff" opacity="0.15"/>
+    <circle cx="50" cy="50" r="42" fill="#ffffff" opacity="0.95"/>
+    <text x="50" y="62" font-family="serif" font-size="48" font-weight="900" fill="#006d77" text-anchor="middle" letter-spacing="-2">厚</text>
+    <circle cx="50" cy="50" r="58" fill="none" stroke="#f77f00" stroke-width="1" opacity="0.7"/>
+  </g>
+
+  <!-- 品牌名 -->
+  <text x="200" y="245" font-family="serif" font-size="42" font-weight="700" fill="#ffffff" letter-spacing="6">厚生</text>
+  <text x="200" y="285" font-family="sans-serif" font-size="18" font-weight="400" fill="#f77f00" letter-spacing="3">HOUSHENG WELLNESS</text>
+
+  <!-- 主标题 -->
+  <text x="70" y="450" font-family="serif" font-size="56" font-weight="700" fill="#ffffff" letter-spacing="2">厚生万物</text>
+  <text x="70" y="520" font-family="serif" font-size="56" font-weight="700" fill="#ffffff" letter-spacing="2">养心养身</text>
+  <text x="70" y="570" font-family="sans-serif" font-size="18" fill="#e29578" letter-spacing="4">FOR LIFE · FOR WELLNESS</text>
+
+  <!-- 分隔线 -->
+  <line x1="70" y1="620" x2="200" y2="620" stroke="url(#gold)" stroke-width="2"/>
+
+  <!-- 个人信息 -->
+  <g font-family="sans-serif" fill="#ffffff">
+    <text x="70" y="700" font-size="22" font-weight="700">黄 巍</text>
+    <text x="70" y="730" font-size="14" fill="#b0d4d0">创始人 · 店长</text>
+
+    <text x="70" y="790" font-size="12" fill="#b0d4d0">📞  13971691656  微信同号</text>
+    <text x="70" y="815" font-size="12" fill="#b0d4d0">📧  huangwei_361@163.com</text>
+    <text x="70" y="840" font-size="12" fill="#b0d4d0">📍  武汉·青山旗舰店</text>
+  </g>
+
+  <!-- 角标装饰 -->
+  <g transform="translate(420, 750)">
+    <rect width="80" height="60" fill="none" stroke="#f77f00" stroke-width="1" opacity="0.5" rx="4"/>
+    <text x="40" y="20" font-size="9" fill="#f77f00" text-anchor="middle">SCAN</text>
+    <text x="40" y="35" font-size="9" fill="#ffffff" text-anchor="middle">关注厚生</text>
+    <text x="40" y="48" font-size="8" fill="#b0d4d0" text-anchor="middle">微信公众号</text>
+  </g>
+</svg>

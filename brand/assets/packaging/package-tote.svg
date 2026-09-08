@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 600" width="500" height="600">
+  <defs>
+    <linearGradient id="toteBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fafbfc"/>
+      <stop offset="100%" stop-color="#e6f3f1"/>
+    </linearGradient>
+    <linearGradient id="toteHandle" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#006d77"/>
+      <stop offset="100%" stop-color="#1a5d52"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 提手 -->
+  <path d="M170 60 Q170 20 200 20 L300 20 Q330 20 330 60 L330 100 L320 100 L320 60 Q320 30 300 30 L200 30 Q180 30 180 60 L180 100 L170 100 Z" fill="none" stroke="url(#toteHandle)" stroke-width="6"/>
+
+  <!-- 袋主体 -->
+  <path d="M80 100 L420 100 L440 160 L440 540 L60 540 L60 160 Z" fill="url(#toteBody)" stroke="#cbd5d3" stroke-width="1"/>
+
+  <!-- 顶部高光 -->
+  <path d="M80 100 L420 100 L440 160 L60 160 Z" fill="#006d77" opacity="0.05"/>
+
+  <!-- 中央 logo -->
+  <g transform="translate(195, 200)">
+    <circle cx="55" cy="55" r="55" fill="#006d77"/>
+    <text x="55" y="70" font-family="serif" font-size="56" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="-2">厚</text>
+  </g>
+
+  <text x="250" y="350" font-family="serif" font-size="36" font-weight="700" fill="#006d77" text-anchor="middle" letter-spacing="6">厚生</text>
+  <text x="250" y="380" font-family="sans-serif" font-size="14" font-weight="500" fill="#f77f00" text-anchor="middle" letter-spacing="4">HOUSHENG</text>
+
+  <line x1="160" y1="410" x2="340" y2="410" stroke="#c0392b" stroke-width="1.5"/>
+
+  <text x="250" y="450" font-family="serif" font-size="20" font-weight="700" fill="#1a5d52" text-anchor="middle" letter-spacing="4">厚生万物</text>
+  <text x="250" y="478" font-family="serif" font-size="20" font-weight="700" fill="#1a5d52" text-anchor="middle" letter-spacing="4">养心养身</text>
+  <text x="250" y="505" font-family="sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" letter-spacing="2">FOR LIFE · FOR WELLNESS</text>
+
+  <!-- 6 大服务小图 -->
+  <g font-family="serif" font-size="11" fill="#1a1a1a">
+    <text x="120" y="555">🩺 营养</text>
+    <text x="180" y="555">🏃 运动</text>
+    <text x="240" y="555">🧘 功法</text>
+    <text x="300" y="555">🌿 理疗</text>
+    <text x="360" y="555">💚 心理</text>
+  </g>
+  <text x="250" y="580" font-family="sans-serif" font-size="9" fill="#9ca3af" text-anchor="middle">📍 武汉·青山旗舰店  ·  13971691656</text>
+</svg>

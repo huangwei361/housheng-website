@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" width="800" height="1200">
+  <defs>
+    <linearGradient id="p3Bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="50%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+    <linearGradient id="p3Gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f77f00"/>
+      <stop offset="50%" stop-color="#ffba66"/>
+      <stop offset="100%" stop-color="#f77f00"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1200" fill="url(#p3Bg)"/>
+
+  <!-- 装饰 -->
+  <circle cx="400" cy="600" r="500" fill="url(#p3Gold)" opacity="0.08"/>
+  <circle cx="200" cy="200" r="120" fill="url(#p3Gold)" opacity="0.1"/>
+  <circle cx="600" cy="1000" r="150" fill="url(#p3Gold)" opacity="0.1"/>
+
+  <!-- 顶部 logo -->
+  <g transform="translate(350, 80)">
+    <circle cx="50" cy="50" r="50" fill="#f77f00"/>
+    <text x="50" y="65" font-family="serif" font-size="50" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="-2">厚</text>
+  </g>
+
+  <text x="400" y="250" font-family="serif" font-size="60" font-weight="900" fill="#f77f00" text-anchor="middle" letter-spacing="8">会员日</text>
+  <text x="400" y="310" font-family="sans-serif" font-size="18" font-weight="500" fill="#ffba66" text-anchor="middle" letter-spacing="6">MEMBER · DAY</text>
+
+  <line x1="280" y1="350" x2="520" y2="350" stroke="url(#p3Gold)" stroke-width="2"/>
+
+  <!-- 主数字 -->
+  <text x="400" y="500" font-family="serif" font-size="200" font-weight="900" fill="#f77f00" text-anchor="middle" letter-spacing="-10">2X</text>
+  <text x="400" y="560" font-family="serif" font-size="36" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="6">双倍积分</text>
+  <text x="400" y="610" font-family="sans-serif" font-size="18" fill="#ffba66" text-anchor="middle" letter-spacing="2">每 1 元 = 2 积分</text>
+
+  <!-- 4 大特权 -->
+  <g transform="translate(120, 670)">
+    <rect width="270" height="120" fill="#1a1a1a" stroke="#f77f00" stroke-width="1" rx="6"/>
+    <text x="135" y="40" font-family="serif" font-size="22" font-weight="700" fill="#f77f00" text-anchor="middle" letter-spacing="2">VIP 折扣</text>
+    <text x="135" y="75" font-family="serif" font-size="32" font-weight="900" fill="#ffffff" text-anchor="middle">9 折</text>
+    <text x="135" y="105" font-family="sans-serif" font-size="11" fill="#9ca3af" text-anchor="middle">全场通用</text>
+  </g>
+
+  <g transform="translate(410, 670)">
+    <rect width="270" height="120" fill="#1a1a1a" stroke="#f77f00" stroke-width="1" rx="6"/>
+    <text x="135" y="40" font-family="serif" font-size="22" font-weight="700" fill="#f77f00" text-anchor="middle" letter-spacing="2">营养师咨询</text>
+    <text x="135" y="75" font-family="serif" font-size="32" font-weight="900" fill="#ffffff" text-anchor="middle">5 折</text>
+    <text x="135" y="105" font-family="sans-serif" font-size="11" fill="#9ca3af" text-anchor="middle">限 1 次</text>
+  </g>
+
+  <g transform="translate(120, 810)">
+    <rect width="270" height="120" fill="#1a1a1a" stroke="#f77f00" stroke-width="1" rx="6"/>
+    <text x="135" y="40" font-family="serif" font-size="22" font-weight="700" fill="#f77f00" text-anchor="middle" letter-spacing="2">体检套餐</text>
+    <text x="135" y="75" font-family="serif" font-size="32" font-weight="900" fill="#ffffff" text-anchor="middle">送</text>
+    <text x="135" y="105" font-family="sans-serif" font-size="11" fill="#9ca3af" text-anchor="middle">单笔满 1000</text>
+  </g>
+
+  <g transform="translate(410, 810)">
+    <rect width="270" height="120" fill="#1a1a1a" stroke="#f77f00" stroke-width="1" rx="6"/>
+    <text x="135" y="40" font-family="serif" font-size="22" font-weight="700" fill="#f77f00" text-anchor="middle" letter-spacing="2">生日礼包</text>
+    <text x="135" y="75" font-family="serif" font-size="32" font-weight="900" fill="#ffffff" text-anchor="middle">¥200</text>
+    <text x="135" y="105" font-family="sans-serif" font-size="11" fill="#9ca3af" text-anchor="middle">+ 500 积分</text>
+  </g>
+
+  <!-- 适用时间 -->
+  <g transform="translate(150, 970)">
+    <rect width="500" height="80" fill="#f77f00" rx="6"/>
+    <text x="250" y="35" font-family="serif" font-size="20" font-weight="700" fill="#1a1a1a" text-anchor="middle" letter-spacing="3">每月 8 日 · 会员日</text>
+    <text x="250" y="62" font-family="sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" letter-spacing="1">VIP 会员专享 · 充值 500 即可升级</text>
+  </g>
+
+  <text x="400" y="1110" font-family="serif" font-size="18" fill="#ffba66" text-anchor="middle" letter-spacing="3">厚生万物 · 养心养身</text>
+  <text x="400" y="1140" font-family="sans-serif" font-size="13" fill="#9ca3af" text-anchor="middle" letter-spacing="1">📞 13971691656  ·  📍 武汉·青山旗舰店</text>
+  <text x="400" y="1170" font-family="sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" letter-spacing="2">扫码关注 · 立享首单 5 折</text>
+</svg>

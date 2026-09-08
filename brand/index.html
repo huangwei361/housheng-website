@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>品牌应用物料 - 厚生 HOUSHENG</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif;background:#f5fafa;color:#1a1a1a;line-height:1.5}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* 顶部 */
+.hero{background:linear-gradient(135deg,#006d77 0%,#1a5d52 100%);color:#fff;padding:60px 20px 80px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;right:-100px;top:-100px;width:400px;height:400px;background:rgba(255,255,255,0.05);border-radius:50%}
+.hero .container{max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.hero h1{font-size:48px;font-weight:900;letter-spacing:6px;margin-bottom:10px}
+.hero .sub{font-size:18px;opacity:0.9;letter-spacing:3px;margin-bottom:20px}
+.hero .meta{display:flex;gap:30px;font-size:14px;opacity:0.85;flex-wrap:wrap}
+.hero .meta span::before{content:"·";margin-right:8px;color:#f77f00}
+.hero .meta span:first-child::before{content:"";margin:0}
+
+/* 导航 */
+.nav{background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:100;box-shadow:0 2px 4px rgba(0,0,0,0.04)}
+.nav .container{max-width:1200px;margin:0 auto;display:flex;gap:30px;padding:0 20px;overflow-x:auto}
+.nav a{padding:16px 0;font-size:14px;color:#6b7280;white-space:nowrap;border-bottom:3px solid transparent;transition:all 0.2s}
+.nav a:hover{color:#006d77}
+.nav a.active{color:#006d77;border-bottom-color:#006d77;font-weight:600}
+
+/* 主区 */
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.section{margin:50px 0}
+.section-title{font-size:28px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.section-title::before{content:"";width:4px;height:24px;background:#c0392b;border-radius:2px}
+.section-sub{font-size:14px;color:#6b7280;margin-bottom:24px;padding-left:16px}
+
+/* 卡片网格 */
+.grid{display:grid;gap:24px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:768px){
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .hero h1{font-size:32px}
+}
+
+.asset-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:all 0.25s;border:1px solid #e5e7eb}
+.asset-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.12)}
+.asset-preview{background:linear-gradient(135deg,#fafbfc,#e6f3f1);padding:30px 20px;display:flex;align-items:center;justify-content:center;min-height:240px;position:relative}
+.asset-preview img{max-width:100%;max-height:300px;object-fit:contain;filter:drop-shadow(0 8px 12px rgba(0,0,0,0.1))}
+.asset-info{padding:16px 20px;border-top:1px solid #e5e7eb}
+.asset-info h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.asset-info p{font-size:12px;color:#6b7280}
+.asset-info .specs{display:flex;gap:8px;margin-top:8px;font-size:11px;color:#9ca3af}
+.asset-info .specs span{background:#f5fafa;padding:2px 8px;border-radius:3px}
+
+/* 规格表 */
+.spec-table{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.spec-table h3{font-size:18px;margin-bottom:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+.spec-table h3::before{content:"📋";font-size:22px}
+.spec-table table{width:100%;border-collapse:collapse;font-size:13px}
+.spec-table th{text-align:left;padding:10px 12px;background:#f5fafa;font-weight:600;color:#6b7280;border-bottom:1px solid #e5e7eb}
+.spec-table td{padding:10px 12px;border-bottom:1px solid #f5fafa}
+.spec-table tr:last-child td{border-bottom:none}
+
+/* 品牌色板 */
+.color-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:20px}
+@media (max-width:768px){.color-grid{grid-template-columns:repeat(3,1fr)}}
+.color-card{border-radius:10px;padding:20px 14px;color:#fff;position:relative;overflow:hidden;min-height:120px;display:flex;flex-direction:column;justify-content:flex-end}
+.color-card::before{content:"";position:absolute;top:0;right:0;width:50px;height:50px;background:rgba(255,255,255,0.15);border-radius:0 0 0 50px}
+.color-card .name{font-size:14px;font-weight:700;margin-bottom:4px;letter-spacing:1px}
+.color-card .hex{font-size:12px;opacity:0.9;font-family:Arial,sans-serif}
+
+/* 工具栏 */
+.toolbar{background:#fff;border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border:1px solid #e5e7eb}
+.toolbar .left{display:flex;align-items:center;gap:14px}
+.toolbar .right{display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#1a1a1a}
+.btn:hover{border-color:#006d77;color:#006d77}
+.btn-primary{background:#006d77;color:#fff;border-color:#006d77}
+.btn-primary:hover{background:#1a5d52;color:#fff}
+
+/* Footer */
+.footer{background:#1a1a1a;color:#9ca3af;padding:40px 20px 20px;margin-top:60px;text-align:center}
+.footer .copy{border-top:1px solid #333;padding-top:20px;margin-top:20px;font-size:12px;color:#666}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <h1>🎨 厚生 HOUSHENG 品牌应用</h1>
+    <div class="sub">VI 系统 · 名片 · 招牌 · 包装 · 海报 · 社交物料</div>
+    <div class="meta">
+      <span>武汉·青山</span>
+      <span>2026 春季版本 v1.0</span>
+      <span>主色：厚生青 #006d77</span>
+      <span>字体：思源宋体 + 思源黑体</span>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="container">
+    <a href="#brand" class="active">品牌总览</a>
+    <a href="#colors">色板</a>
+    <a href="#cards">名片</a>
+    <a href="#signage">门店招牌</a>
+    <a href="#packaging">产品包装</a>
+    <a href="#posters">主视觉海报</a>
+    <a href="#social">社交封面</a>
+    <a href="#download">下载</a>
+  </div>
+</nav>
+
+<!-- 品牌总览 -->
+<div class="container">
+  <div class="section" id="brand">
+    <h2 class="section-title">品牌定位</h2>
+    <div class="section-sub">厚生万物 · 养心养身 · For Life, For Wellness</div>
+    <div class="grid grid-3">
+      <div class="spec-table">
+        <h3>品牌名</h3>
+        <table>
+          <tr><th>中文</th><td>厚生 HOUSHENG</td></tr>
+          <tr><th>英文</th><td>HOUSHENG WELLNESS</td></tr>
+          <tr><th>出处</th><td>《尚书·大禹谟》"厚生以养民"</td></tr>
+          <tr><th>愿景</th><td>中国第一 · 世界第一 大健康品牌</td></tr>
+        </table>
+      </div>
+      <div class="spec-table">
+        <h3>业务覆盖</h3>
+        <table>
+          <tr><td>🩺 公共营养学</td><td>注册营养师选品</td></tr>
+          <tr><td>🏃 运动健康</td><td>增肌减脂康复</td></tr>
+          <tr><td>🧘 传统功法</td><td>八段锦·太极</td></tr>
+          <tr><td>🌿 中医理疗</td><td>推拿·艾灸</td></tr>
+          <tr><td>💚 心理咨询+睡眠</td><td>1v1 咨询</td></tr>
+          <tr><td>📋 健康检测+慢病</td><td>蓝帽子产品</td></tr>
+        </table>
+      </div>
+      <div class="spec-table">
+        <h3>创始人</h3>
+        <table>
+          <tr><th>姓名</th><td>黄巍</td></tr>
+          <tr><th>角色</th><td>创始人 · 店长</td></tr>
+          <tr><th>电话</th><td>13971691656</td></tr>
+          <tr><th>邮箱</th><td>huangwei_361@163.com</td></tr>
+          <tr><th>地址</th><td>武汉·青山旗舰店</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 色板 -->
+<div class="container">
+  <div class="section" id="colors">
+    <h2 class="section-title">品牌色板</h2>
+    <div class="section-sub">4 大主色 + 辅助色 · 适用于所有视觉物料</div>
+    <div class="color-grid">
+      <div class="color-card" style="background:#006d77">
+        <div class="name">厚生青</div>
+        <div class="hex">#006d77</div>
+      </div>
+      <div class="color-card" style="background:#2a9d8f">
+        <div class="name">青碧</div>
+        <div class="hex">#2a9d8f</div>
+      </div>
+      <div class="color-card" style="background:#e29578">
+        <div class="name">丹朱</div>
+        <div class="hex">#e29578</div>
+      </div>
+      <div class="color-card" style="background:#c0392b">
+        <div class="name">印红</div>
+        <div class="hex">#c0392b</div>
+      </div>
+      <div class="color-card" style="background:#f77f00">
+        <div class="name">古金</div>
+        <div class="hex">#f77f00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 名片 -->
+<div class="container">
+  <div class="section" id="cards">
+    <div class="toolbar">
+      <div class="left">
+        <h2 style="font-size:22px;font-weight:700">📇 名片</h2>
+        <span style="font-size:13px;color:#6b7280">双面 · 90×54mm</span>
+      </div>
+      <div class="right">
+        <button class="btn">📥 印刷规范</button>
+        <button class="btn btn-primary">🖨 印刷下单</button>
+      </div>
+    </div>
+    <div class="grid grid-2">
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#1a1a1a,#006d77)">
+          <img src="assets/cards/card-front.svg" alt="名片正面"/>
+        </div>
+        <div class="asset-info">
+          <h4>名片 · 正面</h4>
+          <p>厚生青渐变底 + 个人名片信息 + 角标二维码</p>
+          <div class="specs">
+            <span>90×54mm</span>
+            <span>300g 铜版纸</span>
+            <span>烫金/UV</span>
+            <span>圆角 3mm</span>
+          </div>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#fafbfc,#e6f3f1)">
+          <img src="assets/cards/card-back.svg" alt="名片背面"/>
+        </div>
+        <div class="asset-info">
+          <h4>名片 · 背面</h4>
+          <p>品牌主张 + 6 大业务 + 二维码 + slogan</p>
+          <div class="specs">
+            <span>90×54mm</span>
+            <span>二维码 25×25mm</span>
+            <span>烫金 logo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 招牌 -->
+<div class="container">
+  <div class="section" id="signage">
+    <div class="toolbar">
+      <div class="left">
+        <h2 style="font-size:22px;font-weight:700">🏪 门店招牌</h2>
+        <span style="font-size:13px;color:#6b7280">3 种规格 · 主牌/侧招/灯箱</span>
+      </div>
+      <div class="right">
+        <button class="btn">📐 安装规范</button>
+      </div>
+    </div>
+    <div class="grid grid-3">
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#0a3d36,#006d77)">
+          <img src="assets/signage/signage-main.svg" alt="门头主牌" style="max-height:140px"/>
+        </div>
+        <div class="asset-info">
+          <h4>门头主牌</h4>
+          <p>大型主招牌 · 临街可见</p>
+          <div class="specs">
+            <span>3200×1000mm</span>
+            <span>铝塑板 + 亚克力</span>
+            <span>内置 LED</span>
+          </div>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#1a1a1a,#006d77)">
+          <img src="assets/signage/signage-side.svg" alt="侧面招牌" style="max-height:200px"/>
+        </div>
+        <div class="asset-info">
+          <h4>侧面招牌</h4>
+          <p>垂直侧挂 · 行人视角</p>
+          <div class="specs">
+            <span>800×2400mm</span>
+            <span>不锈钢烤漆</span>
+            <span>侧挂安装</span>
+          </div>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#fafbfc,#e6f3f1)">
+          <img src="assets/signage/signage-lightbox.svg" alt="灯箱" style="max-height:240px"/>
+        </div>
+        <div class="asset-info">
+          <h4>入口灯箱</h4>
+          <p>门口落地灯箱 · 24h 亮</p>
+          <div class="specs">
+            <span>1200×1600mm</span>
+            <span>亚克力灯箱</span>
+            <span>防水 IP65</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 包装 -->
+<div class="container">
+  <div class="section" id="packaging">
+    <div class="toolbar">
+      <div class="left">
+        <h2 style="font-size:22px;font-weight:700">📦 产品包装</h2>
+        <span style="font-size:13px;color:#6b7280">4 类 · 礼盒/单瓶/袋装/手提袋</span>
+      </div>
+      <div class="right">
+        <button class="btn">📋 包装规范</button>
+      </div>
+    </div>
+    <div class="grid grid-4">
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#0a3d36,#006d77)">
+          <img src="assets/packaging/package-giftbox.svg" alt="礼盒" style="max-height:280px"/>
+        </div>
+        <div class="asset-info">
+          <h4>礼盒装</h4>
+          <p>3 瓶套装 · 送长辈/客户</p>
+          <div class="specs">
+            <span>120×160×80mm</span>
+            <span>硬纸盒 + 烫金</span>
+            <span>缎带包装</span>
+          </div>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#fafbfc,#e6f3f1)">
+          <img src="assets/packaging/package-bottle.svg" alt="单瓶" style="max-height:280px"/>
+        </div>
+        <div class="asset-info">
+          <h4>单瓶装</h4>
+          <p>标准商品 · 主流通</p>
+          <div class="specs">
+            <span>80×180mm</span>
+            <span>HDPE 瓶 + 标签</span>
+            <span>防潮防光</span>
+          </div>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#fafbfc,#e6f3f1)">
+          <img src="assets/packaging/package-bag.svg" alt="袋装" style="max-height:240px"/>
+        </div>
+        <div class="asset-info">
+          <h4>袋装</h4>
+          <p>粉剂/冲剂 · 30 袋/盒</p>
+          <div class="specs">
+            <span>80×120mm/袋</span>
+            <span>食品级铝箔</span>
+            <span>独立包装</span>
+          </div>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#fafbfc,#e6f3f1)">
+          <img src="assets/packaging/package-tote.svg" alt="手提袋" style="max-height:280px"/>
+        </div>
+        <div class="asset-info">
+          <h4>手提袋</h4>
+          <p>门店购物袋 · 印 logo</p>
+          <div class="specs">
+            <span>250×300×80mm</span>
+            <span>牛皮纸 + 棉绳</span>
+            <span>可重复使用</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 海报 -->
+<div class="container">
+  <div class="section" id="posters">
+    <div class="toolbar">
+      <div class="left">
+        <h2 style="font-size:22px;font-weight:700">🎨 主视觉海报</h2>
+        <span style="font-size:13px;color:#6b7280">3 张 · 适用于门店/活动/线上</span>
+      </div>
+      <div class="right">
+        <button class="btn">📐 印刷规范</button>
+      </div>
+    </div>
+    <div class="grid grid-3">
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#0a3d36,#006d77)">
+          <img src="assets/posters/poster-1.svg" alt="夏季养生季" style="max-height:380px"/>
+        </div>
+        <div class="asset-info">
+          <h4>夏季养生季</h4>
+          <p>夏养三伏 · 冬病夏治</p>
+          <div class="specs">
+            <span>400×600mm</span>
+            <span>200g 铜版纸</span>
+            <span>夏季主推</span>
+          </div>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#5d1810,#c0392b)">
+          <img src="assets/posters/poster-2.svg" alt="三高专题" style="max-height:380px"/>
+        </div>
+        <div class="asset-info">
+          <h4>三高专题</h4>
+          <p>3 个月 · 看见数字变化</p>
+          <div class="specs">
+            <span>400×600mm</span>
+            <span>数据可视化</span>
+            <span>慢病人群</span>
+          </div>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#0a0a0a,#1a1a1a)">
+          <img src="assets/posters/poster-3.svg" alt="会员日" style="max-height:380px"/>
+        </div>
+        <div class="asset-info">
+          <h4>会员日</h4>
+          <p>每月 8 日 · 双倍积分</p>
+          <div class="specs">
+            <span>400×600mm</span>
+            <span>烫金/UV</span>
+            <span>VIP 专享</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 社交 -->
+<div class="container">
+  <div class="section" id="social">
+    <div class="toolbar">
+      <div class="left">
+        <h2 style="font-size:22px;font-weight:700">📱 社交媒体封面</h2>
+        <span style="font-size:13px;color:#6b7280">4 大平台 · 规格不同</span>
+      </div>
+      <div class="right">
+        <button class="btn">📐 各平台规范</button>
+      </div>
+    </div>
+    <div class="grid grid-2">
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#006d77,#1a5d52);padding:20px 10px">
+          <img src="assets/social/social-wechat.svg" alt="公众号头图" style="max-height:200px;width:100%;max-width:400px"/>
+        </div>
+        <div class="asset-info">
+          <h4>微信公众号头图</h4>
+          <p>文章列表顶部大图</p>
+          <div class="specs">
+            <span>900×383px</span>
+            <span>2.35:1</span>
+            <span>&lt;2MB / JPG</span>
+          </div>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#006d77,#1a5d52)">
+          <img src="assets/social/social-video.svg" alt="视频号封面" style="max-height:300px"/>
+        </div>
+        <div class="asset-info">
+          <h4>视频号封面</h4>
+          <p>短视频封面 · 突出主题</p>
+          <div class="specs">
+            <span>1080×1260px</span>
+            <span>6:7</span>
+            <span>首帧 3 秒内</span>
+          </div>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#fff5e6,#fafbfc)">
+          <img src="assets/social/social-xiaohongshu.svg" alt="小红书封面" style="max-height:300px"/>
+        </div>
+        <div class="asset-info">
+          <h4>小红书封面</h4>
+          <p>笔记封面 · 吸睛标题</p>
+          <div class="specs">
+            <span>1080×1440px</span>
+            <span>3:4</span>
+            <span>&lt;5MB</span>
+          </div>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview" style="background:linear-gradient(135deg,#0a0a0a,#1a1a1a)">
+          <img src="assets/social/social-douyin.svg" alt="抖音封面" style="max-height:300px"/>
+        </div>
+        <div class="asset-info">
+          <h4>抖音封面</h4>
+          <p>竖屏 · 全屏吸睛</p>
+          <div class="specs">
+            <span>1080×1920px</span>
+            <span>9:16</span>
+            <span>竖屏优先</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 下载 -->
+<div class="container">
+  <div class="section" id="download">
+    <h2 class="section-title">文件清单</h2>
+    <div class="section-sub">所有 SVG 矢量源文件 · 可直接交付印刷 / 上传各平台</div>
+    <div class="spec-table">
+      <h3>📁 brand/assets/ 目录</h3>
+      <table>
+        <thead>
+          <tr><th>类型</th><th>文件名</th><th>规格</th><th>用途</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="2">名片</td><td>cards/card-front.svg</td><td>90×54mm</td><td>正面 · 印刷</td></tr>
+          <tr><td>cards/card-back.svg</td><td>90×54mm</td><td>背面 · 印刷</td></tr>
+          <tr><td rowspan="3">招牌</td><td>signage/signage-main.svg</td><td>3200×1000mm</td><td>门头主牌 · 户外</td></tr>
+          <tr><td>signage/signage-side.svg</td><td>800×2400mm</td><td>侧招 · 户外</td></tr>
+          <tr><td>signage/signage-lightbox.svg</td><td>1200×1600mm</td><td>灯箱 · 室内外</td></tr>
+          <tr><td rowspan="4">包装</td><td>packaging/package-giftbox.svg</td><td>120×160×80mm</td><td>礼盒 · 烫金</td></tr>
+          <tr><td>packaging/package-bottle.svg</td><td>80×180mm</td><td>单瓶标签</td></tr>
+          <tr><td>packaging/package-bag.svg</td><td>80×120mm/袋</td><td>袋装 · 铝箔</td></tr>
+          <tr><td>packaging/package-tote.svg</td><td>250×300mm</td><td>手提袋 · 牛皮</td></tr>
+          <tr><td rowspan="3">海报</td><td>posters/poster-1.svg</td><td>400×600mm</td><td>夏季养生季</td></tr>
+          <tr><td>posters/poster-2.svg</td><td>400×600mm</td><td>三高专题</td></tr>
+          <tr><td>posters/poster-3.svg</td><td>400×600mm</td><td>会员日</td></tr>
+          <tr><td rowspan="4">社交</td><td>social/social-wechat.svg</td><td>900×383px</td><td>公众号头图</td></tr>
+          <tr><td>social/social-video.svg</td><td>1080×1260px</td><td>视频号封面</td></tr>
+          <tr><td>social/social-xiaohongshu.svg</td><td>1080×1440px</td><td>小红书封面</td></tr>
+          <tr><td>social/social-douyin.svg</td><td>1080×1920px</td><td>抖音封面</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div>© 2026 厚生 HOUSHENG WELLNESS · 厚生万物 · 养心养身</div>
+  <div class="copy">品牌应用物料 v1.0 · 2026 春季版 · 主色 #006d77 · 字体 思源宋体 + 思源黑体</div>
+</footer>
+
+<script>
+// 锚点滚动
+document.querySelectorAll('.nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if(target){
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+      document.querySelectorAll('.nav a').forEach(n => n.classList.remove('active'));
+      a.classList.add('active');
+    }
+  });
+});
+</script>
+
+</body>
+</html>

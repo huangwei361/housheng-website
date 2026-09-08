@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>健康检测 - 厚生 HOUSHENG</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 顶部权益提示 -->
+<div style="background: linear-gradient(90deg, #006d77, #83c5be); color: white; padding: 8px 32px; text-align: center; font-size: 13px; font-weight: 500;">
+  🎁 新用户专享：<strong>免费基础体测</strong>，到店即领，限首次
+</div>
+
+<!-- 导航 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo-mark.svg" width="32" height="32" alt="厚生" style="border-radius: 8px;">
+      <span>厚生</span>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="shop.html">营养商城</a></li>
+      <li><a href="courses.html">课程中心</a></li>
+      <li><a href="therapy.html">调理服务</a></li>
+      <li><a href="checkup.html" class="active">健康检测</a></li>
+      <li><a href="schedule.html">课程表</a></li>
+      <li><a href="brand.html">品牌 VI</a></li>
+    </ul>
+    <a href="#booking" class="nav-cta">免费预约</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero" style="background: linear-gradient(135deg, #006d77 0%, #2a9d8f 100%);">
+  <div class="hero-inner">
+    <span class="hero-tag">🩺 健康检测中心</span>
+    <h1>从一次体测开始<br>管理你和家人的健康</h1>
+    <p class="subtitle">基础体测 · 深度检测 · 基因检测 · 慢病跟踪</p>
+    <p class="desc">从免费基础体测到深度检测，从慢病季度跟踪到家庭健康管家，<br>建立你和家人的长期健康档案。</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn btn-primary">免费预约体测 →</a>
+      <a href="#process" class="btn btn-ghost">查看服务流程</a>
+    </div>
+  </div>
+</header>
+
+<!-- 核心数据 -->
+<section style="padding: 40px 32px; background: var(--white); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="grid-4" style="text-align: center;">
+      <div>
+        <div style="font-size: 32px; font-weight: 800; color: var(--primary);">20+</div>
+        <div style="font-size: 13px; color: var(--gray);">检测项目</div>
+      </div>
+      <div>
+        <div style="font-size: 32px; font-weight: 800; color: var(--primary);">3 家</div>
+        <div style="font-size: 13px; color: var(--gray);">三甲合作机构</div>
+      </div>
+      <div>
+        <div style="font-size: 32px; font-weight: 800; color: var(--primary);">98%</div>
+        <div style="font-size: 13px; color: var(--gray);">客户满意度</div>
+      </div>
+      <div>
+        <div style="font-size: 32px; font-weight: 800; color: var(--primary);">5000+</div>
+        <div style="font-size: 13px; color: var(--gray);">已建档家庭</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 服务流程 -->
+<section id="process" class="section-bg">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">PROCESS</span>
+      <h2 class="section-title">检测服务流程</h2>
+      <p class="section-desc">5 步完成一次完整的健康检测和报告解读</p>
+    </div>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="step-num">1</div>
+        <div class="step-name">预约</div>
+        <div class="step-desc">线上预约或到店预约，确定检测项目和时间</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">2</div>
+        <div class="step-name">登记建档</div>
+        <div class="step-desc">填写健康问卷，建立个人健康档案</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">3</div>
+        <div class="step-name">专业检测</div>
+        <div class="step-desc">在门店或合作机构完成检测（30-90 分钟）</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">4</div>
+        <div class="step-name">报告解读</div>
+        <div class="step-desc">3-5 个工作日出报告，营养师 1v1 解读</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">5</div>
+        <div class="step-name">长期跟踪</div>
+        <div class="step-desc">建立长期档案，按周期复测 + 方案调整</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 检测项目分类 -->
+<section id="services">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">PROJECTS</span>
+      <h2 class="section-title">检测项目与价格</h2>
+      <p class="section-desc">从免费基础到深度定制，总有一款适合你</p>
+    </div>
+
+    <div class="filter-bar">
+      <span class="filter-label">类别：</span>
+      <span class="filter-chip active">全部</span>
+      <span class="filter-chip">免费体测</span>
+      <span class="filter-chip">基础检测</span>
+      <span class="filter-chip">深度检测</span>
+      <span class="filter-chip">基因检测</span>
+      <span class="filter-chip">慢病跟踪</span>
+    </div>
+
+    <!-- 免费体测 -->
+    <div style="margin-bottom: 40px;">
+      <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 16px;">🆓 免费体测（门店现场）</h3>
+      <p style="color: var(--gray); margin-bottom: 20px;">新用户到店即测，建立基础档案。30 分钟完成。</p>
+      <div class="grid-3">
+        <div class="card" style="border: 2px dashed var(--primary);">
+          <div class="card-image green">📊</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag tag-accent">免费</span><span class="tag">新用户</span></div>
+            <div class="card-title">基础健康体测包</div>
+            <div class="card-subtitle">6 项基础指标 · 30 分钟</div>
+            <div class="card-desc">到店必测项目，建立个人健康基线数据。</div>
+            <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+              <li>✓ 身高体重 BMI</li>
+              <li>✓ 血压心率</li>
+              <li>✓ 血氧饱和度</li>
+              <li>✓ 基础体脂</li>
+              <li>✓ 握力测试</li>
+              <li>✓ 身体姿态评估</li>
+            </ul>
+            <div class="card-price">
+              <span class="price-symbol" style="font-size: 24px; color: var(--primary);">¥</span>
+              <span class="price-value" style="color: var(--primary);">0</span>
+              <span class="price-suffix">（限首次）</span>
+            </div>
+            <a href="#booking" class="btn btn-primary btn-block">立即预约</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 基础检测 -->
+    <div style="margin-bottom: 40px;">
+      <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 16px;">📈 基础检测（门店现场）</h3>
+      <p style="color: var(--gray); margin-bottom: 20px;">深入了解身体状态，给出专业建议。检测时长 60-90 分钟。</p>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-image cool">📏</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag">爆款</span></div>
+            <div class="card-title">INBODY 人体成分分析</div>
+            <div class="card-subtitle">体脂 / 肌肉 / 水分 · 60 分钟</div>
+            <div class="card-desc">专业 INBODY 770 设备，20+ 项身体成分数据。</div>
+            <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+              <li>✓ 体脂率、肌肉量</li>
+              <li>✓ 内脏脂肪面积</li>
+              <li>✓ 身体水分、蛋白质</li>
+              <li>✓ 节段肌肉分析</li>
+              <li>✓ 营养师 1v1 解读</li>
+            </ul>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">199</span>
+              <span class="price-original">¥299</span>
+              <span class="price-suffix">/ 次</span>
+            </div>
+            <button class="btn btn-primary btn-block">立即预约</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image warm">❤️</div>
+          <div class="card-body">
+            <div class="card-title">心脑血管风险评估</div>
+            <div class="card-subtitle">动脉硬化 + 血压动态 · 90 分钟</div>
+            <div class="card-desc">动脉硬化检测仪 + 24 小时动态血压监测。</div>
+            <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+              <li>✓ 动脉硬化程度评估</li>
+              <li>✓ 血管年龄测算</li>
+              <li>✓ 心率变异性分析</li>
+              <li>✓ 心血管风险评分</li>
+              <li>✓ 医生 1v1 解读</li>
+            </ul>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">398</span>
+              <span class="price-original">¥598</span>
+              <span class="price-suffix">/ 次</span>
+            </div>
+            <button class="btn btn-primary btn-block">立即预约</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image">🦴</div>
+          <div class="card-body">
+            <div class="card-title">骨密度检测</div>
+            <div class="card-subtitle">超声骨密度仪 · 30 分钟</div>
+            <div class="card-desc">检测骨密度 T 值，评估骨质疏松风险。</div>
+            <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+              <li>✓ 全身骨密度评估</li>
+              <li>✓ T 值 / Z 值分析</li>
+              <li>✓ 骨质疏松风险</li>
+              <li>✓ 营养师建议</li>
+            </ul>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">168</span>
+              <span class="price-original">¥268</span>
+              <span class="price-suffix">/ 次</span>
+            </div>
+            <button class="btn btn-primary btn-block">立即预约</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 深度检测 -->
+    <div style="margin-bottom: 40px;">
+      <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 16px;">🔬 深度检测（合作机构）</h3>
+      <p style="color: var(--gray); margin-bottom: 20px;">与三甲医院 / 第三方检测机构合作，3-5 个工作日出报告。</p>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-image soft">🩸</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag">三甲</span><span class="tag">年度</span></div>
+            <div class="card-title">全面血检套餐（基础）</div>
+            <div class="card-subtitle">血常规 / 肝功 / 肾功 / 血糖 / 血脂 · 5 项</div>
+            <div class="card-desc">覆盖最常见的健康指标，年度体检级别。</div>
+            <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+              <li>✓ 血常规 18 项</li>
+              <li>✓ 肝功能 10 项</li>
+              <li>✓ 肾功能 5 项</li>
+              <li>✓ 空腹血糖 / 糖化血红蛋白</li>
+              <li>✓ 血脂 4 项</li>
+              <li>✓ 营养师 1v1 解读</li>
+            </ul>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">498</span>
+              <span class="price-original">¥698</span>
+              <span class="price-suffix">/ 次</span>
+            </div>
+            <button class="btn btn-primary btn-block">立即预约</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image green">🔬</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag">深度</span></div>
+            <div class="card-title">全面血检套餐（深度）</div>
+            <div class="card-subtitle">基础 + 甲状腺 / 激素 / 维生素 · 30+ 项</div>
+            <div class="card-desc">进阶深度血检，适合 40+ 岁人群年度复查。</div>
+            <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+              <li>✓ 基础血检全项</li>
+              <li>✓ 甲状腺功能 5 项</li>
+              <li>✓ 性激素 6 项</li>
+              <li>✓ 维生素 D / B12</li>
+              <li>✓ 铁蛋白 / 叶酸</li>
+              <li>✓ 医生 1v1 报告解读</li>
+            </ul>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">1280</span>
+              <span class="price-original">¥1880</span>
+              <span class="price-suffix">/ 次</span>
+            </div>
+            <button class="btn btn-primary btn-block">立即预约</button>
+          </div>
+        </div>
+
+        <div class="card" style="border: 2px solid var(--accent);">
+          <div class="card-image warm">🧬</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag tag-accent">年度旗舰</span></div>
+            <div class="card-title">全身深度体检套餐</div>
+            <div class="card-subtitle">血检 + 影像 + 心电 · 50+ 项</div>
+            <div class="card-desc">接近三甲医院 VIP 体检套餐，1 天完成。</div>
+            <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+              <li>✓ 全面血检（30+ 项）</li>
+              <li>✓ 胸片 / 腹部 B 超</li>
+              <li>✓ 心电图 / 心脏彩超</li>
+              <li>✓ 颈动脉 B 超</li>
+              <li>✓ 妇科 / 男科专项</li>
+              <li>✓ 三甲主任级解读</li>
+            </ul>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">2980</span>
+              <span class="price-original">¥4280</span>
+              <span class="price-suffix">/ 次</span>
+            </div>
+            <button class="btn btn-primary btn-block">立即预约</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 基因检测 -->
+    <div style="margin-bottom: 40px;">
+      <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 16px;">🧬 基因检测（口腔拭子，居家采样）</h3>
+      <p style="color: var(--gray); margin-bottom: 20px;">一次采样，解读 200+ 项身体特征，遗传咨询师 1v1 解读。</p>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-image purple">🧬</div>
+          <div class="card-body">
+            <div class="card-title">基础基因检测</div>
+            <div class="card-subtitle">100+ 项 · 15 个工作日</div>
+            <div class="card-desc">了解营养代谢、运动、肤质等基础特征。</div>
+            <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+              <li>✓ 营养代谢（8 项）</li>
+              <li>✓ 运动基因（6 项）</li>
+              <li>✓ 肤质特征（10 项）</li>
+              <li>✓ 烟酒代谢（5 项）</li>
+              <li>✓ 遗传咨询师 1v1 解读</li>
+            </ul>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">998</span>
+              <span class="price-original">¥1498</span>
+              <span class="price-suffix">/ 次</span>
+            </div>
+            <button class="btn btn-primary btn-block">立即购买</button>
+          </div>
+        </div>
+
+        <div class="card" style="border: 2px solid var(--accent);">
+          <div class="card-image">🧬</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag tag-accent">爆款</span></div>
+            <div class="card-title">全基因组检测</div>
+            <div class="card-subtitle">200+ 项 · 20 个工作日</div>
+            <div class="card-desc">覆盖慢病风险、遗传特征、用药指导。</div>
+            <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+              <li>✓ 慢病风险（30+ 项）</li>
+              <li>✓ 肿瘤易感（20+ 项）</li>
+              <li>✓ 营养代谢（15 项）</li>
+              <li>✓ 用药指导（50+ 种药）</li>
+              <li>✓ 遗传咨询师 + 营养师双解读</li>
+            </ul>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">2980</span>
+              <span class="price-original">¥4280</span>
+              <span class="price-suffix">/ 次</span>
+            </div>
+            <button class="btn btn-primary btn-block">立即购买</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image dark">👨‍👩‍👧</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag">家庭</span></div>
+            <div class="card-title">家庭基因检测套餐</div>
+            <div class="card-subtitle">3 人份 · 全基因组 · 25 工作日</div>
+            <div class="card-desc">夫妻 + 1 孩子家庭，全面了解家庭健康风险。</div>
+            <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+              <li>✓ 3 人份全基因组</li>
+              <li>✓ 家庭遗传风险分析</li>
+              <li>✓ 子女基因特征</li>
+              <li>✓ 家庭健康方案</li>
+              <li>✓ 家庭健康管家 1 年</li>
+            </ul>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">7800</span>
+              <span class="price-original">¥12840</span>
+              <span class="price-suffix" style="color: var(--accent); margin-left: 4px;">省 5040</span>
+            </div>
+            <button class="btn btn-primary btn-block">立即购买</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 慢病管理 -->
+<section class="section-bg">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">CHRONIC CARE</span>
+      <h2 class="section-title">慢病管理服务</h2>
+      <p class="section-desc">针对糖尿病、高血压、高血脂等慢性病人群的长期跟踪管理</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card" style="border: 2px solid var(--primary);">
+        <div class="card-image warm">💉</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag tag-primary">高复购</span></div>
+          <div class="card-title">糖尿病管理（季度）</div>
+          <div class="card-subtitle">血糖监测 + 用药指导 + 饮食运动</div>
+          <div class="card-desc">3 个月为一个管理周期，营养师 + 医师双管理。</div>
+          <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+            <li>✓ 季度血糖检测 3 次</li>
+            <li>✓ 营养师 1v1 饮食方案</li>
+            <li>✓ 运动处方 + 监督</li>
+            <li>✓ 用药提醒 + 复诊预约</li>
+            <li>✓ 紧急情况咨询</li>
+          </ul>
+          <div class="card-price">
+            <span class="price-symbol">¥</span>
+            <span class="price-value">1980</span>
+            <span class="price-original">¥2980</span>
+            <span class="price-suffix">/ 季度</span>
+          </div>
+          <button class="btn btn-primary btn-block">立即购买</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-image">❤️</div>
+        <div class="card-body">
+          <div class="card-title">高血压管理（季度）</div>
+          <div class="card-subtitle">血压监测 + 用药 + 饮食</div>
+          <div class="card-desc">3 个月管理周期，控制血压平稳。</div>
+          <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+            <li>✓ 季度血压评估 3 次</li>
+            <li>✓ 24 小时动态血压 1 次</li>
+            <li>✓ 低盐饮食方案</li>
+            <li>✓ 运动 + 冥想方案</li>
+            <li>✓ 用药调整建议</li>
+          </ul>
+          <div class="card-price">
+            <span class="price-symbol">¥</span>
+            <span class="price-value">1680</span>
+            <span class="price-original">¥2480</span>
+            <span class="price-suffix">/ 季度</span>
+          </div>
+          <button class="btn btn-primary btn-block">立即购买</button>
+          </div>
+      </div>
+
+      <div class="card">
+        <div class="card-image dark">🩸</div>
+        <div class="card-body">
+          <div class="card-title">高血脂管理（季度）</div>
+          <div class="card-subtitle">血脂监测 + 饮食 + 运动</div>
+          <div class="card-desc">3 个月管理，降低血脂水平。</div>
+          <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+            <li>✓ 季度血脂检测 3 次</li>
+            <li>✓ 心脑血管风险评估</li>
+            <li>✓ 低脂饮食方案</li>
+            <li>✓ 有氧运动处方</li>
+            <li>✓ 动脉硬化跟踪</li>
+          </ul>
+          <div class="card-price">
+            <span class="price-symbol">¥</span>
+            <span class="price-value">1780</span>
+            <span class="price-original">¥2680</span>
+            <span class="price-suffix">/ 季度</span>
+          </div>
+          <button class="btn btn-primary btn-block">立即购买</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 年度健康管家 -->
+<section class="section-primary">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <h2 class="section-title">🏆 年度健康管家</h2>
+      <p class="section-desc">一整年的私人健康顾问服务，适合追求长期健康管理的家庭</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card" style="background: rgba(255,255,255,0.95);">
+        <div class="card-body" style="padding: 32px;">
+          <div class="card-tags"><span class="tag tag-primary">个人</span></div>
+          <div class="card-title" style="font-size: 24px;">个人健康管家</div>
+          <div style="font-size: 36px; font-weight: 800; color: var(--accent); margin: 12px 0;">¥9,800<span style="font-size: 14px; color: var(--gray); font-weight: 400;">/ 年</span></div>
+          <ul style="list-style: none; margin: 16px 0; font-size: 14px; color: var(--dark); line-height: 2;">
+            <li>✓ 季度深度检测 4 次</li>
+            <li>✓ 营养师 1v1 月度咨询</li>
+            <li>✓ 心理咨询师季度咨询</li>
+            <li>✓ 功法 / 运动 / 调理 9 折</li>
+            <li>✓ 商城商品 9 折</li>
+            <li>✓ 24 小时健康咨询</li>
+            <li>✓ 1 次基因检测 5 折</li>
+          </ul>
+          <button class="btn btn-secondary btn-block">购买个人版</button>
+        </div>
+      </div>
+
+      <div class="card" style="background: rgba(255,255,255,0.98); border: 2px solid var(--accent);">
+        <div class="card-body" style="padding: 32px;">
+          <div class="card-tags"><span class="tag tag-accent">家庭推荐</span></div>
+          <div class="card-title" style="font-size: 24px;">家庭健康管家</div>
+          <div style="font-size: 36px; font-weight: 800; color: var(--accent); margin: 12px 0;">¥19,800<span style="font-size: 14px; color: var(--gray); font-weight: 400;">/ 年</span></div>
+          <ul style="list-style: none; margin: 16px 0; font-size: 14px; color: var(--dark); line-height: 2;">
+            <li>✓ 家庭成员 3 人共享</li>
+            <li>✓ 季度全家检测 4 次</li>
+            <li>✓ 家庭营养师月度咨询</li>
+            <li>✓ 慢病跟踪管理 1 人</li>
+            <li>✓ 功法 / 运动 / 调理 8 折</li>
+            <li>✓ 商城商品 8 折</li>
+            <li>✓ 家庭基因检测 7 折</li>
+            <li>✓ 24 小时健康热线</li>
+          </ul>
+          <button class="btn btn-primary btn-block">购买家庭版</button>
+        </div>
+      </div>
+
+      <div class="card" style="background: rgba(255,255,255,0.95);">
+        <div class="card-body" style="padding: 32px;">
+          <div class="card-tags"><span class="tag tag-primary">尊享</span></div>
+          <div class="card-title" style="font-size: 24px;">尊享健康管家</div>
+          <div style="font-size: 36px; font-weight: 800; color: var(--accent); margin: 12px 0;">¥49,800<span style="font-size: 14px; color: var(--gray); font-weight: 400;">/ 年</span></div>
+          <ul style="list-style: none; margin: 16px 0; font-size: 14px; color: var(--dark); line-height: 2;">
+            <li>✓ 家庭成员 5 人共享</li>
+            <li>✓ 三甲主任医师 1v1</li>
+            <li>✓ 季度全家深度检测</li>
+            <li>✓ 全基因检测套餐</li>
+            <li>✓ 慢病跟踪管理 2 人</li>
+            <li>✓ 全部服务 7 折</li>
+            <li>✓ 24 小时私人医生</li>
+            <li>✓ 全国三甲绿色通道</li>
+          </ul>
+          <button class="btn btn-secondary btn-block">购买尊享版</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 预约表单 -->
+<section id="booking" style="background: var(--bg);">
+  <div class="container" style="max-width: 800px;">
+    <div class="section-header">
+      <span class="section-label">BOOKING</span>
+      <h2 class="section-title">立即预约</h2>
+      <p class="section-desc">填写信息后 1 小时内客服会联系您确认时间</p>
+    </div>
+
+    <div style="background: var(--white); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+      <form onsubmit="alert('预约信息已提交，1 小时内联系您！'); return false;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div>
+            <label style="display: block; margin-bottom: 6px; font-size: 14px; color: var(--dark); font-weight: 500;">姓名 *</label>
+            <input type="text" class="input" required placeholder="您的称呼">
+          </div>
+          <div>
+            <label style="display: block; margin-bottom: 6px; font-size: 14px; color: var(--dark); font-weight: 500;">手机号 *</label>
+            <input type="tel" class="input" required placeholder="11 位手机号">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div>
+            <label style="display: block; margin-bottom: 6px; font-size: 14px; color: var(--dark); font-weight: 500;">年龄</label>
+            <input type="number" class="input" placeholder="您的年龄">
+          </div>
+          <div>
+            <label style="display: block; margin-bottom: 6px; font-size: 14px; color: var(--dark); font-weight: 500;">性别</label>
+            <select class="select">
+              <option>男</option>
+              <option>女</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; margin-bottom: 6px; font-size: 14px; color: var(--dark); font-weight: 500;">感兴趣的项目 *</label>
+          <select class="select" required>
+            <option>免费基础体测（新用户）</option>
+            <option>INBODY 人体成分分析</option>
+            <option>心脑血管风险评估</option>
+            <option>骨密度检测</option>
+            <option>全面血检套餐（基础）</option>
+            <option>全面血检套餐（深度）</option>
+            <option>全身深度体检套餐</option>
+            <option>基础基因检测</option>
+            <option>全基因组检测</option>
+            <option>慢病管理（季度）</option>
+            <option>年度健康管家</option>
+            <option>其他 / 咨询</option>
+          </select>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; margin-bottom: 6px; font-size: 14px; color: var(--dark); font-weight: 500;">备注（选填）</label>
+          <textarea class="textarea" rows="3" placeholder="健康状况、特别需求、想咨询的问题..."></textarea>
+        </div>
+        <div style="margin-bottom: 20px; font-size: 12px; color: var(--gray);">
+          <label style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer;">
+            <input type="checkbox" required>
+            <span>我已阅读并同意《服务协议》和《隐私政策》，授权客服联系我</span>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" style="font-size: 16px; padding: 16px;">提交预约</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">厚生 HOUSHENG</div>
+      <p class="footer-desc">厚生万物 · 养心养身<br>营养 · 运动 · 功法 · 中医 · 心理 · 检测</p>
+    </div>
+    <div>
+      <h4>业务板块</h4>
+      <ul>
+        <li><a href="shop.html">营养商城</a></li>
+        <li><a href="courses.html">课程中心</a></li>
+        <li><a href="therapy.html">调理服务</a></li>
+        <li><a href="checkup.html">健康检测</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>检测项目</h4>
+      <ul>
+        <li><a href="#services">基础体测</a></li>
+        <li><a href="#services">深度血检</a></li>
+        <li><a href="#services">基因检测</a></li>
+        <li><a href="#services">慢病管理</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>联系咨询</h4>
+      <ul>
+        <li>客服微信：（请补充）</li>
+        <li>电话：400-XXX-XXXX</li>
+        <li>邮箱：checkup@yourbrand.com</li>
+        <li>工作时间：9:00-21:00</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 厚生 HOUSHENG WELLNESS · 厚生万物 · 养心养身</div>
+</footer>
+
+</body>
+</html>

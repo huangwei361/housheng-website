@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" width="800" height="1200">
+  <defs>
+    <linearGradient id="p1Bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#006d77"/>
+      <stop offset="60%" stop-color="#1a5d52"/>
+      <stop offset="100%" stop-color="#0a3d36"/>
+    </linearGradient>
+    <linearGradient id="p1Gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f77f00"/>
+      <stop offset="100%" stop-color="#e29578"/>
+    </linearGradient>
+    <radialGradient id="p1Glow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 底色 -->
+  <rect width="800" height="1200" fill="url(#p1Bg)"/>
+  <rect width="800" height="1200" fill="url(#p1Glow)"/>
+
+  <!-- 装饰圆 -->
+  <circle cx="100" cy="200" r="180" fill="#ffffff" opacity="0.04"/>
+  <circle cx="700" cy="1000" r="220" fill="#ffffff" opacity="0.05"/>
+  <circle cx="650" cy="120" r="60" fill="none" stroke="#f77f00" stroke-width="0.5" opacity="0.5"/>
+  <circle cx="650" cy="120" r="40" fill="none" stroke="#f77f00" stroke-width="0.5" opacity="0.7"/>
+
+  <!-- 顶部 logo -->
+  <g transform="translate(80, 80)">
+    <circle cx="40" cy="40" r="40" fill="#ffffff"/>
+    <text x="40" y="52" font-family="serif" font-size="40" font-weight="900" fill="#006d77" text-anchor="middle" letter-spacing="-2">厚</text>
+  </g>
+  <text x="180" y="105" font-family="serif" font-size="28" font-weight="700" fill="#ffffff" letter-spacing="3">厚生 HOUSHENG</text>
+  <text x="180" y="130" font-family="sans-serif" font-size="13" fill="#f77f00" letter-spacing="2">CHINESE WELLNESS</text>
+
+  <!-- 角标 -->
+  <g transform="translate(640, 60)">
+    <rect width="100" height="100" fill="#c0392b" rx="4"/>
+    <text x="50" y="35" font-family="sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" letter-spacing="1">2026</text>
+    <text x="50" y="55" font-family="serif" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">夏季</text>
+    <text x="50" y="75" font-family="serif" font-size="20" font-weight="900" fill="#ffffff" text-anchor="middle">养生季</text>
+  </g>
+
+  <!-- 主标题 -->
+  <text x="400" y="350" font-family="serif" font-size="60" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="8">夏养三伏</text>
+  <text x="400" y="430" font-family="serif" font-size="60" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="8">冬病夏治</text>
+
+  <line x1="280" y1="470" x2="520" y2="470" stroke="url(#p1Gold)" stroke-width="2"/>
+
+  <text x="400" y="520" font-family="serif" font-size="24" font-weight="500" fill="#f77f00" text-anchor="middle" letter-spacing="6">FOR LIFE · FOR WELLNESS</text>
+
+  <!-- 4 大服务卡 -->
+  <g transform="translate(120, 580)">
+    <rect width="560" height="80" fill="#ffffff" opacity="0.08" rx="6"/>
+    <text x="280" y="35" font-family="serif" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="3">🩺 注册营养师 1v1 咨询</text>
+    <text x="280" y="62" font-family="sans-serif" font-size="13" fill="#b0d4d0" text-anchor="middle">三高 / 减脂 / 助眠 / 母婴  全方位</text>
+  </g>
+
+  <g transform="translate(120, 680)">
+    <rect width="560" height="80" fill="#ffffff" opacity="0.08" rx="6"/>
+    <text x="280" y="35" font-family="serif" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="3">🏃 运动 + 营养 双管齐下</text>
+    <text x="280" y="62" font-family="sans-serif" font-size="13" fill="#b0d4d0" text-anchor="middle">增肌减脂 · 术后康复 · 体态调整</text>
+  </g>
+
+  <g transform="translate(120, 780)">
+    <rect width="560" height="80" fill="#ffffff" opacity="0.08" rx="6"/>
+    <text x="280" y="35" font-family="serif" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="3">🧘 传统功法 + 中医理疗</text>
+    <text x="280" y="62" font-family="sans-serif" font-size="13" fill="#b0d4d0" text-anchor="middle">八段锦 / 太极 / 推拿 / 艾灸</text>
+  </g>
+
+  <!-- 优惠 -->
+  <g transform="translate(150, 900)">
+    <rect width="500" height="120" fill="#c0392b" rx="6"/>
+    <text x="250" y="50" font-family="serif" font-size="32" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="4">夏季首单 5 折</text>
+    <text x="250" y="85" font-family="serif" font-size="18" fill="#ffffff" text-anchor="middle" letter-spacing="2">新人专享 · 注册即送 ¥50 券</text>
+    <text x="250" y="108" font-family="sans-serif" font-size="12" fill="#f9d4cf" text-anchor="middle" letter-spacing="1">限 2026.7.1 - 8.31 · 限新人</text>
+  </g>
+
+  <!-- 底部信息 -->
+  <text x="400" y="1080" font-family="serif" font-size="18" fill="#b0d4d0" text-anchor="middle" letter-spacing="3">厚生万物 · 养心养身</text>
+  <text x="400" y="1105" font-family="sans-serif" font-size="13" fill="#b0d4d0" text-anchor="middle" letter-spacing="1">📞 13971691656  ·  📍 武汉·青山旗舰店</text>
+  <text x="400" y="1140" font-family="sans-serif" font-size="11" fill="#7da39d" text-anchor="middle" letter-spacing="2">扫码关注公众号 · 注册即领 ¥50 新人券</text>
+
+  <!-- 二维码占位 -->
+  <g transform="translate(350, 1155)">
+    <rect width="100" height="35" fill="#ffffff" rx="3"/>
+    <text x="50" y="22" font-family="sans-serif" font-size="11" fill="#006d77" text-anchor="middle" font-weight="600">📱 扫码关注</text>
+  </g>
+</svg>

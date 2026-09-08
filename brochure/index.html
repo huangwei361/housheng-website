@@ -1,0 +1,2198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>厚生 HOUSHENG · 2026 品牌宣传册</title>
+<link rel="stylesheet" href="style.css">
+<style>
+
+  /* A4 宣传册专用样式 */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Source Han Sans CN", sans-serif;
+    color: var(--dark);
+    background: #eee;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {width: 210mm;height: 297mm;background: white;margin: 0;page-break-after: always;page-break-inside: avoid;position: relative;overflow: hidden;box-sizing: border-box;}
+  .page-inner {padding: 14mm 16mm; height: 100%; box-sizing: border-box;}
+  .page:last-child { page-break-after: auto; }
+
+  .page-inner {
+    padding: 18mm 16mm;
+    height: 100%;
+    position: relative;
+  }
+
+  /* 页眉页脚 */
+  .page-header {
+    position: absolute;
+    top: 10mm; left: 16mm; right: 16mm;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10px; color: var(--gray);
+  }
+  .page-footer {
+    position: absolute;
+    bottom: 10mm; left: 16mm; right: 16mm;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 9px; color: var(--gray);
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+  }
+
+  /* 封面 */
+  .cover {
+    background: linear-gradient(135deg, #006d77 0%, #2a9d8f 50%, #83c5be 100%);
+    color: white;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 28mm 20mm;
+  }
+  .cover .brand-mark {
+    width: 70px; height: 70px; border-radius: 50%;
+    background: white;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--primary); font-size: 28px; font-weight: 800;
+    letter-spacing: 1px;
+  }
+  .cover h1 {
+    font-size: 96px; font-weight: 800; letter-spacing: 8px;
+    line-height: 1;
+  }
+  .cover .en {
+    font-size: 22px; letter-spacing: 8px; opacity: 0.9; margin-top: 12px;
+    font-weight: 300;
+  }
+  .cover .slogan {
+    font-size: 22px; line-height: 1.6; margin-top: 20px;
+    border-left: 3px solid white; padding-left: 14px;
+  }
+  .cover .meta {
+    font-size: 12px; opacity: 0.85; letter-spacing: 1px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    padding-top: 12px; margin-top: 20px;
+  }
+  .cover-logo-big {
+    width: 180px; height: 180px;
+    margin: 24mm auto 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.4);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .cover-logo-big::before, .cover-logo-big::after {
+    content: ""; position: absolute; width: 60px; height: 90px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  }
+  .cover-logo-big::before {
+    background: rgba(255,255,255,0.95);
+    left: 38px; top: 35px;
+  }
+  .cover-logo-big::after {
+    background: rgba(226,149,120,0.9);
+    right: 38px; top: 35px;
+  }
+  .cover-logo-big .center-dot {
+    position: absolute; top: 60px; left: 50%;
+    transform: translateX(-50%);
+    width: 18px; height: 18px; border-radius: 50%;
+    background: white; z-index: 2;
+  }
+
+  /* 关于我们 */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8mm;
+    margin-top: 8mm;
+  }
+  .about-quote {
+    background: linear-gradient(135deg, #f0f9f8, white);
+    border-left: 4px solid var(--primary);
+    padding: 12mm 8mm; border-radius: 4px;
+  }
+  .about-quote h2 {
+    font-size: 22px; color: var(--primary); margin-bottom: 12px;
+  }
+  .about-quote p {
+    font-size: 13px; line-height: 1.9; color: var(--dark);
+  }
+  .pillars {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4mm;
+  }
+  .pillar {
+    background: white; border: 1px solid var(--border);
+    border-radius: 6px; padding: 6mm 5mm; text-align: center;
+  }
+  .pillar .num {
+    font-size: 28px; font-weight: 800; color: var(--primary);
+    line-height: 1;
+  }
+  .pillar .label {
+    font-size: 11px; color: var(--gray); margin-top: 4px;
+  }
+
+  /* 业务板块 */
+  .biz-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6mm;
+    margin-top: 6mm;
+  }
+  .biz-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 8px; padding: 8mm 7mm;
+    position: relative; overflow: hidden;
+  }
+  .biz-card::before {
+    content: ""; position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%;
+  }
+  .biz-card.c1::before { background: var(--primary); }
+  .biz-card.c2::before { background: var(--accent); }
+  .biz-card.c3::before { background: #6a4c93; }
+  .biz-card.c4::before { background: #d62828; }
+  .biz-card.c5::before { background: var(--secondary); }
+  .biz-card.c6::before { background: #f77f00; }
+
+  .biz-icon {
+    font-size: 32px; margin-bottom: 6px;
+  }
+  .biz-title {
+    font-size: 18px; font-weight: 700; color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .biz-en {
+    font-size: 10px; color: var(--gray);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .biz-desc {
+    font-size: 12px; color: var(--dark); line-height: 1.7;
+  }
+  .biz-list {
+    list-style: none; margin-top: 8px; font-size: 11px; color: var(--gray);
+  }
+  .biz-list li { padding: 2px 0; }
+  .biz-list li::before { content: "✓ "; color: var(--primary); }
+
+  /* 品牌识别 */
+  .vi-section {
+    margin-top: 6mm;
+  }
+  .vi-block {
+    display: grid; grid-template-columns: 80px 1fr; gap: 6mm;
+    align-items: center; margin-bottom: 6mm;
+  }
+  .vi-logo-img {
+    width: 80px; height: 80px; background: var(--bg);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  }
+  .vi-logo-img img { width: 60px; height: 60px; }
+  .color-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm;
+    margin-top: 4mm;
+  }
+  .color-swatch {
+    text-align: center;
+  }
+  .color-chip {
+    width: 100%; height: 50px; border-radius: 6px;
+    margin-bottom: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+  .color-name {
+    font-size: 12px; font-weight: 600; color: var(--dark);
+  }
+  .color-hex {
+    font-size: 10px; color: var(--gray);
+    font-family: "SF Mono", Consolas, monospace;
+  }
+  .color-ratio {
+    font-size: 10px; color: var(--accent); font-weight: 700;
+  }
+
+  /* 团队 */
+  .team-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 4mm;
+    margin-top: 8mm;
+  }
+  .team-card { text-align: center; }
+  .team-avatar {
+    width: 60px; height: 60px; border-radius: 50%;
+    margin: 0 auto 6px; color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; font-weight: 700;
+  }
+  .team-name { font-size: 13px; font-weight: 700; }
+  .team-role { font-size: 10px; color: var(--primary); margin: 2px 0; }
+  .team-bio { font-size: 9px; color: var(--gray); line-height: 1.5; }
+
+  .team-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 4mm; margin-top: 8mm;
+    background: linear-gradient(135deg, var(--primary), #2a9d8f);
+    color: white; padding: 8mm 6mm; border-radius: 8px;
+  }
+  .team-stat { text-align: center; }
+  .team-stat .num { font-size: 28px; font-weight: 800; }
+  .team-stat .lbl { font-size: 10px; opacity: 0.9; margin-top: 4px; }
+
+  /* 联系 */
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8mm;
+    margin-top: 8mm;
+  }
+  .contact-block h3 {
+    font-size: 14px; color: var(--primary); margin-bottom: 8px;
+    padding-bottom: 6px; border-bottom: 2px solid var(--primary);
+  }
+  .contact-item {
+    display: flex; gap: 6mm; margin-bottom: 5mm; align-items: flex-start;
+  }
+  .contact-icon {
+    width: 32px; height: 32px; border-radius: 6px;
+    background: var(--bg); display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .contact-text { font-size: 12px; line-height: 1.6; }
+  .contact-text strong { display: block; color: var(--dark); margin-bottom: 2px; }
+  .contact-text span { color: var(--gray); }
+
+  
+  
+
+  
+
+  /* 封底 */
+  .back {
+    background: linear-gradient(135deg, #006d77 0%, #2a9d8f 50%, #83c5be 100%);
+    color: white; padding: 0; text-align: center;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    page-break-before: always;
+    page-break-after: always;
+  }
+  .back .brand-mark {
+    width: 110px; height: 110px; border-radius: 50%;
+    background: white;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--primary); font-size: 44px; font-weight: 800;
+    letter-spacing: 2px; margin-bottom: 24px;
+  }
+  .back h2 {
+    font-size: 72px; font-weight: 800; letter-spacing: 8px;
+  }
+  .back .en {
+    font-size: 20px; letter-spacing: 6px; opacity: 0.9; margin-top: 8px;
+  }
+  .back .slogan {
+    font-size: 20px; margin-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding: 18px 0; max-width: 140mm;
+    line-height: 1.7;
+  }
+  .back .contact-row {
+    margin-top: 30px; font-size: 12px; opacity: 0.9;
+    line-height: 1.9;
+  }
+  .back .copyright {
+    position: absolute; bottom: 12mm; left: 0; right: 0;
+    font-size: 10px; opacity: 0.7;
+  }
+
+  /* 创始人寄语 */
+  .founder-quote {
+    background: linear-gradient(135deg, #fff8e1, #f0f9f8);
+    border-radius: 12px;
+    padding: 12mm 10mm;
+    margin: 6mm 0;
+    position: relative;
+  }
+  .founder-quote::before {
+    content: """;
+    position: absolute; top: -10px; left: 8mm;
+    font-size: 80px; color: var(--primary); opacity: 0.3;
+    font-family: Georgia, serif; line-height: 1;
+  }
+  .founder-quote p {
+    font-size: 13px; line-height: 1.9; color: var(--dark);
+    margin-bottom: 8px;
+  }
+  .founder-card {
+    display: grid; grid-template-columns: 100px 1fr; gap: 6mm;
+    align-items: center;
+    background: white; border: 1px solid var(--border);
+    border-radius: 8px; padding: 6mm;
+  }
+  .founder-avatar {
+    width: 100px; height: 120px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 36px; font-weight: 800;
+    font-family: "KaiTi", "STKaiti", serif;
+  }
+  .founder-info h3 { font-size: 18px; color: var(--primary); }
+  .founder-info .role { font-size: 11px; color: var(--gray); margin: 2px 0 8px; }
+  .founder-info .bio { font-size: 11px; line-height: 1.7; color: var(--dark); }
+
+  /* 客户故事 */
+  .story-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 8px; padding: 7mm; margin-bottom: 5mm;
+    position: relative;
+  }
+  .story-card::before {
+    content: """;
+    position: absolute; top: 2mm; right: 4mm;
+    font-size: 36px; color: var(--primary); opacity: 0.2;
+    font-family: Georgia, serif; line-height: 1;
+  }
+  .story-head {
+    display: flex; align-items: center; gap: 4mm; margin-bottom: 4mm;
+  }
+  .story-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    color: white; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .story-meta { font-size: 12px; }
+  .story-meta strong { display: block; color: var(--dark); }
+  .story-meta span { color: var(--gray); font-size: 10px; }
+  .story-content {
+    font-size: 12px; line-height: 1.8; color: var(--dark);
+  }
+  .story-result {
+    margin-top: 4mm; padding: 3mm 4mm;
+    background: linear-gradient(90deg, #f0f9f8, white);
+    border-left: 3px solid var(--primary);
+    border-radius: 4px;
+    font-size: 11px;
+  }
+  .story-result strong { color: var(--primary); }
+
+  /* 服务速查 */
+  .quick-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm;
+    margin-top: 4mm;
+  }
+  .quick-block {
+    background: white; border: 1px solid var(--border);
+    border-radius: 6px; padding: 4mm; text-align: center;
+  }
+  .quick-block .qb-title {
+    background: var(--primary); color: white;
+    font-size: 11px; font-weight: 700; padding: 3px 8px;
+    border-radius: 4px; display: inline-block; margin-bottom: 4mm;
+  }
+  .quick-block .qb-time {
+    font-size: 14px; font-weight: 800; color: var(--primary);
+    margin: 2mm 0;
+  }
+  .quick-block .qb-desc {
+    font-size: 10px; color: var(--gray); line-height: 1.5;
+  }
+  .price-table {
+    margin-top: 4mm; background: var(--bg);
+    border-radius: 6px; padding: 5mm;
+  }
+  .price-table table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .price-table th {
+    text-align: left; padding: 6px 4px;
+    color: var(--primary); border-bottom: 2px solid var(--primary);
+    font-weight: 700;
+  }
+  .price-table td {
+    padding: 5px 4px; color: var(--dark);
+    border-bottom: 1px solid var(--border);
+  }
+  .price-table td.price { color: var(--accent); font-weight: 700; }
+
+  /* 加盟合作 */
+  .partner-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5mm;
+    margin-top: 4mm;
+  }
+  .partner-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 8px; padding: 6mm; position: relative;
+    overflow: hidden;
+  }
+  .partner-card h4 {
+    color: var(--primary); font-size: 15px; margin-bottom: 4mm;
+    padding-bottom: 3mm; border-bottom: 1px solid var(--border);
+  }
+  .partner-list {
+    list-style: none; padding: 0; font-size: 11px; line-height: 1.9;
+    color: var(--dark);
+  }
+  .partner-list li {
+    padding-left: 18px; position: relative;
+  }
+  .partner-list li::before {
+    content: "→"; position: absolute; left: 0; top: 0;
+    color: var(--accent); font-weight: 700;
+  }
+  .partner-cta {
+    background: linear-gradient(135deg, var(--primary), #2a9d8f);
+    color: white; padding: 8mm 6mm; border-radius: 8px;
+    text-align: center; margin-top: 6mm;
+  }
+  .partner-cta h3 { color: white; font-size: 18px; margin-bottom: 4mm; }
+  .partner-cta p { font-size: 12px; opacity: 0.9; margin-bottom: 3mm; }
+  .partner-cta .contact-info {
+    display: inline-block; background: rgba(255,255,255,0.15);
+    padding: 4mm 6mm; border-radius: 6px;
+    font-size: 13px; letter-spacing: 1px;
+    margin-top: 2mm;
+  }
+
+  /* 业务详情页通用样式 */
+  .svc-hero {
+    display: grid; grid-template-columns: 80px 1fr; gap: 6mm;
+    align-items: center;
+    padding: 6mm 7mm; border-radius: 8px;
+    margin-bottom: 4mm; color: white;
+  }
+  .svc-hero .ico {
+    font-size: 40px; line-height: 1; text-align: center;
+  }
+  .svc-hero h2 {
+    font-size: 26px; font-weight: 800; color: white;
+    letter-spacing: 1px;
+  }
+  .svc-hero .en {
+    font-size: 11px; letter-spacing: 2px; opacity: 0.85;
+    margin-top: 2px;
+  }
+  .svc-hero .slogan {
+    font-size: 12px; opacity: 0.95; margin-top: 4px;
+  }
+
+  /* 主题色变体 */
+  .svc-hero.c1 { background: linear-gradient(135deg, #006d77, #2a9d8f); }
+  .svc-hero.c2 { background: linear-gradient(135deg, #e29578, #f4a261); }
+  .svc-hero.c3 { background: linear-gradient(135deg, #0a6e7a, #006d77); }
+  .svc-hero.c4 { background: linear-gradient(135deg, #2d6a4f, #52b788); }
+  .svc-hero.c5 { background: linear-gradient(135deg, #6a4c93, #9d4edd); }
+  .svc-hero.c6 { background: linear-gradient(135deg, #1976d2, #42a5f5); }
+
+  /* 适合谁 */
+  .audience {
+    background: var(--bg); border-radius: 6px;
+    padding: 4mm 5mm; margin-bottom: 3mm;
+  }
+  .audience .label {
+    font-size: 10px; color: var(--primary); font-weight: 700;
+    letter-spacing: 2px; margin-bottom: 3px;
+  }
+  .audience .tags {
+    display: flex; flex-wrap: wrap; gap: 4px;
+  }
+  .audience .tag {
+    background: white; color: var(--dark);
+    font-size: 11px; padding: 3px 10px; border-radius: 100px;
+    border: 1px solid var(--border);
+  }
+
+  /* 区块 */
+  .svc-block {
+    margin-bottom: 3mm;
+  }
+  .svc-block h4 {
+    font-size: 12px; color: var(--primary); font-weight: 700;
+    letter-spacing: 1px; margin-bottom: 3px;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .svc-block h4::before {
+    content: ""; display: inline-block;
+    width: 4px; height: 14px; background: var(--primary);
+    border-radius: 2px;
+  }
+  .svc-grid-2 {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3mm;
+  }
+  .svc-grid-3 {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3mm;
+  }
+  .svc-item {
+    background: white; border: 1px solid var(--border);
+    border-radius: 4px; padding: 3mm 4mm;
+  }
+  .svc-item .name {
+    font-size: 12px; font-weight: 700; color: var(--dark);
+    margin-bottom: 2px;
+  }
+  .svc-item .desc {
+    font-size: 10px; color: var(--gray); line-height: 1.5;
+  }
+
+  /* 流程 */
+  .flow {
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1mm;
+    padding: 0; width: 100%; box-sizing: border-box;
+  }
+  .flow-step {
+    text-align: center; position: relative;
+  }
+  .flow-num {
+    background: var(--primary); color: white;
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 11px;
+    margin: 0 auto 3px;
+  }
+  .flow-name {
+    font-size: 10px; font-weight: 700; color: var(--dark);
+  }
+  .flow-time {
+    font-size: 9px; color: var(--gray); margin-top: 1px;
+  }
+
+  /* 价格 */
+  .price-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm;
+  }
+  .price-cell {
+    background: white; border: 1px solid var(--border);
+    border-radius: 6px; padding: 3mm 4mm; text-align: center;
+  }
+  .price-cell .pname {
+    font-size: 11px; color: var(--gray); margin-bottom: 2px;
+  }
+  .price-cell .pval {
+    font-size: 16px; font-weight: 800; color: var(--accent);
+  }
+  .price-cell .punit {
+    font-size: 10px; color: var(--gray);
+  }
+  .price-cell.hot {
+    border: 2px solid var(--primary);
+    background: linear-gradient(135deg, #f0f9f8, white);
+  }
+
+  /* 案例 */
+  .mini-case {
+    background: linear-gradient(90deg, #fff8e1, white);
+    border-left: 3px solid var(--accent);
+    padding: 3mm 4mm; border-radius: 4px;
+  }
+  .mini-case .head {
+    font-size: 11px; font-weight: 700; color: var(--accent-dark);
+    margin-bottom: 2px;
+  }
+  .mini-case .body {
+    font-size: 10px; color: var(--dark); line-height: 1.6;
+  }
+  .mini-case .result {
+    font-size: 10px; color: var(--primary); font-weight: 700;
+    margin-top: 3px;
+  }
+
+  /* 营养商城 */
+  .shop-hero {
+    background: linear-gradient(135deg, #006d77, #2a9d8f);
+    color: white; padding: 4mm 6mm; border-radius: 8px;
+    margin-bottom: 4mm;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; align-items: center;
+  }
+  .shop-hero .ico { font-size: 50px; line-height: 1; }
+  .shop-hero h2 { color: white; font-size: 26px; font-weight: 800; }
+  .shop-hero .en { font-size: 11px; opacity: 0.85; letter-spacing: 2px; margin-top: 2px; }
+  .shop-hero .slogan { font-size: 12px; opacity: 0.95; margin-top: 4px; }
+
+  .product-grid {
+    display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 3mm !important;
+  }
+  .product { display: block !important; width: auto !important; max-width: 100% !important; }
+  .product-grid-3 {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm;
+  }
+  .product {
+    background: white; border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+    transition: all 0.2s;
+  }
+  .product:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.08); }
+  .product-image {height: 22mm;background: linear-gradient(135deg, #f5fafa, #e6f3f1);display: flex; align-items: center; justify-content: center;position: relative; overflow: hidden;min-height: 22mm;}.product-image img {max-height: 20mm; max-width: 95%; object-fit: contain;filter: drop-shadow(0 4px 6px rgba(0,0,0,0.12));}
+  .story-grid {display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; margin-top: 6mm;}
+  .story-grid .product {border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: white;}
+  .story-grid .product-image {height: 50mm !important; flex-direction: column; gap: 4mm; min-height: 50mm;}
+  .story-avatar-big {width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 800; font-family: PingFang SC, sans-serif; box-shadow: 0 3px 8px rgba(0,0,0,0.18);}
+  .story-grid .product-body {padding: 3mm 3mm 4mm;}
+  .story-grid .product-desc {font-size: 9.5px; line-height: 1.45; min-height: 30px; color: var(--gray);}
+  .story-grid .story-quote {font-size: 10px; line-height: 1.5; color: var(--primary); border-top: 1px dashed var(--border); padding-top: 6px; margin-top: 4px; font-weight: 500;}
+  .product-image::before {
+    content: ""; position: absolute;
+    top: -20px; right: -20px; width: 80px; height: 80px;
+    background: radial-gradient(circle, rgba(255,255,255,0.5), transparent 70%);
+    border-radius: 50%;
+  }
+  .product-image::after {
+    content: ""; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 30%;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.05));
+  }
+  /* 立体药瓶通用样式 */
+  .bottle {
+    position: relative; width: 60px; height: 110px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+  }
+  .bottle-cap {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 38px; height: 18px; border-radius: 4px 4px 2px 2px;
+    background: linear-gradient(180deg, #2c3e50, #1a252f);
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.3);
+  }
+  .bottle-cap::before {
+    content: ""; position: absolute; top: 2px; left: 6px;
+    width: 26px; height: 2px; background: rgba(255,255,255,0.3);
+    border-radius: 1px;
+  }
+  .bottle-body {
+    position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+    width: 50px; height: 90px; border-radius: 6px 6px 4px 4px;
+    background: var(--bottle-color, #fff);
+    box-shadow: inset 2px 0 3px rgba(255,255,255,0.4),
+                inset -3px 0 4px rgba(0,0,0,0.1);
+  }
+  .bottle-body::before {
+    content: ""; position: absolute; left: 4px; top: 8px;
+    width: 6px; height: 60px; border-radius: 3px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.5), transparent);
+  }
+  .bottle-label {
+    position: absolute; top: 30px; left: 50%; transform: translateX(-50%);
+    width: 44px; height: 56px; border-radius: 2px;
+    background: var(--label-color, #006d77);
+    color: white; text-align: center;
+    display: flex; flex-direction: column; justify-content: center;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.2; padding: 2px;
+  }
+  .bottle-label .bl-name { font-size: 7px; font-weight: 800; }
+  .bottle-label .bl-en { font-size: 4px; opacity: 0.8; letter-spacing: 0.3px; margin-top: 1px; }
+  .bottle-label .bl-qty { font-size: 4px; opacity: 0.7; margin-top: 1px; }
+  .bottle-label .bl-logo {
+    position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
+    font-size: 4px; opacity: 0.6; letter-spacing: 0.5px;
+  }
+  /* 不同配色的药瓶 */
+  .bottle.c1 .bottle-body { background: linear-gradient(180deg, #ffffff, #e8eef0); }
+  .bottle.c1 .bottle-label { background: linear-gradient(180deg, #006d77, #00525a); }
+  .bottle.c2 .bottle-body { background: linear-gradient(180deg, #ffb366, #e08f3c); }
+  .bottle.c2 .bottle-label { background: linear-gradient(180deg, #c0392b, #922b21); }
+  .bottle.c3 .bottle-body { background: linear-gradient(180deg, #ffd966, #d4a829); }
+  .bottle.c3 .bottle-label { background: linear-gradient(180deg, #2c3e50, #1a252f); }
+  .bottle.c4 .bottle-body { background: linear-gradient(180deg, #c8a4d4, #9d6fb5); }
+  .bottle.c4 .bottle-label { background: linear-gradient(180deg, #6a4c93, #4a2f6e); }
+  .bottle.c5 .bottle-body { background: linear-gradient(180deg, #ffffff, #e8eef0); }
+  .bottle.c5 .bottle-label { background: linear-gradient(180deg, #c0392b, #922b21); }
+  .bottle.c6 .bottle-body { background: linear-gradient(180deg, #95d5a0, #6db977); }
+  .bottle.c6 .bottle-label { background: linear-gradient(180deg, #2d6a4f, #1b4332); }
+  .bottle.c7 .bottle-body { background: linear-gradient(180deg, #f4c794, #d8a567); }
+  .bottle.c7 .bottle-label { background: linear-gradient(180deg, #6f4e37, #4a3325); }
+  .bottle.c8 .bottle-body { background: linear-gradient(180deg, #ffffff, #e8eef0); }
+  .bottle.c8 .bottle-label { background: linear-gradient(180deg, #1976d2, #0d47a1); }
+
+  /* QR 码样式 */
+  
+  
+  
+  .product-badge {position: absolute; top: 4px; left: 4px; z-index: 10;background: #c0392b; color: white;font-size: 9px; padding: 2px 6px; border-radius: 3px;font-weight: 700; letter-spacing: 0.5px;display: block; line-height: 1.2;}
+  .product-badge.green { background: #2d6a4f; }
+  .product-badge.gold { background: #f77f00; }
+  .product-body { padding: 1mm 3mm 2mm; }
+  .product-cat {
+    font-size: 9px; color: var(--gray);
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .product-name {
+    font-size: 12px; font-weight: 700; color: var(--dark);
+    margin: 2px 0;
+  }
+  .product-desc {
+    font-size: 10px; color: var(--gray); line-height: 1.4;
+    margin-bottom: 4px; min-height: 20px;
+  }
+  .product-price {
+    display: flex; align-items: baseline; gap: 4px;
+  }
+  .product-price .now {
+    font-size: 16px; font-weight: 800; color: var(--accent);
+  }
+  .product-price .was {
+    font-size: 10px; color: var(--gray);
+    text-decoration: line-through;
+  }
+  .product-price .tag {
+    font-size: 9px; background: #fff5e6; color: var(--accent-dark);
+    padding: 1px 4px; border-radius: 2px; margin-left: 2px;
+  }
+
+  /* 礼盒 */
+  .gift-card {
+    background: linear-gradient(135deg, #fff5e6, white);
+    border: 2px solid var(--accent);
+    border-radius: 8px; padding: 6mm; position: relative;
+    overflow: hidden;
+  }
+  .gift-card::before {
+    content: "🎁"; position: absolute;
+    top: -10px; right: -10px; font-size: 60px; opacity: 0.2;
+  }
+  .gift-tag {
+    background: var(--accent); color: white;
+    font-size: 10px; padding: 2px 8px; border-radius: 3px;
+    display: inline-block; font-weight: 700; letter-spacing: 1px;
+  }
+  .gift-name {
+    font-size: 16px; font-weight: 800; color: var(--dark);
+    margin: 4px 0;
+  }
+  .gift-list {
+    font-size: 10px; color: var(--gray); line-height: 1.6;
+    margin: 3mm 0;
+  }
+  .gift-list li {
+    list-style: none; padding-left: 14px; position: relative;
+  }
+  .gift-list li::before {
+    content: "·"; position: absolute; left: 0;
+    color: var(--accent); font-weight: 700;
+  }
+  .gift-price {
+    font-size: 18px; font-weight: 800; color: var(--accent-dark);
+  }
+
+  /* 章节标题 */
+  .section-tag {
+    display: inline-block;
+    background: var(--primary); color: white;
+    padding: 4px 14px; border-radius: 100px;
+    font-size: 11px; letter-spacing: 2px; font-weight: 600;
+  }
+  .section-title {
+    font-size: 32px; font-weight: 800; color: var(--dark);
+    margin: 8px 0 4px;
+  }
+  .section-sub {
+    font-size: 12px; color: var(--gray);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px; margin-bottom: 4mm;
+  }
+
+.qr-grid {display: grid; grid-template-columns: repeat(3, 1fr);gap: 3mm; margin-top: 4mm;}.qr-item {text-align: center;}.qr-real {position: relative;width: 100%;padding-bottom: 100%;background: #fff;border-radius: 8px;overflow: hidden;box-shadow: 0 2px 8px rgba(0,0,0,0.12);margin: 0 auto 4px;}.qr-real img {position: absolute;top: 0; left: 0;width: 100%;height: 100%;object-fit: contain;display: block;}.qr-label {font-size: 11px; color: #555;margin-top: 4px; font-weight: 500;}</style>
+</head>
+<body>
+
+<!-- ============ P1 封面 ============ -->
+<div class="page cover" id="p1">
+  <div>
+    <div class="brand-mark">厚</div>
+  </div>
+
+  <div style="text-align: center;">
+    <div class="cover-logo-big">
+      <div class="center-dot"></div>
+    </div>
+  </div>
+
+  <div>
+    <h1>厚 生</h1>
+    <div class="en">HOUSHENG WELLNESS</div>
+    <div class="slogan">
+      厚生万物 · 养心养身<br>
+      <span style="opacity: 0.85; font-size: 14px; letter-spacing: 1px;">FOR LIFE, FOR WELLNESS</span>
+    </div>
+    <div class="meta">
+      2026 品牌宣传册 · COMPANY BROCHURE
+    </div>
+  </div>
+</div>
+
+<!-- ============ P2 关于厚生 ============ -->
+<div class="page" id="p2">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>1 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="section-tag">ABOUT US</div>
+    <h1 class="section-title">关于厚生</h1>
+    <div class="section-sub">一家以"养护"为本的大健康公司</div>
+
+    <div class="about-grid">
+      <div class="about-quote">
+        <h2>厚生 · 厚待每一个生命</h2>
+        <p>"厚生"二字，出自《尚书·大禹谟》——"厚生以养民"，意为<strong>丰厚地滋养生命</strong>。</p>
+        <p style="margin-top: 8px;">我们相信：健康不是一时的治疗，而是<strong>一生的养护</strong>。从营养到运动，从功法定理到中医理疗，从心理到检测，厚生把六大健康服务融为一家，陪你养好一辈子的健康习惯。</p>
+        <p style="margin-top: 8px;">目标：中国第一，世界第一。</p>
+      </div>
+
+      <div>
+        <div class="pillars">
+          <div class="pillar">
+            <div class="num">6</div>
+            <div class="label">大业务板块</div>
+          </div>
+          <div class="pillar">
+            <div class="num">3:2:1</div>
+            <div class="label">零售 / 服务 / 会员</div>
+          </div>
+          <div class="pillar">
+            <div class="num">7×24</div>
+            <div class="label">线上 + 门店</div>
+          </div>
+          <div class="pillar">
+            <div class="num">10+</div>
+            <div class="label">专业教练 / 咨询师</div>
+          </div>
+        </div>
+
+        <div style="background: var(--bg); padding: 6mm; border-radius: 6px; margin-top: 4mm;">
+          <h3 style="color: var(--primary); font-size: 13px; margin-bottom: 6px;">🎯 我们的差异化</h3>
+          <ul style="list-style: none; font-size: 11px; line-height: 1.9; color: var(--dark);">
+            <li>· 传统中医 + 现代营养 + 运动科学，三套体系融合</li>
+            <li>· 一人一案，全周期跟踪，不卖"一次性产品"</li>
+            <li>· 文化自信 · 厚生万物 · 养心养身</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 6mm; padding: 6mm; background: linear-gradient(135deg, #fff5e6, white); border-left: 3px solid var(--accent); border-radius: 4px;">
+      <strong style="color: var(--accent-dark);">📌 业务边界：</strong>
+      <span style="font-size: 12px; color: var(--dark); margin-left: 6px;">我们做<strong>养护、调理、缓解</strong>，不做"治疗、治愈、疗效"承诺。专业的事交给医院，我们做日常的、长久的陪伴。</span>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>1</span>
+  </div><div class="page" id="p2">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>2 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="section-tag">ABOUT US</div>
+    <h1 class="section-title">关于厚生</h1>
+    <div class="section-sub">一家以"养护"为本的大健康公司</div>
+
+    <div class="about-grid">
+      <div class="about-quote">
+        <h2>厚生 · 厚待每一个生命</h2>
+        <p>"厚生"二字，出自《尚书·大禹谟》——"厚生以养民"，意为<strong>丰厚地滋养生命</strong>。</p>
+        <p style="margin-top: 8px;">我们相信：健康不是一时的治疗，而是<strong>一生的养护</strong>。从营养到运动，从功法定理到中医理疗，从心理到检测，厚生把六大健康服务融为一家，陪你养好一辈子的健康习惯。</p>
+        <p style="margin-top: 8px;">目标：中国第一，世界第一。</p>
+      </div>
+
+      <div>
+        <div class="pillars">
+          <div class="pillar">
+            <div class="num">6</div>
+            <div class="label">大业务板块</div>
+          </div>
+          <div class="pillar">
+            <div class="num">3:2:1</div>
+            <div class="label">零售 / 服务 / 会员</div>
+          </div>
+          <div class="pillar">
+            <div class="num">7×24</div>
+            <div class="label">线上 + 门店</div>
+          </div>
+          <div class="pillar">
+            <div class="num">10+</div>
+            <div class="label">专业教练 / 咨询师</div>
+          </div>
+        </div>
+
+        <div style="background: var(--bg); padding: 6mm; border-radius: 6px; margin-top: 4mm;">
+          <h3 style="color: var(--primary); font-size: 13px; margin-bottom: 6px;">🎯 我们的差异化</h3>
+          <ul style="list-style: none; font-size: 11px; line-height: 1.9; color: var(--dark);">
+            <li>· 传统中医 + 现代营养 + 运动科学，三套体系融合</li>
+            <li>· 一人一案，全周期跟踪，不卖"一次性产品"</li>
+            <li>· 文化自信 · 厚生万物 · 养心养身</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 6mm; padding: 6mm; background: linear-gradient(135deg, #fff5e6, white); border-left: 3px solid var(--accent); border-radius: 4px;">
+      <strong style="color: var(--accent-dark);">📌 业务边界：</strong>
+      <span style="font-size: 12px; color: var(--dark); margin-left: 6px;">我们做<strong>养护、调理、缓解</strong>，不做"治疗、治愈、疗效"承诺。专业的事交给医院，我们做日常的、长久的陪伴。</span>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>2</span>
+  </div>
+</div>
+
+<!-- ============ P3 业务板块 1/2 ============ -->
+<div class="page" id="p3">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>3 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="section-tag">SERVICES · 1 / 2</div>
+    <h1 class="section-title">六大业务板块</h1>
+    <div class="section-sub">营养 · 运动 · 功法 — 养好身体底子</div>
+
+    <div class="biz-grid">
+      <div class="biz-card c1">
+        <div class="biz-icon">🥗</div>
+        <div class="biz-title">公共营养</div>
+        <div class="biz-en">NUTRITION</div>
+        <div class="biz-desc">注册营养师 + 1v1 咨询 + 健康商城，从一日三餐到家庭方案，把"吃什么"变简单。</div>
+        <ul class="biz-list">
+          <li>1v1 营养咨询 / 家庭营养方案</li>
+          <li>营养品 / 保健食品 / 礼盒</li>
+          <li>健康饮食 21 天训练营</li>
+        </ul>
+      </div>
+
+      <div class="biz-card c2">
+        <div class="biz-icon">🏃</div>
+        <div class="biz-title">运动健康</div>
+        <div class="biz-en">EXERCISE</div>
+        <div class="biz-desc">有氧 + 无氧双线并进，团课、1v1 私教、训练营全覆盖，匹配不同体能阶段。</div>
+        <ul class="biz-list">
+          <li>有氧：HIIT / 跑步 / 单车 / 搏击</li>
+          <li>无氧：器械 / 自由力量 / TRX</li>
+          <li>减脂 / 体态 / 增肌 21-30 天营</li>
+        </ul>
+      </div>
+
+      <div class="biz-card c3">
+        <div class="biz-icon">☯️</div>
+        <div class="biz-title">传统功法</div>
+        <div class="biz-en">TRADITIONAL PRACTICE</div>
+        <div class="biz-desc">八段锦、太极、金刚功、易筋经，把千年养生功法变成现代人可坚持的日常。</div>
+        <ul class="biz-list">
+          <li>八段锦 / 24 式太极 / 拉筋晨练</li>
+          <li>金刚功 / 易筋经（进阶）</li>
+          <li>线上跟练 + 早课直播</li>
+        </ul>
+      </div>
+
+      <div class="biz-card c4">
+        <div class="biz-icon">🌿</div>
+        <div class="biz-title">中医理疗</div>
+        <div class="biz-en">TCM THERAPY</div>
+        <div class="biz-desc">推拿 / 艾灸 / 拔罐 / 刮痧 / 穴位调理，传统中医外治法，舒缓筋骨酸痛。</div>
+        <ul class="biz-list">
+          <li>肩颈腰腿 · 调理养护</li>
+          <li>艾灸温通 · 季节养生</li>
+          <li>调理师全程 1v1 服务</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="background: var(--bg); padding: 5mm; border-radius: 6px; margin-top: 6mm;">
+      <strong style="color: var(--primary);">→ 接 P4 · 心理 + 检测</strong>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>3</span>
+  </div>
+</div>
+
+<!-- ============ P4 业务板块 2/2 ============ -->
+<div class="page" id="p4">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>4 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="section-tag">SERVICES · 2 / 2</div>
+    <h1 class="section-title">六大业务板块</h1>
+    <div class="section-sub">中医 · 心理 · 检测 — 守好健康边界</div>
+
+    <div class="biz-grid">
+      <div class="biz-card c5">
+        <div class="biz-icon">🧠</div>
+        <div class="biz-title">心理咨询 + 睡眠</div>
+        <div class="biz-en">PSYCHOLOGY & SLEEP</div>
+        <div class="biz-desc">国家二级咨询师 + 正念冥想导师，疏导焦虑、压力、失眠。严重情况转介医院。</div>
+        <ul class="biz-list">
+          <li>1v1 心理咨询 / 50 分钟</li>
+          <li>冥想课 / 30 天睡眠营</li>
+          <li>EAP 企业团体辅导</li>
+        </ul>
+      </div>
+
+      <div class="biz-card c6">
+        <div class="biz-icon">🩺</div>
+        <div class="biz-title">健康检测 + 慢病</div>
+        <div class="biz-en">HEALTH TESTING</div>
+        <div class="biz-desc">INBODY 体测 + 慢病风险评估 + 年度健康管家，用数据指导养护方向。</div>
+        <ul class="biz-list">
+          <li>免费 INBODY 检测（5 步流程）</li>
+          <li>三高 / 慢病风险评估</li>
+          <li>家庭 / 个人健康年卡</li>
+        </ul>
+      </div>
+
+      <div class="biz-card" style="grid-column: span 2; background: linear-gradient(135deg, #f0f9f8, white); border: 2px solid var(--primary);">
+        <div class="biz-icon">✨</div>
+        <div class="biz-title">服务承诺</div>
+        <div class="biz-en">SERVICE PROMISE</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; margin-top: 4mm;">
+          <div>
+            <strong style="color: var(--primary);">🎯 一人一案</strong>
+            <p style="font-size: 11px; color: var(--gray); margin-top: 2px;">不卖标准化产品<br>只给个性化方案</p>
+          </div>
+          <div>
+            <strong style="color: var(--primary);">🔁 长期跟踪</strong>
+            <p style="font-size: 11px; color: var(--gray); margin-top: 2px;">3 / 7 / 30 / 17 天<br>回访节奏</p>
+          </div>
+          <div>
+            <strong style="color: var(--primary);">🔒 隐私保护</strong>
+            <p style="font-size: 11px; color: var(--gray); margin-top: 2px;">咨询内容全程加密<br>可随时删除</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: linear-gradient(135deg, #fff5e6, white); border-left: 3px solid var(--accent); padding: 5mm; border-radius: 4px; margin-top: 4mm;">
+      <strong style="color: var(--accent-dark);">💡 推荐组合：</strong>
+      <span style="font-size: 12px; color: var(--dark); margin-left: 6px;">全家健康 = 家庭营养方案 1 次 + 父母太极课 2 次 + 孩子跳绳课 1 次，月预算 <strong>约 2500 元</strong>。</span>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>4</span>
+  </div>
+</div>
+
+<!-- ============ P5 品牌识别 ============ -->
+<div class="page" id="p5">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>5 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="section-tag">BRAND IDENTITY</div>
+    <h1 class="section-title">品牌识别 · VI</h1>
+    <div class="section-sub">阴阳双叶 · 厚生青主色 · 5:3:2 比例</div>
+
+    <div class="vi-section">
+      <div class="vi-block">
+        <div class="vi-logo-img">
+          <img src="logo.svg" alt="Logo">
+        </div>
+        <div>
+          <h3 style="color: var(--primary); font-size: 16px; margin-bottom: 4px;">主标识 · 阴阳双叶</h3>
+          <p style="font-size: 11px; color: var(--gray); line-height: 1.7;">
+            一青一丹的两片叶子，象征阴阳调和、万物共生。圆形底座代表"圆满"，渐变青绿色来自江南山水。简洁可识别，可缩到 16px 仍清晰。
+          </p>
+        </div>
+      </div>
+
+      <div class="vi-block">
+        <div class="vi-logo-img">
+          <img src="logo-mark.svg" alt="Mark">
+        </div>
+        <div>
+          <h3 style="color: var(--primary); font-size: 16px; margin-bottom: 4px;">辅助标识 · 仅图形</h3>
+          <p style="font-size: 11px; color: var(--gray); line-height: 1.7;">
+            用于导航图标、社交头像、App icon。64×64 像素起使用，更小可用 32×32。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="color: var(--primary); font-size: 14px; margin-top: 4mm;">🎨 品牌色 · 5 : 3 : 2 黄金比</h3>
+    <div class="color-row">
+      <div class="color-swatch">
+        <div class="color-chip" style="background: #006d77;"></div>
+        <div class="color-name">厚生青</div>
+        <div class="color-hex">#006D77</div>
+        <div class="color-ratio">50% · 主色</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-chip" style="background: #83c5be;"></div>
+        <div class="color-name">青碧</div>
+        <div class="color-hex">#83C5BE</div>
+        <div class="color-ratio">30% · 辅助</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-chip" style="background: #e29578;"></div>
+        <div class="color-name">丹朱</div>
+        <div class="color-hex">#E29578</div>
+        <div class="color-ratio">20% · 点缀</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-chip" style="background: #c0392b;"></div>
+        <div class="color-name">印红</div>
+        <div class="color-hex">#C0392B</div>
+        <div class="color-ratio">警示 · 强调</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 6mm; padding: 6mm; background: var(--bg); border-radius: 6px;">
+      <h3 style="color: var(--primary); font-size: 13px; margin-bottom: 8px;">✍️ 字体规范</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4mm;">
+        <div>
+          <div style="font-size: 10px; color: var(--gray);">中文主字体</div>
+          <div style="font-size: 18px; font-weight: 700; color: var(--dark);">苹方 / 微软雅黑</div>
+        </div>
+        <div>
+          <div style="font-size: 10px; color: var(--gray);">英文主字体</div>
+          <div style="font-size: 18px; font-weight: 700; color: var(--dark); letter-spacing: 2px;">SF Pro / Inter</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 4mm; padding: 4mm 6mm; background: var(--primary); color: white; border-radius: 4px; text-align: center; font-size: 13px; letter-spacing: 3px;">
+      SLOGAN · 厚生万物 · 养心养身
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>5</span>
+  </div>
+</div>
+
+<!-- ============ P6 团队 ============ -->
+<div class="page" id="p6">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>6 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="section-tag">OUR TEAM</div>
+    <h1 class="section-title">厚生 · 核心团队</h1>
+    <div class="section-sub">5 年+ 实修经验 / 国家认证 / 温暖专业</div>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar" style="background: linear-gradient(135deg, #006d77, #83c5be);">李</div>
+        <div class="team-name">李玄</div>
+        <div class="team-role">功法主教</div>
+        <div class="team-bio">八段锦 · 太极<br>10 年+ 传统功法</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background: linear-gradient(135deg, #e29578, #ffddd2);">王</div>
+        <div class="team-name">王怡</div>
+        <div class="team-role">瑜伽 / 体态</div>
+        <div class="team-bio">瑜伽 · 普拉提 · TRX<br>8 年+ 教学</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background: linear-gradient(135deg, #f77f00, #fcbf49);">张</div>
+        <div class="team-name">张驰</div>
+        <div class="team-role">力量 / 燃脂</div>
+        <div class="team-bio">抗阻 · HIIT · 拳击<br>NSCA 国际认证</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background: linear-gradient(135deg, #06aed5, #0a6e7a);">林</div>
+        <div class="team-name">林悦</div>
+        <div class="team-role">营养 / 心理</div>
+        <div class="team-bio">注册营养师<br>+ 二级咨询师</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background: linear-gradient(135deg, #d62828, #f77f00);">周</div>
+        <div class="team-name">周易</div>
+        <div class="team-role">冥想 / 心理</div>
+        <div class="team-bio">正念冥想导师<br>8 年+ 心理疗愈</div>
+      </div>
+    </div>
+
+    <div class="team-stats">
+      <div class="team-stat">
+        <div class="num">12+</div>
+        <div class="lbl">全职教练 / 咨询师</div>
+      </div>
+      <div class="team-stat">
+        <div class="num">5</div>
+        <div class="lbl">年+ 平均实修经验</div>
+      </div>
+      <div class="team-stat">
+        <div class="num">100%</div>
+        <div class="lbl">国家资质持证</div>
+      </div>
+      <div class="team-stat">
+        <div class="num">30+</div>
+        <div class="lbl">每周排课总数</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 6mm; padding: 6mm; background: var(--bg); border-radius: 6px;">
+      <h3 style="color: var(--primary); font-size: 14px; margin-bottom: 8px;">🤝 厚生 · 招贤纳士</h3>
+      <p style="font-size: 11px; color: var(--dark); line-height: 1.7;">
+        我们在找：功法教练 / 瑜伽教练 / 力量教练 / 注册营养师 / 心理咨询师 / 中医理疗师 / 健康管家。
+        如果你也认同"养护比治疗更重要"，欢迎聊聊。
+      </p>
+      <div style="margin-top: 6px; font-size: 11px; color: var(--primary); font-weight: 600;">
+        投递：huangwei_361@163.com
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>6</span>
+  </div>
+</div>
+
+<!-- ============ P7 营养商城 · 主推产品 ============ -->
+<div class="page" id="p7" style="font-size: 10px;">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>7 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="shop-hero">
+      <div class="ico">🛒</div>
+      <div>
+        <h2>营养商城 · 主推产品</h2>
+        <div class="en">NUTRITION SHOP · 主打 12 款常青款</div>
+        <div class="slogan">注册营养师选品 · 蓝帽子保健食品 · 溯源可查 · 一件代发全国</div>
+      </div>
+    </div>
+
+    <h3 style="color: var(--primary); font-size: 11px; margin: 2mm 0 1mm;">🥇 基础营养 · 每天一粒</h3>
+    <div class="product-grid">
+<div class="product"><div class="product-image"><img src="products/d3k2.svg" alt="维生素 D3 + K2"/><span class="product-badge green">爆款</span></div><div class="product-body"><div class="product-cat">基础营养</div><div class="product-name">维生素 D3 + K2</div><div class="product-desc">5000IU · 骨密度 · 免疫 · 90 粒 / 瓶</div><div class="product-price"><span class="now">¥128</span><span class="was">¥168</span></div></div></div><div class="product"><div class="product-image"><img src="products/bcomplex.svg" alt="复合 B 族维生素"/><span class="product-badge">新品</span></div><div class="product-body"><div class="product-cat">基础营养</div><div class="product-name">复合 B 族维生素</div><div class="product-desc">8 种 B 族 · 能量代谢 · 60 粒 / 瓶</div><div class="product-price"><span class="now">¥98</span><span class="was">¥128</span></div></div></div><div class="product"><div class="product-image"><img src="products/omega3.svg" alt="Omega-3 深海鱼油"/></div><div class="product-body"><div class="product-cat">基础营养</div><div class="product-name">Omega-3 深海鱼油</div><div class="product-desc">EPA + DHA · 心血管 · 90 粒 / 瓶</div><div class="product-price"><span class="now">¥168</span><span class="was">¥228</span></div></div></div><div class="product"><div class="product-image"><img src="products/magnesium.svg" alt="镁片 + 甘氨酸"/></div><div class="product-body"><div class="product-cat">基础营养</div><div class="product-name">镁片 + 甘氨酸</div><div class="product-desc">助眠 · 肌肉放松 · 60 粒 / 瓶</div><div class="product-price"><span class="now">¥118</span><span class="was">¥158</span></div></div></div>
+    </div>
+
+    <h3 style="color: var(--primary); font-size: 11px; margin: 2mm 0 1mm;">🛡️ 慢病养护 · 专人专配</h3>
+    <div class="product-grid">
+<div class="product"><div class="product-image"><img src="products/natto.svg" alt="纳豆红曲胶囊"/><span class="product-badge gold">三高</span></div><div class="product-body"><div class="product-cat">慢病养护</div><div class="product-name">纳豆红曲胶囊</div><div class="product-desc">辅助降血脂 · 蓝帽子 · 60 粒</div><div class="product-price"><span class="now">¥198</span><span class="was">¥268</span></div></div></div><div class="product"><div class="product-image"><img src="products/balsam.svg" alt="苦瓜桑叶片"/></div><div class="product-body"><div class="product-cat">慢病养护</div><div class="product-name">苦瓜桑叶片</div><div class="product-desc">辅助降血糖 · 蓝帽子 · 60 片</div><div class="product-price"><span class="now">¥168</span><span class="was">¥218</span></div></div></div><div class="product"><div class="product-image"><img src="products/sleeptime.svg" alt="酸枣仁 + 茶氨酸"/><span class="product-badge green">爆款</span></div><div class="product-body"><div class="product-cat">慢病养护</div><div class="product-name">酸枣仁 + 茶氨酸</div><div class="product-desc">助眠 · 不含褪黑素 · 30 袋</div><div class="product-price"><span class="now">¥138</span><span class="was">¥188</span></div></div></div><div class="product"><div class="product-image"><img src="products/jointcare.svg" alt="氨糖软骨素"/></div><div class="product-body"><div class="product-cat">慢病养护</div><div class="product-name">氨糖软骨素</div><div class="product-desc">关节养护 · 中老年专属 · 90 粒</div><div class="product-price"><span class="now">¥168</span><span class="was">¥228</span></div></div></div>
+    </div>
+
+    <div style="margin-top: 3mm; padding: 3mm 4mm; background: linear-gradient(135deg, #f0f9f8, white); border-radius: 6px; border-left: 3px solid var(--primary);">
+      <strong style="color: var(--primary); font-size: 12px;">💡 选品原则：</strong>
+      <span style="font-size: 11px; color: var(--dark); margin-left: 4px;">所有商品经厚生营养师团队审核成分表、剂量、资质。蓝帽子保健食品有"国食健字"批准文号，可在国家市场监管总局官网查询。普通食品选用 0 防腐剂、0 添加糖、0 反式脂肪的"三零"产品。</span>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>7</span>
+  </div>
+</div>
+
+      <div class="product">
+        <div class="product-image"><img src="products/bcomplex.svg" alt="product"/></div>
+            </div>
+          </div>
+          <span class="product-badge">新品</span>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">基础营养</div>
+          <div class="product-name">复合 B 族维生素</div>
+          <div class="product-desc">8 种 B 族 · 能量代谢 · 60 粒 / 瓶</div>
+          <div class="product-price">
+            <span class="now">¥98</span>
+            <span class="was">¥128</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="product-image"><img src="products/omega3.svg" alt="product"/></div>
+            </div>
+          </div>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">基础营养</div>
+          <div class="product-name">Omega-3 深海鱼油</div>
+          <div class="product-desc">EPA + DHA · 心血管 · 90 粒 / 瓶</div>
+          <div class="product-price">
+            <span class="now">¥168</span>
+            <span class="was">¥228</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="product-image"><img src="products/magnesium.svg" alt="product"/></div>
+            </div>
+          </div>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">基础营养</div>
+          <div class="product-name">镁片 + 甘氨酸</div>
+          <div class="product-desc">助眠 · 肌肉放松 · 60 粒 / 瓶</div>
+          <div class="product-price">
+            <span class="now">¥118</span>
+            <span class="was">¥158</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="color: var(--primary); font-size: 12px; margin: 3mm 0 1mm;">🛡️ 慢病养护 · 专人专配</h3>
+    <div class="product-grid">
+      <div class="product">
+        <div class="product-image"><img src="products/natto.svg" alt="product"/></div>
+            </div>
+          </div>
+          <span class="product-badge gold">三高</span>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">慢病养护</div>
+          <div class="product-name">纳豆红曲胶囊</div>
+          <div class="product-desc">辅助降血脂 · 蓝帽子 · 60 粒</div>
+          <div class="product-price">
+            <span class="now">¥198</span>
+            <span class="was">¥268</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="product-image"><img src="products/balsam.svg" alt="product"/></div>
+            </div>
+          </div>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">慢病养护</div>
+          <div class="product-name">苦瓜桑叶片</div>
+          <div class="product-desc">辅助降血糖 · 蓝帽子 · 60 片</div>
+          <div class="product-price">
+            <span class="now">¥168</span>
+            <span class="was">¥218</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="product-image"><img src="products/sleeptime.svg" alt="product"/></div>
+            </div>
+          </div>
+          <span class="product-badge green">爆款</span>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">慢病养护</div>
+          <div class="product-name">酸枣仁 + 茶氨酸</div>
+          <div class="product-desc">助眠 · 不含褪黑素 · 30 袋</div>
+          <div class="product-price">
+            <span class="now">¥138</span>
+            <span class="was">¥188</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="product-image"><img src="products/jointcare.svg" alt="product"/></div>
+            </div>
+          </div>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">慢病养护</div>
+          <div class="product-name">氨糖软骨素</div>
+          <div class="product-desc">关节养护 · 中老年专属 · 90 粒</div>
+          <div class="product-price">
+            <span class="now">¥168</span>
+            <span class="was">¥228</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 3mm; padding: 3mm 4mm; background: linear-gradient(135deg, #f0f9f8, white); border-radius: 6px; border-left: 3px solid var(--primary);">
+      <strong style="color: var(--primary); font-size: 12px;">💡 选品原则：</strong>
+      <span style="font-size: 11px; color: var(--dark); margin-left: 4px;">所有商品经厚生营养师团队审核成分表、剂量、资质。蓝帽子保健食品有"国食健字"批准文号，可在国家市场监管总局官网查询。普通食品选用 0 防腐剂、0 添加糖、0 反式脂肪的"三零"产品。</span>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>07</span>
+  </div>
+</div>
+
+<!-- ============ P10 业务详情 · 公共营养 ============ -->
+
+<!-- ============ P11 业务详情 · 传统功法 ============ -->
+<div class="page" id="p8">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>8 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="svc-hero c3">
+      <div class="ico">☯️</div>
+      <div>
+        <h2>传统功法</h2>
+        <div class="en">TRADITIONAL PRACTICE · 千年养生的现代练法</div>
+        <div class="slogan">八段锦 / 太极 / 金刚功，把老祖先的功法变成每天 30 分钟的习惯。</div>
+      </div>
+    </div>
+
+    <div class="audience">
+      <div class="label">▎ 适合人群</div>
+      <div class="tags">
+        <span class="tag">中老年养生</span>
+        <span class="tag">肩颈腰腿</span>
+        <span class="tag">失眠多梦</span>
+        <span class="tag">气血不足</span>
+        <span class="tag">压力大</span>
+        <span class="tag">想静心</span>
+        <span class="tag">运动入门</span>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h4>核心服务项目</h4>
+      <div class="svc-grid-2">
+        <div class="svc-item">
+          <div class="name">八段锦</div>
+          <div class="desc">入门第一课，8 个动作调理五脏。早课 06:30 直播带练</div>
+        </div>
+        <div class="svc-item">
+          <div class="name">24 式太极</div>
+          <div class="desc">动静结合，柔韧 + 平衡 + 心肺。进阶功法基础</div>
+        </div>
+        <div class="svc-item">
+          <div class="name">金刚功 / 易筋经</div>
+          <div class="desc">张至顺道家功法，刚柔并济，进阶级</div>
+        </div>
+        <div class="svc-item">
+          <div class="name">拉筋晨练</div>
+          <div class="desc">适合所有年龄段，柔韧性 + 关节灵活度训练</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h4>服务流程（线下团课）</h4>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-num">1</div>
+          <div class="flow-name">选时段</div>
+          <div class="flow-time">早 06:30 起</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">2</div>
+          <div class="flow-name">到店签到</div>
+          <div class="flow-time">5 分钟</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">3</div>
+          <div class="flow-name">教练带练</div>
+          <div class="flow-time">60 分钟</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">4</div>
+          <div class="flow-name">动作纠正</div>
+          <div class="flow-time">10 分钟</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">5</div>
+          <div class="flow-name">答疑</div>
+          <div class="flow-time">课后群</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h4>价格档位</h4>
+      <div class="price-row">
+        <div class="price-cell">
+          <div class="pname">团课 · 单次</div>
+          <div class="pval">¥88</div>
+          <div class="punit">/ 节 · 60 分钟</div>
+        </div>
+        <div class="price-cell hot">
+          <div class="pname">10 次卡</div>
+          <div class="pval">¥780</div>
+          <div class="punit">/ 10 节 · 省 100</div>
+        </div>
+        <div class="price-cell">
+          <div class="pname">21 天晨练营</div>
+          <div class="pval">¥299</div>
+          <div class="punit">/ 期 · 6:00 直播</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mini-case">
+      <div class="head">📖 真实案例 · 李阿姨（62 岁，退休教师）</div>
+      <div class="body">肩周炎 8 年，左手上举困难。医生建议手术，她不想上手术台。开始每周 3 次八段锦 + 2 次中医推拿。</div>
+      <div class="result">90 天后：肩关节活动度基本恢复，每天练功成习惯。</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>8</span>
+  </div>
+</div>
+
+<!-- ============ P12 业务详情 · 中医理疗 ============ -->
+<div class="page" id="p9">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>9 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="svc-hero c4">
+      <div class="ico">🌿</div>
+      <div>
+        <h2>中医理疗</h2>
+        <div class="en">TCM THERAPY · 传统外治法的当代实践</div>
+        <div class="slogan">推拿 / 艾灸 / 拔罐 / 刮痧 / 穴位调理，舒缓筋骨酸痛。</div>
+      </div>
+    </div>
+
+    <div class="audience">
+      <div class="label">▎ 适合人群</div>
+      <div class="tags">
+        <span class="tag">肩颈僵硬</span>
+        <span class="tag">腰背酸痛</span>
+        <span class="tag">手脚冰凉</span>
+        <span class="tag">湿气重</span>
+        <span class="tag">脾胃虚弱</span>
+        <span class="tag">失眠</span>
+        <span class="tag">亚健康</span>
+        <span class="tag">季节调理</span>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h4>核心服务项目</h4>
+      <div class="svc-grid-2">
+        <div class="svc-item">
+          <div class="name">推拿按摩</div>
+          <div class="desc">中医推拿 + 筋膜放松，针对肩颈 / 腰腿 / 头眼部位</div>
+        </div>
+        <div class="svc-item">
+          <div class="name">艾灸温通</div>
+          <div class="desc">温阳散寒 / 调理宫寒 / 改善手脚冰凉。三伏 / 三九灸加强</div>
+        </div>
+        <div class="svc-item">
+          <div class="name">拔罐 / 刮痧</div>
+          <div class="desc">祛湿排毒，舒缓肌肉紧张，季节性调理</div>
+        </div>
+        <div class="svc-item">
+          <div class="name">穴位调理</div>
+          <div class="desc">脏腑调理 + 经络疏通，针对慢性疲劳 / 脾胃 / 睡眠</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h4>服务流程（单次理疗 1v1）</h4>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-num">1</div>
+          <div class="flow-name">问诊</div>
+          <div class="flow-time">10 分钟</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">2</div>
+          <div class="flow-name">经络检测</div>
+          <div class="flow-time">5 分钟</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">3</div>
+          <div class="flow-name">理疗方案</div>
+          <div class="flow-time">60 分钟</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">4</div>
+          <div class="flow-name">调理建议</div>
+          <div class="flow-time">5 分钟</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">5</div>
+          <div class="flow-name">复诊预约</div>
+          <div class="flow-time">1 周后</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h4>价格档位</h4>
+      <div class="price-row">
+        <div class="price-cell">
+          <div class="pname">单次理疗</div>
+          <div class="pval">¥198-498</div>
+          <div class="punit">/ 60 分钟</div>
+        </div>
+        <div class="price-cell hot">
+          <div class="pname">10 次套餐</div>
+          <div class="pval">¥1,680-3,980</div>
+          <div class="punit">/ 10 次 · 省 200+</div>
+        </div>
+        <div class="price-cell">
+          <div class="pname">季度调理</div>
+          <div class="pval">¥2,580</div>
+          <div class="punit">/ 季 · 12 次</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mini-case" style="background: linear-gradient(90deg, #e8f5e9, white); border-left-color: #2d6a4f;">
+      <div class="head" style="color: #2d6a4f;">📖 真实案例 · 王经理（42 岁，互联网公司）</div>
+      <div class="body">长期加班，颈椎反弓 + 经常性头晕。理疗师做了 1 套肩颈推拿 + 艾灸组合，并教他日常穴位按摩。</div>
+      <div class="result" style="color: #2d6a4f;">8 周后：头晕发作频率从每周 3 次降到 0，头晕消失。</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>9</span>
+  </div>
+</div>
+
+<!-- ============ P13 业务详情 · 心理咨询 + 睡眠 ============ -->
+<div class="page" id="p10">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>10 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="svc-hero c5">
+      <div class="ico">🧠</div>
+      <div>
+        <h2>心理咨询 + 睡眠</h2>
+        <div class="en">PSYCHOLOGY & SLEEP · 让心安住</div>
+        <div class="slogan">国家二级咨询师 + 正念冥想，疏导焦虑、压力、失眠、情绪。</div>
+      </div>
+    </div>
+
+    <div class="audience">
+      <div class="label">▎ 适合人群</div>
+      <div class="tags">
+        <span class="tag">长期失眠</span>
+        <span class="tag">焦虑紧张</span>
+        <span class="tag">工作压力</span>
+        <span class="tag">情绪低落</span>
+        <span class="tag">亲子关系</span>
+        <span class="tag">婚姻家庭</span>
+        <span class="tag">自我成长</span>
+        <span class="tag">正念入门</span>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h4>核心服务项目</h4>
+      <div class="svc-grid-2">
+        <div class="svc-item">
+          <div class="name">1v1 心理咨询</div>
+          <div class="desc">国家二级 / 三级咨询师，腾讯会议 50 分钟，全程加密</div>
+        </div>
+        <div class="svc-item">
+          <div class="name">冥想课（团课）</div>
+          <div class="desc">正念冥想导师带练，早 06:30 / 晚 19:30 直播，居家可练</div>
+        </div>
+        <div class="svc-item">
+          <div class="name">30 天睡眠改善营</div>
+          <div class="desc">心理咨询师 + 营养师联合，6 次咨询 + 21 天冥想 + 复测</div>
+        </div>
+        <div class="svc-item">
+          <div class="name">企业 EAP 团辅</div>
+          <div class="desc">100 人+ 企业，心理健康讲座 + 团体辅导 + 1v1 咨询包</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h4>服务流程（1v1 心理咨询）</h4>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-num">1</div>
+          <div class="flow-name">预约</div>
+          <div class="flow-time">3 天前</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">2</div>
+          <div class="flow-name">匹配师</div>
+          <div class="flow-time">10 分钟</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">3</div>
+          <div class="flow-name">视频咨询</div>
+          <div class="flow-time">50 分钟</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">4</div>
+          <div class="flow-name">评估报告</div>
+          <div class="flow-time">24 小时</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">5</div>
+          <div class="flow-name">跟踪</div>
+          <div class="flow-time">每周</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h4>价格档位</h4>
+      <div class="price-row">
+        <div class="price-cell">
+          <div class="pname">心理咨询 · 单次</div>
+          <div class="pval">¥698</div>
+          <div class="punit">/ 次 · 50 分钟</div>
+        </div>
+        <div class="price-cell hot">
+          <div class="pname">心理咨询 · 季度</div>
+          <div class="pval">¥3,680</div>
+          <div class="punit">/ 季度 · 6 次</div>
+        </div>
+        <div class="price-cell">
+          <div class="pname">30 天睡眠营</div>
+          <div class="pval">¥699</div>
+          <div class="punit">/ 30 天 · 6 次</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mini-case" style="background: linear-gradient(90deg, #f3e5f5, white); border-left-color: #6a4c93;">
+      <div class="head" style="color: #6a4c93;">📖 真实案例 · 王先生（45 岁，银行高管）</div>
+      <div class="body">长期失眠，最严重连续 5 天睡不着。试过褪黑素、泡脚、白噪音，都没用。6 次心理咨询 + 冥想训练。</div>
+      <div class="result" style="color: #6a4c93;">30 天后：入睡时间从 2 小时缩到 25 分钟。</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>10</span>
+  </div>
+</div>
+
+<!-- ============ P14 业务详情 · 健康检测 + 慢病 ============ -->
+<div class="page" id="p11">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>11 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="svc-hero c6">
+      <div class="ico">🩺</div>
+      <div>
+        <h2>健康检测 + 慢病</h2>
+        <div class="en">HEALTH TESTING · 用数据指导养护</div>
+        <div class="slogan">INBODY 体测 + 慢病风险评估 + 年度健康管家，长期跟踪。</div>
+      </div>
+    </div>
+
+    <div class="audience">
+      <div class="label">▎ 适合人群</div>
+      <div class="tags">
+        <span class="tag">35+ 体检</span>
+        <span class="tag">三高人群</span>
+        <span class="tag">慢病预防</span>
+        <span class="tag">肥胖</span>
+        <span class="tag">家族病史</span>
+        <span class="tag">亚健康</span>
+        <span class="tag">年度复查</span>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h4>核心服务项目</h4>
+      <div class="svc-grid-2">
+        <div class="svc-item">
+          <div class="name">免费 INBODY 体测</div>
+          <div class="desc">5 步流程：预约 → 测量 → 解读 → 建议 → 跟踪。门店到店即测</div>
+        </div>
+        <div class="svc-item">
+          <div class="name">慢病风险评估</div>
+          <div class="desc">高血压 / 糖尿病 / 高血脂 / 心血管 / 脂肪肝，5 大类评估</div>
+        </div>
+        <div class="svc-item">
+          <div class="name">健康年卡</div>
+          <div class="desc">门店无限次体测 + INBODY 跟踪 + 教练咨询 + 课程折扣</div>
+        </div>
+        <div class="svc-item">
+          <div class="name">健康管家（家庭/个人）</div>
+          <div class="desc">专属管家 + 营养师 + 教练 + 咨询师，年度全周期管理</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h4>服务流程（健康管家）</h4>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-num">1</div>
+          <div class="flow-name">建档</div>
+          <div class="flow-time">1 次</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">2</div>
+          <div class="flow-name">检测</div>
+          <div class="flow-time">每季度</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">3</div>
+          <div class="flow-name">评估</div>
+          <div class="flow-time">每季度</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">4</div>
+          <div class="flow-name">方案</div>
+          <div class="flow-time">每月</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">5</div>
+          <div class="flow-name">回访</div>
+          <div class="flow-time">每周</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h4>价格档位</h4>
+      <div class="price-row">
+        <div class="price-cell">
+          <div class="pname">INBODY 体测</div>
+          <div class="pval">免费</div>
+          <div class="punit">/ 首次到店</div>
+        </div>
+        <div class="price-cell hot">
+          <div class="pname">健康年卡</div>
+          <div class="pval">¥1,980-3,980</div>
+          <div class="punit">/ 年 · 无限次</div>
+        </div>
+        <div class="price-cell">
+          <div class="pname">健康管家（个人）</div>
+          <div class="pval">¥9,800</div>
+          <div class="punit">/ 年 · 全周期</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mini-case" style="background: linear-gradient(90deg, #e3f2fd, white); border-left-color: #1976d2;">
+      <div class="head" style="color: #1976d2;">📖 真实案例 · 刘先生（52 岁，企业高管）</div>
+      <div class="body">体检发现血糖偏高，空腹 6.8。办了健康管家年卡，配了营养师 + 教练 + 心理咨询师。</div>
+      <div class="result" style="color: #1976d2;">6 个月后：空腹血糖降到 5.6，体重 -10 斤，焦虑情绪也明显好转。</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>11</span>
+  </div>
+</div>
+
+<!-- ============ P15 服务速查 ============ -->
+<div class="page" id="p12">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>12 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="section-tag">QUICK REFERENCE</div>
+    <h1 class="section-title">服务速查 · 一页带走</h1>
+    <div class="section-sub">课程 / 咨询 / 调理 · 价格 + 流程 + 入口</div>
+
+    <h3 style="color: var(--primary); font-size: 13px; margin-top: 4mm;">🕐 每周课表速查（上海·静安店参考）</h3>
+    <div class="quick-grid">
+      <div class="quick-block">
+        <div class="qb-title">🌅 早课 06:30</div>
+        <div class="qb-time">八段锦 / 拉筋</div>
+        <div class="qb-desc">入门级·线上同步·<br>李玄 / 王怡教练</div>
+      </div>
+      <div class="quick-block">
+        <div class="qb-title">☀️ 上午 10:00</div>
+        <div class="qb-time">瑜伽 / 家庭营养</div>
+        <div class="qb-desc">小班制·体态矫正·<br>王怡 / 林悦老师</div>
+      </div>
+      <div class="quick-block">
+        <div class="qb-title">🏃 下午 14:00</div>
+        <div class="qb-time">HIIT / 1v1 私教</div>
+        <div class="qb-desc">进阶训练·器械抗阻·<br>张驰 / 李玄教练</div>
+      </div>
+      <div class="quick-block">
+        <div class="qb-title">🌙 晚课 19:30</div>
+        <div class="qb-time">冥想 / 燃脂直播</div>
+        <div class="qb-desc">居家可练·心理公开课·<br>周易 / 张驰教练</div>
+      </div>
+      <div class="quick-block">
+        <div class="qb-title">🏋️ 1v1 私教</div>
+        <div class="qb-time">全天可约</div>
+        <div class="qb-desc">提前 3 天预约<br>200-500 元/节</div>
+      </div>
+      <div class="quick-block">
+        <div class="qb-title">📅 训练营</div>
+        <div class="qb-time">21 / 17 天</div>
+        <div class="qb-desc">减脂·饮食·睡眠<br>299-699 元/期</div>
+      </div>
+    </div>
+
+    <h3 style="color: var(--primary); font-size: 13px; margin-top: 6mm;">💼 服务价格速查（不同时段不同优惠）</h3>
+    <div class="price-table">
+      <table>
+        <thead>
+          <tr>
+            <th>服务项目</th>
+            <th>单次 / 单期</th>
+            <th>套餐 / 长期</th>
+            <th>推荐场景</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>营养咨询 1v1</td>
+            <td class="price">¥498 / 次</td>
+            <td>¥1,280 / 季度</td>
+            <td>想系统调养的人</td>
+          </tr>
+          <tr>
+            <td>心理咨询 1v1</td>
+            <td class="price">¥698 / 次</td>
+            <td>¥3,680 / 季度</td>
+            <td>焦虑 / 失眠 / 压力</td>
+          </tr>
+          <tr>
+            <td>运动私教 1v1</td>
+            <td class="price">¥200-500 / 节</td>
+            <td>¥1,800-4,50 / 17 节</td>
+            <td>减脂 / 增肌 / 体态</td>
+          </tr>
+          <tr>
+            <td>家庭营养方案</td>
+            <td class="price">¥1,980 / 家</td>
+            <td>—</td>
+            <td>全家 3-4 人</td>
+          </tr>
+          <tr>
+            <td>健康年卡</td>
+            <td class="price">¥1,980-3,980</td>
+            <td>—</td>
+            <td>门店无限次体测 + 课程</td>
+          </tr>
+          <tr>
+            <td>健康管家（个人）</td>
+            <td class="price">¥9,800 / 年</td>
+            <td>—</td>
+            <td>三高 / 慢病人群</td>
+          </tr>
+          <tr>
+            <td>健康管家（家庭）</td>
+            <td class="price">¥19,800 / 年</td>
+            <td>—</td>
+            <td>全家全周期管理</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>12</span>
+  </div>
+</div>
+
+<!-- ============ P16 加盟合作 ============ -->
+<div class="page" id="p13">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>13 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="section-tag">PARTNERSHIP</div>
+    <h1 class="section-title">加盟 · 商务合作</h1>
+    <div class="section-sub">我们找的伙伴，是同路人</div>
+
+    <div class="partner-grid">
+      <div class="partner-card">
+        <h4>🏪 城市合伙人 / 门店加盟</h4>
+        <ul class="partner-list">
+          <li>有 200-500㎡ 商业地产或社区门店资源</li>
+          <li>认同"养护比治疗更重要"的理念</li>
+          <li>能组建 5 人+ 教练 / 咨询师本地团队</li>
+          <li>投资预算 80-150 万（推荐 150-200 万含 30% 缓冲）</li>
+          <li>接受总部统一品牌 / 培训 / 系统支持</li>
+        </ul>
+      </div>
+
+      <div class="partner-card">
+        <h4>💼 企业 EAP / 团建</h4>
+        <ul class="partner-list">
+          <li>为 100 人+ 企业提供员工健康福利</li>
+          <li>心理健康讲座 + 团体辅导 + 1v1 咨询</li>
+          <li>办公室八段锦 / 拉伸 / 呼吸训练</li>
+          <li>营养午餐咨询 + 减脂训练营定制</li>
+          <li>可签年度框架协议，开发票对公</li>
+        </ul>
+      </div>
+
+      <div class="partner-card">
+        <h4>🏥 社区 / 物业合作</h4>
+        <ul class="partner-list">
+          <li>社区健康驿站共建（共享空间）</li>
+          <li>免费体测进社区（每月 1-2 次）</li>
+          <li>中老年太极 / 拉筋公益课</li>
+          <li>家庭营养课堂进社区</li>
+          <li>物业增值服务，居民福利</li>
+        </ul>
+      </div>
+
+      <div class="partner-card">
+        <h4>🎓 教练 / 营养师加入</h4>
+        <ul class="partner-list">
+          <li>全职 / 兼职教练 / 营养师 / 咨询师</li>
+          <li>国家资质持证，3 年+ 工作经验</li>
+          <li>认同厚生价值观，长期主义</li>
+          <li>提供持续培训 + 客户分配 + 业绩分成</li>
+          <li>优秀者可晋升为城市合伙人</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="partner-cta">
+      <h3>🤝 一起把"健康中国"做扎实</h3>
+      <p>无论你是有资源的合作伙伴、有梦想的教练，还是关心员工的企业 HR ——</p>
+      <p>都欢迎和创始人黄巍直接聊聊</p>
+      <div class="contact-info">
+        📞 13971691656（微信同号）· ✉️ huangwei_361@163.com
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>13</span>
+  </div>
+</div>
+
+<!-- ============ P17 联系我们 ============ -->
+<div class="page" id="p14">
+  <div class="page-header">
+    <span>厚生 HOUSHENG · 品牌宣传册</span>
+    <span>14 / 15</span>
+  </div>
+
+  <div class="page-inner">
+    <div class="section-tag">CONTACT US</div>
+    <h1 class="section-title">联系我们</h1>
+    <div class="section-sub">门店 / 线上 · 7×24 客服</div>
+
+    <div class="contact-grid">
+      <div class="contact-block">
+        <h3>📍 总部 · 旗舰店</h3>
+        <div class="contact-item">
+          <div class="contact-icon">🏛️</div>
+          <div class="contact-text">
+            <strong>武汉·青山旗舰店</strong>
+            <span>武汉市青山区冶金大道<br>松阅 2 号楼<br>营业时间：9:00 - 21:00</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🚇</div>
+          <div class="contact-text">
+            <strong>交通指引</strong>
+            <span>地铁 4/5 号线 · 步行 5 分钟<br>周边多个公交站 · 停车方便</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🤝</div>
+          <div class="contact-text">
+            <strong>到店预约</strong>
+            <span>免费 INBODY 体测<br>免费营养 / 心理咨询 1 次</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-block">
+        <h3>📞 联系方式</h3>
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div class="contact-text">
+            <strong>创始人 · 黄巍</strong>
+            <span>手机 / 微信：13971691656<br>9:00-21:00 接听</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <strong>邮箱</strong>
+            <span>huangwei_361@163.com<br>商务 / 加盟 / 投融资</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🌐</div>
+          <div class="contact-text">
+            <strong>小程序 / 公众号</strong>
+            <span>扫码关注"厚生 HOUSHENG"<br>查课表 / 约私教 / 买产品</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="color: var(--primary); font-size: 14px; margin-top: 6mm; margin-bottom: 2mm;">🔗 一键关注厚生</h3>
+    <div class="qr-grid">
+      <div class="qr-item">
+        <div class="qr-real"><img src="qr/oa.svg" alt="公众号"/></div>
+        <div class="qr-label">公众号</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-real"><img src="qr/shipin.svg" alt="视频号"/></div>
+        <div class="qr-label">视频号</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-real"><img src="qr/xhs.svg" alt="小红书"/></div>
+        <div class="qr-label">小红书</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-real"><img src="qr/douyin.svg" alt="抖音"/></div>
+        <div class="qr-label">抖音</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-real"><img src="qr/shop.svg" alt="营养商城"/></div>
+        <div class="qr-label">营养商城</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-real"><img src="qr/cs.svg" alt="客服微信"/></div>
+        <div class="qr-label">客服微信</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>厚生 HOUSHENG WELLNESS</span>
+    <span>14</span>
+  </div>
+</div>
+
+<!-- ============ P15 封底 ============ -->
+<div class="page back" id="p15">
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 30mm 20mm; background: linear-gradient(135deg, #006d77 0%, #2a9d8f 50%, #83c5be 100%); color: white;">
+    <div style="font-size: 80px; font-weight: 800; color: white; margin-bottom: 8mm; letter-spacing: 8px; text-shadow: 0 4px 12px rgba(0,0,0,0.15);">厚 生</div>
+    <div style="font-size: 24px; letter-spacing: 4px; color: white; opacity: 0.95; margin-bottom: 16mm;">HOUSHENG</div>
+    <div style="font-size: 18px; color: white; opacity: 0.9; margin-bottom: 12mm; line-height: 1.6;">厚生万物 · 养心养身<br>For Life, For Wellness</div>
+    <div style="width: 60px; height: 1px; background: white; opacity: 0.6; margin: 8mm 0;"></div>
+    <div style="font-size: 14px; color: white; opacity: 0.85; line-height: 1.8;">
+      武汉·青山旗舰店<br>
+      武汉市青山区冶金大道松阅 2 号楼<br>
+      13971691656 · huangwei_361@163.com
+    </div>
+    <div style="position: absolute; bottom: 16mm; left: 0; right: 0; text-align: center; font-size: 11px; color: white; opacity: 0.7;">
+      © 2026 HOUSHENG WELLNESS · 厚生 · 厚待每一个生命
+    </div>
+  </div>
+</div>

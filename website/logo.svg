@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 280" width="240" height="280">
+  <defs>
+    <linearGradient id="logoBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#006d77"/>
+      <stop offset="100%" stop-color="#004f57"/>
+    </linearGradient>
+    <linearGradient id="leafLeft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffddd2"/>
+    </linearGradient>
+    <linearGradient id="leafRight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffddd2"/>
+      <stop offset="100%" stop-color="#e29578"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 外圆背景 -->
+  <circle cx="120" cy="120" r="105" fill="url(#logoBg)"/>
+
+  <!-- 装饰外环 -->
+  <circle cx="120" cy="120" r="95" fill="none" stroke="#83c5be" stroke-width="0.8" opacity="0.4"/>
+  <circle cx="120" cy="120" r="90" fill="none" stroke="#ffddd2" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- 中央阴阳双叶：代表调和、平衡 -->
+  <!-- 左叶（白色渐变） -->
+  <path d="M 120 55
+           C 90 70, 72 90, 72 115
+           C 72 140, 95 155, 120 155
+           Z"
+        fill="url(#leafLeft)"/>
+
+  <!-- 右叶（橙色渐变） -->
+  <path d="M 120 55
+           C 150 70, 168 90, 168 115
+           C 168 140, 145 155, 120 155
+           Z"
+        fill="url(#leafRight)"/>
+
+  <!-- 中心生命点（阴阳眼） -->
+  <circle cx="120" cy="105" r="11" fill="#ffddd2"/>
+  <circle cx="120" cy="105" r="5" fill="#006d77"/>
+
+  <!-- 顶部小圆点（代表天/养天） -->
+  <circle cx="120" cy="65" r="3" fill="white" opacity="0.7"/>
+
+  <!-- 厚生中文（篆体风） -->
+  <text x="120" y="255" text-anchor="middle"
+        font-family="'Microsoft YaHei', 'STKaiti', 'KaiTi', serif"
+        font-size="38" font-weight="800"
+        fill="#006d77" letter-spacing="6">厚生</text>
+
+  <!-- HOUSHENG 英文 -->
+  <text x="120" y="275" text-anchor="middle"
+        font-family="'Arial', 'Helvetica', sans-serif"
+        font-size="11" font-weight="600"
+        fill="#83c5be" letter-spacing="3">HOUSHENG</text>
+</svg>

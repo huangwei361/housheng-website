@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <defs>
+    <linearGradient id="dyBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="50%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <linearGradient id="dyGold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f77f00"/>
+      <stop offset="100%" stop-color="#ffba66"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#dyBg)"/>
+
+  <!-- 装饰 -->
+  <circle cx="540" cy="800" r="500" fill="url(#dyGold)" opacity="0.08"/>
+  <circle cx="100" cy="300" r="200" fill="url(#dyGold)" opacity="0.06"/>
+  <circle cx="980" cy="1600" r="200" fill="url(#dyGold)" opacity="0.06"/>
+
+  <!-- Logo -->
+  <g transform="translate(440, 180)">
+    <circle cx="100" cy="100" r="100" fill="url(#dyGold)"/>
+    <text x="100" y="125" font-family="serif" font-size="100" font-weight="900" fill="#0a0a0a" text-anchor="middle" letter-spacing="-4">厚</text>
+  </g>
+
+  <text x="540" y="450" font-family="serif" font-size="100" font-weight="900" fill="#f77f00" text-anchor="middle" letter-spacing="6">厚生</text>
+  <text x="540" y="540" font-family="sans-serif" font-size="36" font-weight="500" fill="#ffba66" text-anchor="middle" letter-spacing="6">HOUSHENG</text>
+
+  <line x1="320" y1="580" x2="760" y2="580" stroke="#f77f00" stroke-width="2"/>
+
+  <text x="540" y="650" font-family="serif" font-size="48" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="6">厚生万物 · 养心养身</text>
+  <text x="540" y="710" font-family="sans-serif" font-size="22" fill="#ffba66" text-anchor="middle" letter-spacing="3">FOR LIFE · FOR WELLNESS</text>
+
+  <!-- 3 大内容 -->
+  <g transform="translate(120, 820)">
+    <rect width="840" height="160" fill="#1a1a1a" stroke="#f77f00" stroke-width="1" rx="8"/>
+    <g transform="translate(40, 40)">
+      <circle cx="40" cy="40" r="40" fill="#f77f00"/>
+      <text x="40" y="50" font-family="serif" font-size="32" font-weight="900" fill="#0a0a0a" text-anchor="middle">🍲</text>
+    </g>
+    <text x="160" y="65" font-family="serif" font-size="32" font-weight="700" fill="#f77f00">营养师 1 分钟科普</text>
+    <text x="160" y="100" font-family="serif" font-size="20" fill="#ffffff" letter-spacing="2">每天 1 条 · 实用易懂</text>
+    <text x="160" y="130" font-family="sans-serif" font-size="14" fill="#9ca3af" letter-spacing="1">三高 · 减脂 · 助眠 · 母婴</text>
+  </g>
+
+  <g transform="translate(120, 1000)">
+    <rect width="840" height="160" fill="#1a1a1a" stroke="#f77f00" stroke-width="1" rx="8"/>
+    <g transform="translate(40, 40)">
+      <circle cx="40" cy="40" r="40" fill="#f77f00"/>
+      <text x="40" y="50" font-family="serif" font-size="32" font-weight="900" fill="#0a0a0a" text-anchor="middle">🧘</text>
+    </g>
+    <text x="160" y="65" font-family="serif" font-size="32" font-weight="700" fill="#f77f00">传统功法教学</text>
+    <text x="160" y="100" font-family="serif" font-size="20" fill="#ffffff" letter-spacing="2">八段锦 · 太极 · 五禽戏</text>
+    <text x="160" y="130" font-family="sans-serif" font-size="14" fill="#9ca3af" letter-spacing="1">跟练版 · 5-15 分钟</text>
+  </g>
+
+  <g transform="translate(120, 1180)">
+    <rect width="840" height="160" fill="#1a1a1a" stroke="#f77f00" stroke-width="1" rx="8"/>
+    <g transform="translate(40, 40)">
+      <circle cx="40" cy="40" r="40" fill="#f77f00"/>
+      <text x="40" y="50" font-family="serif" font-size="32" font-weight="900" fill="#0a0a0a" text-anchor="middle">📦</text>
+    </g>
+    <text x="160" y="65" font-family="serif" font-size="32" font-weight="700" fill="#f77f00">产品开箱测评</text>
+    <text x="160" y="100" font-family="serif" font-size="20" fill="#ffffff" letter-spacing="2">真人实测 · 真实评价</text>
+    <text x="160" y="130" font-family="sans-serif" font-size="14" fill="#9ca3af" letter-spacing="1">蓝帽子 · 资质可查</text>
+  </g>
+
+  <!-- 优惠 -->
+  <g transform="translate(120, 1400)">
+    <rect width="840" height="180" fill="#f77f00" rx="8"/>
+    <text x="420" y="60" font-family="serif" font-size="36" font-weight="700" fill="#0a0a0a" text-anchor="middle" letter-spacing="3">🎁 关注领 ¥100</text>
+    <text x="420" y="105" font-family="serif" font-size="24" fill="#1a1a1a" text-anchor="middle" letter-spacing="2">新粉专享 · 满 500 减 100</text>
+    <text x="420" y="145" font-family="sans-serif" font-size="14" fill="#0a0a0a" text-anchor="middle" letter-spacing="1">点击橱窗 · 立即领取</text>
+  </g>
+
+  <text x="540" y="1680" font-family="serif" font-size="28" fill="#f77f00" text-anchor="middle" letter-spacing="3">厚生万物 · 养心养身</text>
+  <text x="540" y="1730" font-family="sans-serif" font-size="18" fill="#ffba66" text-anchor="middle" letter-spacing="2">🎬 关注厚生抖音</text>
+  <text x="540" y="1770" font-family="sans-serif" font-size="16" fill="#9ca3af" text-anchor="middle" letter-spacing="1">每周 5 期 · 健康科普</text>
+  <text x="540" y="1810" font-family="sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" letter-spacing="1">📞 13971691656</text>
+  <text x="540" y="1860" font-family="sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" letter-spacing="1">武汉·青山旗舰店</text>
+</svg>

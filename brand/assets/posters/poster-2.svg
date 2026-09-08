@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" width="800" height="1200">
+  <defs>
+    <linearGradient id="p2Bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c0392b"/>
+      <stop offset="60%" stop-color="#922b1e"/>
+      <stop offset="100%" stop-color="#5d1810"/>
+    </linearGradient>
+    <linearGradient id="p2Gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f77f00"/>
+      <stop offset="100%" stop-color="#f9d4cf"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1200" fill="url(#p2Bg)"/>
+
+  <!-- 装饰 -->
+  <circle cx="-50" cy="100" r="200" fill="#ffffff" opacity="0.05"/>
+  <circle cx="850" cy="1100" r="180" fill="#ffffff" opacity="0.04"/>
+  <circle cx="600" cy="150" r="80" fill="none" stroke="#f77f00" stroke-width="1" opacity="0.4"/>
+  <circle cx="600" cy="150" r="50" fill="none" stroke="#f77f00" stroke-width="0.5" opacity="0.6"/>
+
+  <!-- Logo -->
+  <g transform="translate(80, 80)">
+    <circle cx="40" cy="40" r="40" fill="#ffffff"/>
+    <text x="40" y="52" font-family="serif" font-size="40" font-weight="900" fill="#c0392b" text-anchor="middle" letter-spacing="-2">厚</text>
+  </g>
+  <text x="180" y="105" font-family="serif" font-size="28" font-weight="700" fill="#ffffff" letter-spacing="3">厚生 HOUSHENG</text>
+  <text x="180" y="130" font-family="sans-serif" font-size="13" fill="#f9d4cf" letter-spacing="2">三高管理专题</text>
+
+  <!-- 主体大字 -->
+  <text x="400" y="320" font-family="serif" font-size="120" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="20">三 高</text>
+  <text x="400" y="400" font-family="serif" font-size="36" font-weight="700" fill="#f77f00" text-anchor="middle" letter-spacing="6">高血糖 · 高血脂 · 高血压</text>
+
+  <line x1="240" y1="450" x2="560" y2="450" stroke="url(#p2Gold)" stroke-width="2"/>
+
+  <text x="400" y="510" font-family="serif" font-size="32" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="4">3 个月 · 看见数字变化</text>
+
+  <!-- 数据卡 -->
+  <g transform="translate(120, 580)">
+    <rect width="170" height="180" fill="#ffffff" opacity="0.1" rx="6"/>
+    <text x="85" y="40" font-family="serif" font-size="50" font-weight="900" fill="#f77f00" text-anchor="middle">↓18%</text>
+    <text x="85" y="80" font-family="serif" font-size="14" fill="#ffffff" text-anchor="middle" letter-spacing="2">甘油三酯</text>
+    <text x="85" y="105" font-family="sans-serif" font-size="10" fill="#f9d4cf" text-anchor="middle">客户实测</text>
+    <line x1="40" y1="125" x2="130" y2="125" stroke="#f77f00" stroke-width="0.5"/>
+    <text x="85" y="150" font-family="serif" font-size="10" fill="#f9d4cf" text-anchor="middle">3 个月调理</text>
+  </g>
+
+  <g transform="translate(315, 580)">
+    <rect width="170" height="180" fill="#ffffff" opacity="0.1" rx="6"/>
+    <text x="85" y="40" font-family="serif" font-size="50" font-weight="900" fill="#f77f00" text-anchor="middle">↓12%</text>
+    <text x="85" y="80" font-family="serif" font-size="14" fill="#ffffff" text-anchor="middle" letter-spacing="2">低密度脂蛋白</text>
+    <text x="85" y="105" font-family="sans-serif" font-size="10" fill="#f9d4cf" text-anchor="middle">客户实测</text>
+    <line x1="40" y1="125" x2="130" y2="125" stroke="#f77f00" stroke-width="0.5"/>
+    <text x="85" y="150" font-family="serif" font-size="10" fill="#f9d4cf" text-anchor="middle">3 个月调理</text>
+  </g>
+
+  <g transform="translate(510, 580)">
+    <rect width="170" height="180" fill="#ffffff" opacity="0.1" rx="6"/>
+    <text x="85" y="40" font-family="serif" font-size="50" font-weight="900" fill="#f77f00" text-anchor="middle">↓9%</text>
+    <text x="85" y="80" font-family="serif" font-size="14" fill="#ffffff" text-anchor="middle" letter-spacing="2">空腹血糖</text>
+    <text x="85" y="105" font-family="sans-serif" font-size="10" fill="#f9d4cf" text-anchor="middle">客户实测</text>
+    <line x1="40" y1="125" x2="130" y2="125" stroke="#f77f00" stroke-width="0.5"/>
+    <text x="85" y="150" font-family="serif" font-size="10" fill="#f9d4cf" text-anchor="middle">3 个月调理</text>
+  </g>
+
+  <!-- 调理方案 -->
+  <text x="400" y="830" font-family="serif" font-size="22" fill="#ffffff" text-anchor="middle" letter-spacing="3">三师共管方案 · 营养师 + 心理咨询师 + 中医师</text>
+
+  <!-- 优惠 -->
+  <g transform="translate(150, 880)">
+    <rect width="500" height="120" fill="#f77f00" rx="6"/>
+    <text x="250" y="50" font-family="serif" font-size="32" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="4">3 个月套餐 ¥1280</text>
+    <text x="250" y="85" font-family="serif" font-size="18" fill="#ffffff" text-anchor="middle" letter-spacing="2">原价 ¥1494 · 立省 ¥214</text>
+    <text x="250" y="108" font-family="sans-serif" font-size="12" fill="#5d1810" text-anchor="middle" letter-spacing="1">含 12 次营养师咨询 + 1 套蓝帽子产品</text>
+  </g>
+
+  <text x="400" y="1080" font-family="serif" font-size="18" fill="#ffffff" text-anchor="middle" letter-spacing="3">厚生万物 · 养心养身</text>
+  <text x="400" y="1105" font-family="sans-serif" font-size="13" fill="#f9d4cf" text-anchor="middle" letter-spacing="1">📞 13971691656  ·  📍 武汉·青山旗舰店</text>
+  <text x="400" y="1140" font-family="sans-serif" font-size="11" fill="#f9d4cf" text-anchor="middle" letter-spacing="2">数据为客户实测,效果因人而异</text>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 540" width="1080" height="540">
+  <defs>
+    <linearGradient id="wxBg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#006d77"/>
+      <stop offset="100%" stop-color="#1a5d52"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="540" fill="url(#wxBg)"/>
+
+  <circle cx="100" cy="100" r="200" fill="#ffffff" opacity="0.05"/>
+  <circle cx="980" cy="450" r="180" fill="#ffffff" opacity="0.05"/>
+  <circle cx="900" cy="120" r="60" fill="none" stroke="#f77f00" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- Logo -->
+  <g transform="translate(100, 170)">
+    <circle cx="100" cy="100" r="100" fill="#ffffff"/>
+    <text x="100" y="125" font-family="serif" font-size="100" font-weight="900" fill="#006d77" text-anchor="middle" letter-spacing="-4">厚</text>
+  </g>
+
+  <text x="370" y="230" font-family="serif" font-size="80" font-weight="900" fill="#ffffff" letter-spacing="8">厚生 HOUSHENG</text>
+  <text x="370" y="290" font-family="serif" font-size="32" font-weight="700" fill="#f77f00" letter-spacing="6">厚生万物 · 养心养身</text>
+  <text x="370" y="340" font-family="sans-serif" font-size="18" fill="#b0d4d0" letter-spacing="3">FOR LIFE · FOR WELLNESS</text>
+
+  <line x1="370" y1="380" x2="500" y2="380" stroke="#f77f00" stroke-width="1.5"/>
+
+  <text x="370" y="420" font-family="serif" font-size="20" font-weight="500" fill="#ffffff" letter-spacing="2">营养 · 运动 · 功法 · 理疗 · 心理 · 检测</text>
+  <text x="370" y="455" font-family="sans-serif" font-size="14" fill="#b0d4d0" letter-spacing="1">📞 13971691656  ·  📍 武汉·青山旗舰店</text>
+
+  <!-- 关注提示 -->
+  <g transform="translate(870, 440)">
+    <rect width="180" height="60" fill="#c0392b" rx="4"/>
+    <text x="90" y="25" font-family="serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">📱 关注厚生</text>
+    <text x="90" y="48" font-family="sans-serif" font-size="11" fill="#f9d4cf" text-anchor="middle">公众号</text>
+  </g>
+</svg>

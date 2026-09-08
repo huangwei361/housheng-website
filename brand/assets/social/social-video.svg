@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1260" width="1080" height="1260">
+  <defs>
+    <linearGradient id="vidBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#006d77"/>
+      <stop offset="100%" stop-color="#1a5d52"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1260" fill="url(#vidBg)"/>
+
+  <circle cx="-50" cy="200" r="220" fill="#ffffff" opacity="0.05"/>
+  <circle cx="1100" cy="1000" r="200" fill="#ffffff" opacity="0.04"/>
+
+  <!-- 顶部 logo -->
+  <g transform="translate(490, 80)">
+    <circle cx="50" cy="50" r="50" fill="#ffffff"/>
+    <text x="50" y="65" font-family="serif" font-size="50" font-weight="900" fill="#006d77" text-anchor="middle" letter-spacing="-2">厚</text>
+  </g>
+
+  <text x="540" y="250" font-family="serif" font-size="76" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="6">厚生万物</text>
+  <text x="540" y="340" font-family="serif" font-size="76" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="6">养心养身</text>
+  <text x="540" y="400" font-family="serif" font-size="28" fill="#f77f00" text-anchor="middle" letter-spacing="6">厚生 HOUSHENG</text>
+
+  <line x1="420" y1="450" x2="660" y2="450" stroke="#f77f00" stroke-width="2"/>
+
+  <!-- 视频缩略图占位 -->
+  <g transform="translate(140, 520)">
+    <rect width="800" height="450" fill="#000000" opacity="0.4" rx="8"/>
+    <rect width="800" height="450" fill="none" stroke="#f77f00" stroke-width="1" rx="8"/>
+
+    <!-- 播放按钮 -->
+    <g transform="translate(400, 225)">
+      <circle r="50" fill="#f77f00" opacity="0.95"/>
+      <polygon points="-15,-22 -15,22 22,0" fill="#ffffff"/>
+    </g>
+
+    <text x="400" y="100" font-family="serif" font-size="24" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="2">3 招改善睡眠</text>
+    <text x="400" y="380" font-family="serif" font-size="20" fill="#ffffff" text-anchor="middle" letter-spacing="2">营养师 林悦 · 5 分钟</text>
+    <text x="400" y="410" font-family="sans-serif" font-size="14" fill="#b0d4d0" text-anchor="middle">▶ 1.2 万次播放  ·  ❤️ 286</text>
+  </g>
+
+  <!-- 标签 -->
+  <g transform="translate(140, 1010)">
+    <rect width="240" height="44" fill="#ffffff" opacity="0.15" rx="22"/>
+    <text x="120" y="28" font-family="serif" font-size="16" fill="#ffffff" text-anchor="middle" letter-spacing="2"># 助眠</text>
+  </g>
+  <g transform="translate(420, 1010)">
+    <rect width="240" height="44" fill="#ffffff" opacity="0.15" rx="22"/>
+    <text x="120" y="28" font-family="serif" font-size="16" fill="#ffffff" text-anchor="middle" letter-spacing="2"># 营养</text>
+  </g>
+  <g transform="translate(700, 1010)">
+    <rect width="240" height="44" fill="#ffffff" opacity="0.15" rx="22"/>
+    <text x="120" y="28" font-family="serif" font-size="16" fill="#ffffff" text-anchor="middle" letter-spacing="2"># 三高</text>
+  </g>
+
+  <text x="540" y="1130" font-family="serif" font-size="22" fill="#ffffff" text-anchor="middle" letter-spacing="3">关注厚生视频号</text>
+  <text x="540" y="1170" font-family="sans-serif" font-size="16" fill="#b0d4d0" text-anchor="middle" letter-spacing="1">每周 3 期 · 健康干货</text>
+  <text x="540" y="1210" font-family="sans-serif" font-size="13" fill="#7da39d" text-anchor="middle" letter-spacing="1">📞 13971691656</text>
+</svg>

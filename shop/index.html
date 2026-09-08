@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>厚生 HOUSHENG · 营养商城 · 首页</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div id="navMount"></div>
+
+<!-- 横幅广告位 3 张轮播 -->
+<section style="background:linear-gradient(135deg,#e6f3f1,#c8e6e0);padding:30px 0">
+  <div class="container" style="display:grid;grid-template-columns:1.6fr 1fr;gap:20px">
+    <div id="heroBanners" style="position:relative;border-radius:14px;overflow:hidden;height:380px;box-shadow:0 8px 24px rgba(0,0,0,0.08)"></div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="background:linear-gradient(135deg,#e29578,#c0392b);color:#fff;padding:18px;border-radius:10px;flex:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <div style="font-size:13px;opacity:0.9">新人首单</div>
+          <div style="font-size:26px;font-weight:800;margin:6px 0">¥50 无门槛券</div>
+          <div style="font-size:12px;opacity:0.9">注册即送 · 全场可用</div>
+        </div>
+        <button class="btn" style="background:#fff;color:var(--red);align-self:flex-start" onclick="HS.Modal.open('loginModal')">立即领取 →</button>
+      </div>
+      <div style="background:linear-gradient(135deg,#006d77,#2a9d8f);color:#fff;padding:18px;border-radius:10px;flex:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <div style="font-size:13px;opacity:0.9">营养师 1v1</div>
+          <div style="font-size:22px;font-weight:800;margin:6px 0">免费咨询 1 次</div>
+          <div style="font-size:12px;opacity:0.9">三高 / 减脂 / 母婴均可</div>
+        </div>
+        <button class="btn" style="background:#fff;color:var(--primary);align-self:flex-start" onclick="HS.Modal.open('advisorModal')">立即咨询 →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 限时秒杀 -->
+<section class="container section">
+  <div class="section-title">
+    <span style="display:flex;align-items:center;gap:8px">
+      <span style="background:var(--red);color:#fff;padding:4px 10px;border-radius:4px;font-size:14px">⚡ 限时秒杀</span>
+      <span style="color:var(--gray);font-size:14px">距结束 <span id="countdown" style="color:var(--red);font-weight:700">--:--:--</span></span>
+    </span>
+    <a href="product.html" class="more">更多秒杀 →</a>
+  </div>
+  <div class="product-grid" id="flashGrid"></div>
+</section>
+
+<!-- 分类入口 -->
+<section class="container section">
+  <div class="section-title">六大健康服务 <small>厚生 · 让健康回归生活</small><a href="service.html" class="more">了解全部 →</a></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px" id="categoryGrid"></div>
+</section>
+
+<!-- 主推产品 -->
+<section class="container section">
+  <div class="section-title">主推产品 <small>注册营养师精选</small><a href="product.html" class="more">查看全部 →</a></div>
+  <div class="product-grid" id="featuredGrid"></div>
+</section>
+
+<!-- 优惠专区 -->
+<section class="container section" style="background:linear-gradient(135deg,#fff5e6,#fff);border-radius:14px;padding:30px 20px">
+  <div class="section-title">🎁 优惠专区 <small>满减叠加，叠加更省</small></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px" id="couponGrid"></div>
+</section>
+
+<!-- 营养师团队 -->
+<section class="container section">
+  <div class="section-title">👨‍⚕️ 资深营养师团队 <small>1v1 咨询 · 个性化方案</small><a href="user.html?tab=advisor" class="more">查看全部 →</a></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" id="advisorGrid"></div>
+</section>
+
+<!-- 慢病养护专区 -->
+<section class="container section">
+  <div class="section-title">🛡️ 慢病养护专区 <small>蓝帽子认证 · 专人专配</small><a href="product.html?cat=慢病养护" class="more">查看更多 →</a></div>
+  <div class="product-grid" id="careGrid"></div>
+</section>
+
+<!-- 厚生承诺 -->
+<section class="container section" style="background:#fff;padding:30px;border-radius:14px;text-align:center">
+  <h2 style="color:var(--primary);margin-bottom:8px">厚生 · 我们的承诺</h2>
+  <p style="color:var(--gray);margin-bottom:24px">不卖焦虑 · 不卖承诺 · 不催单 · 用专业 + 真诚陪你走稳每一步</p>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+    <div><div style="font-size:36px">🔬</div><h4 style="margin:8px 0">注册营养师选品</h4><p style="font-size:12px;color:var(--gray)">每款经成分、剂量、资质审核</p></div>
+    <div><div style="font-size:36px">🛡️</div><h4 style="margin:8px 0">蓝帽子保健食品</h4><p style="font-size:12px;color:var(--gray)">国食健字 · 国家审批</p></div>
+    <div><div style="font-size:36px">📦</div><h4 style="margin:8px 0">48h 顺丰到家</h4><p style="font-size:12px;color:var(--gray)">7 天无理由退换</p></div>
+    <div><div style="font-size:36px">💬</div><h4 style="margin:8px 0">专业客服 7×24</h4><p style="font-size:12px;color:var(--gray)">营养师在线答疑</p></div>
+  </div>
+</section>
+
+<div id="footerMount"></div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+// 横幅轮播(商城版)
+const banners = [
+  {title:"厚生 HOUSHENG · 营养商城", sub:"精选基础营养 · 慢病养护 · 肠胃健康 · 运动营养 · 全场满 199 减 30", cta:"立即选购", link:"product.html", bg:"linear-gradient(135deg,#006d77,#2a9d8f)", emoji:"🌿"},
+  {title:"三高养护专场 · 限时 8 折", sub:"鱼油 · 卵磷脂 · 辅酶 Q10 · 葛根片 · 满 299 减 50", cta:"查看活动", link:"product.html?cat=慢病养护", bg:"linear-gradient(135deg,#1a5d52,#006d77)", emoji:"🩺"},
+  {title:"新人首单立减 20", sub:"注册即领 ¥20 优惠券 · 全场可用 · 顺丰包邮", cta:"领取福利", link:"user.html", bg:"linear-gradient(135deg,#c0392b,#e29578)", emoji:"🎁"},
+];
+let cur = 0;
+const hero = document.getElementById("heroBanners");
+function renderBanner(i){
+  const b = banners[i];
+  hero.innerHTML = `
+    <div onclick="location.href='${b.link}'" style="position:absolute;inset:0;background:${b.bg};color:#fff;padding:50px 40px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;transition:opacity 0.4s">
+      <div style="font-size:80px;margin-bottom:20px">${b.emoji}</div>
+      <h2 style="font-size:32px;margin-bottom:14px">${b.title}</h2>
+      <p style="font-size:16px;opacity:0.9;margin-bottom:24px">${b.sub}</p>
+      <button class="btn" style="background:#fff;color:var(--primary);align-self:flex-start;padding:12px 28px;font-size:15px">${b.cta} →</button>
+    </div>
+    <div style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2">
+      ${banners.map((_,j) => `<span style="width:8px;height:8px;border-radius:50%;background:${j===i?'#fff':'rgba(255,255,255,0.5)'};cursor:pointer" onclick="HS.goBanner(${j})"></span>`).join("")}
+    </div>
+  `;
+}
+HS.goBanner = i => { cur = i; renderBanner(i); };
+renderBanner(0);
+setInterval(() => { cur = (cur+1) % banners.length; renderBanner(cur); }, 5000);
+
+// 限时秒杀倒计时
+function tick(){
+  const now = new Date();
+  const end = new Date(now);
+  end.setHours(23,59,59,999);
+  let s = Math.floor((end-now)/1000);
+  const h = String(Math.floor(s/3600)).padStart(2,"0");
+  const m = String(Math.floor(s%3600/60)).padStart(2,"0");
+  const ss = String(s%60).padStart(2,"0");
+  document.getElementById("countdown").textContent = `${h}:${m}:${ss}`;
+}
+setInterval(tick, 1000); tick();
+
+// 限时秒杀（4 个）
+const flashIds = ["bcomplex","probiotic","sleeptime","protein"];
+document.getElementById("flashGrid").innerHTML = flashIds.map(id => {
+  const p = HS.products.find(x => x.id===id);
+  if(!p) return "";
+  const flashPrice = Math.floor(p.price*0.7);
+  return `
+    <div class="product" data-id="${p.id}">
+      <div class="product-image">
+        <a href="detail.html?id=${p.id}"><img src="${p.img}" alt="${p.name}"/></a>
+        <span class="product-badge red" style="background:var(--red)">⚡ 秒杀</span>
+        <div class="product-actions">
+          <span class="icon-btn" title="收藏" onclick="event.preventDefault();event.stopPropagation();HS.Fav.toggle('${p.id}')">❤</span>
+          <span class="icon-btn" title="对比" onclick="event.preventDefault();event.stopPropagation();HS.Compare.toggle('${p.id}')">⇄</span>
+        </div>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">${p.cat}</div>
+        <a href="detail.html?id=${p.id}" class="product-name">${p.name}</a>
+        <div class="product-rating">
+          <span class="stars">${"★".repeat(Math.round(p.rating))}${"☆".repeat(5-Math.round(p.rating))}</span>
+          <span>${p.rating}</span>
+        </div>
+        <div class="product-tags"><span class="product-tag" style="background:var(--red);color:#fff">⚡ 秒杀</span></div>
+        <div class="product-price-row">
+          <div class="product-price">
+            <span class="price-now" style="color:var(--red)">¥${flashPrice}</span>
+            <span class="price-was">¥${p.price}</span>
+          </div>
+          <span class="product-sales">已售 ${p.sales}</span>
+        </div>
+        <button class="btn btn-danger btn-block" style="margin-top:8px" onclick="HS.Cart.add('${p.id}')">立即抢购</button>
+      </div>
+    </div>
+  `;
+}).join("");
+
+// 六大健康服务方向
+const services = [
+  {id:"nutrition", name:"公共营养学", desc:"1v1 营养师 · 基础/慢病营养", icon:"🥗", color:"#006d77", link:"service.html#nutrition"},
+  {id:"exercise",  name:"运动健康",   desc:"有氧 + 无氧 · 运动营养方案",   icon:"🏃", color:"#e29578", link:"service.html#exercise"},
+  {id:"gongfa",    name:"传统功法",   desc:"八段锦 · 太极 · 五禽戏",       icon:"🌿", color:"#2d6a4f", link:"service.html#gongfa"},
+  {id:"tcm",       name:"中医理疗",   desc:"推拿 · 艾灸 · 拔罐(调理养护)", icon:"💆", color:"#9d4edd", link:"service.html#tcm"},
+  {id:"psy",       name:"心理咨询+睡眠", desc:"心理咨询师 · 助眠方案",     icon:"💭", color:"#5a7d9a", link:"service.html#psy"},
+  {id:"check",     name:"健康检测+慢病", desc:"体检报告解读 · 慢病养护",   icon:"🩺", color:"#c0392b", link:"service.html#check"},
+];
+document.getElementById("categoryGrid").innerHTML = services.map(s => `
+  <a href="${s.link}" style="background:#fff;border-radius:12px;padding:28px 20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.05);transition:all 0.2s;border:1px solid var(--border)" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 20px rgba(0,109,119,0.15)';this.style.borderColor='${s.color}'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='var(--border)'">
+    <div style="font-size:46px">${s.icon}</div>
+    <div style="font-size:17px;font-weight:700;margin-top:10px;color:var(--dark)">${s.name}</div>
+    <div style="font-size:12px;color:var(--gray);margin-top:6px;line-height:1.5">${s.desc}</div>
+    <div style="margin-top:12px;font-size:11px;color:${s.color};font-weight:600">了解详情 →</div>
+  </a>
+`).join("");
+
+// 主推产品 8 个
+document.getElementById("featuredGrid").innerHTML = HS.products.slice(0, 8).map(HS.productCard).join("");
+
+// 优惠券
+const couponBanners = [
+  {amount:50, threshold:200, scope:"新人首单", desc:"新用户专享"},
+  {amount:100, threshold:500, scope:"全场通用", desc:"满 500 减 100"},
+  {amount:30, threshold:150, scope:"基础营养", desc:"健康日专享"},
+];
+document.getElementById("couponGrid").innerHTML = couponBanners.map(c => `
+  <div class="coupon">
+    <div class="coupon-left">
+      <div class="coupon-amount"><small>¥</small>${c.amount}</div>
+      <div class="coupon-condition">满${c.threshold}可用</div>
+    </div>
+    <div class="coupon-right">
+      <div class="coupon-name">${c.scope}优惠券</div>
+      <div class="coupon-scope">${c.desc} · 2026-12-31 到期</div>
+      <button class="coupon-btn" onclick="HS.Modal.open('couponCenterModal')">立即领取</button>
+    </div>
+  </div>
+`).join("");
+
+// 营养师
+document.getElementById("advisorGrid").innerHTML = HS.advisors.map(a => `
+  <div style="background:#fff;padding:24px;border-radius:14px;display:flex;gap:18px;align-items:center;box-shadow:0 2px 6px rgba(0,0,0,0.04)">
+    <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0">${a.avatar}</div>
+    <div style="flex:1">
+      <div style="font-size:16px;font-weight:700">${a.name} <span style="font-size:12px;color:var(--gray);font-weight:400">· ${a.title}</span></div>
+      <div style="font-size:12px;color:var(--primary);margin-top:4px">专长：${a.specialty}</div>
+      <div style="font-size:12px;color:var(--gray);margin-top:6px;line-height:1.5">${a.bio}</div>
+      <div style="display:flex;gap:14px;margin-top:8px;font-size:12px;color:var(--gray)">
+        <span>★ ${a.rating}</span><span>${a.orders} 单咨询</span>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="HS.Modal.open('advisorModal')">立即咨询</button>
+  </div>
+`).join("");
+
+// 慢病专区
+document.getElementById("careGrid").innerHTML = HS.products.filter(p => p.cat==="慢病养护").map(HS.productCard).join("");
+</script>
+</body>
+</html>

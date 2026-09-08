@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>会员中心 - 厚生 HOUSHENG 营养商城</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.tab-pane.active{display:block;animation:fadeIn 0.3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<div id="navMount"></div>
+
+<div class="container" style="padding:20px">
+
+  <!-- 用户头 -->
+  <div class="user-hero" id="userHero">
+    <div style="display:flex;align-items:center;gap:18px;position:relative;z-index:1">
+      <div class="avatar" id="userAvatar">U</div>
+      <div style="flex:1">
+        <div class="name" id="userName">游客</div>
+        <div class="meta" id="userMeta">登录后享受会员权益</div>
+      </div>
+      <div>
+        <button class="btn" style="background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);backdrop-filter:blur(8px)" id="userBtn" onclick="HS.Modal.open('loginModal')">登录 / 注册</button>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n" id="statPoints">0</div><div class="l">健康积分</div></div>
+      <div class="stat"><div class="n" id="statCoupons">0</div><div class="l">优惠券</div></div>
+      <div class="stat"><div class="n" id="statFavs">0</div><div class="l">收藏</div></div>
+      <div class="stat"><div class="n" id="statOrders">0</div><div class="l">订单</div></div>
+    </div>
+  </div>
+
+  <!-- 面包屑 -->
+  <div class="breadcrumb">
+    <a href="index.html">首页</a> <span class="sep">/</span>
+    <span class="current">会员中心</span>
+  </div>
+
+  <!-- Tab 导航 -->
+  <div class="user-tabs" id="userTabs">
+    <div class="user-tab active" data-tab="orders">📦 我的订单</div>
+    <div class="user-tab" data-tab="favorites">❤ 我的收藏</div>
+    <div class="user-tab" data-tab="coupons">🎁 优惠券</div>
+    <div class="user-tab" data-tab="aftersales">🛠️ 售后</div>
+    <div class="user-tab" data-tab="advisor">🩺 营养师</div>
+    <div class="user-tab" data-tab="quiz">📋 体质测试</div>
+    <div class="user-tab" data-tab="addresses">📍 收货地址</div>
+  </div>
+
+  <!-- Tab 内容 -->
+  <div id="tabPanes">
+
+    <!-- 订单 -->
+    <div class="tab-pane active" data-pane="orders">
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+        <button class="btn btn-sm order-filter active" data-status="all" onclick="filterOrders('all', this)">全部</button>
+        <button class="btn btn-outline btn-sm order-filter" data-status="pending" onclick="filterOrders('pending', this)">待付款</button>
+        <button class="btn btn-outline btn-sm order-filter" data-status="shipped" onclick="filterOrders('shipped', this)">已发货</button>
+        <button class="btn btn-outline btn-sm order-filter" data-status="completed" onclick="filterOrders('completed', this)">已完成</button>
+        <button class="btn btn-outline btn-sm order-filter" data-status="aftersales" onclick="filterOrders('aftersales', this)">售后中</button>
+      </div>
+      <div id="ordersList"></div>
+    </div>
+
+    <!-- 收藏 -->
+    <div class="tab-pane" data-pane="favorites">
+      <div id="favoritesList" class="product-grid"></div>
+    </div>
+
+    <!-- 优惠券 -->
+    <div class="tab-pane" data-pane="coupons" id="couponPane"></div>
+
+    <!-- 售后 -->
+    <div class="tab-pane" data-pane="aftersales">
+      <div id="aftersalesList"></div>
+      <div style="background:#fff;padding:20px;border-radius:var(--radius);margin-top:20px;box-shadow:var(--shadow)">
+        <h3 style="font-size:15px;margin-bottom:14px">📞 申请售后</h3>
+        <p style="font-size:13px;color:var(--gray);line-height:1.8">
+          · 收货 7 天内未拆封可无理由退换<br>
+          · 质量问题 15 天内包退换<br>
+          · 蓝帽子产品若不适，7 天内可申请营养师复盘<br><br>
+          售后热线 <strong style="color:var(--primary)">13971691656</strong>（微信同号）<br>
+          或在订单详情页点击「申请售后」
+        </p>
+        <button class="btn btn-outline" style="margin-top:14px" onclick="HS.Modal.open('advisorModal')">💬 联系客服</button>
+      </div>
+    </div>
+
+    <!-- 营养师 -->
+    <div class="tab-pane" data-pane="advisor">
+      <div style="background:linear-gradient(135deg,var(--primary-pale),#fff);padding:18px;border-radius:var(--radius);margin-bottom:16px">
+        <h3 style="font-size:16px;margin-bottom:6px">🩺 1v1 营养师咨询</h3>
+        <p style="font-size:13px;color:var(--gray)">新用户首单免费 1 次 · 单次 ¥498 · 季度套餐 ¥1280</p>
+      </div>
+      <div id="advisorList"></div>
+    </div>
+
+    <!-- 体质测试 -->
+    <div class="tab-pane" data-pane="quiz" id="quizPane">
+      <div id="quizContent"></div>
+    </div>
+
+    <!-- 地址 -->
+    <div class="tab-pane" data-pane="addresses">
+      <div id="addressList"></div>
+      <div class="add-address" onclick="showNewAddress()">+ 新增收货地址</div>
+      <div id="newAddressForm" style="display:none">
+        <div class="address-form">
+          <label>收货人<input type="text" id="anName" /></label>
+          <label>手机号<input type="tel" id="anPhone" /></label>
+          <label>省/市/区
+            <select id="anRegion">
+              <option>湖北省 武汉市 青山区</option>
+              <option>湖北省 武汉市 武昌区</option>
+              <option>北京市 朝阳区</option>
+              <option>上海市 浦东新区</option>
+              <option>广东省 深圳市 南山区</option>
+            </select>
+          </label>
+          <label class="full">详细地址<input type="text" id="anDetail" placeholder="街道、楼号、门牌号" /></label>
+          <label>地址标签
+            <select id="anTag">
+              <option>家</option><option>公司</option><option>父母</option>
+            </select>
+          </label>
+          <label style="flex-direction:row;align-items:center;gap:6px;padding-top:24px"><input type="checkbox" id="anDefault" /> 设为默认</label>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+          <button class="btn btn-ghost" onclick="document.getElementById('newAddressForm').style.display='none'">取消</button>
+          <button class="btn btn-primary" onclick="addAddress()">保存</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="footerMount"></div>
+
+<!-- 申请售后弹窗 -->
+<div class="modal-mask" id="aftersaleModal" onclick="if(event.target===this)HS.Modal.close('aftersaleModal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title">🛠️ 申请售后</div>
+      <div class="modal-close" onclick="HS.Modal.close('aftersaleModal')">×</div>
+    </div>
+    <div class="modal-body">
+      <div style="font-size:14px;margin-bottom:14px">订单 <strong id="asOrderId" style="color:var(--primary)">-</strong></div>
+      <div class="invoice-row">
+        <label><input type="radio" name="asType" value="仅退款" checked> 仅退款</label>
+        <label><input type="radio" name="asType" value="退货退款"> 退货退款</label>
+        <label><input type="radio" name="asType" value="换货"> 换货</label>
+      </div>
+      <div style="margin-top:14px">
+        <label style="font-size:13px;color:var(--gray)">问题描述</label>
+        <textarea id="asReason" rows="3" style="width:100%;border:1px solid var(--border);border-radius:6px;padding:10px;font-size:14px;outline:none;margin-top:6px;resize:vertical" placeholder="请详细说明问题，方便我们快速处理"></textarea>
+      </div>
+      <div style="margin-top:14px">
+        <label style="font-size:13px;color:var(--gray)">上传凭证(选填)</label>
+        <div style="margin-top:6px;padding:14px;border:1px dashed var(--border);border-radius:6px;text-align:center;color:var(--gray);font-size:13px;cursor:pointer" onclick="HS.Toast.show('演示版暂不开放上传', 'success')">📷 点击上传图片(最多 5 张)</div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="HS.Modal.close('aftersaleModal')">取消</button>
+      <button class="btn btn-primary" onclick="submitAftersale()">提交申请</button>
+    </div>
+  </div>
+</div>
+
+<!-- 物流详情弹窗 -->
+<div class="modal-mask" id="logisticsModal" onclick="if(event.target===this)HS.Modal.close('logisticsModal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title">📦 物流详情</div>
+      <div class="modal-close" onclick="HS.Modal.close('logisticsModal')">×</div>
+    </div>
+    <div class="modal-body" id="logisticsBody"></div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+const $  = s => document.querySelector(s);
+const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+let currentAftersaleOrder = null;
+let currentOrderFilter = "all";
+
+// ========== 用户头 ==========
+function renderUserHero(){
+  const u = HS.User.get();
+  if(u){
+    $("#userAvatar").textContent = u.avatar;
+    $("#userName").textContent = u.name;
+    $("#userMeta").innerHTML = `${u.phone} · ${u.vip?'👑 VIP 会员':'普通会员'} · 积分 <strong>${u.points}</strong>`;
+    $("#userBtn").textContent = "退出登录";
+    $("#userBtn").onclick = () => { if(confirm("确认退出？")) HS.User.logout(); };
+  } else {
+    $("#userAvatar").textContent = "👤";
+    $("#userName").textContent = "游客";
+    $("#userMeta").textContent = "登录后享受会员权益";
+    $("#userBtn").textContent = "登录 / 注册";
+    $("#userBtn").onclick = () => HS.Modal.open("loginModal");
+  }
+
+  // 统计
+  const orders = JSON.parse(localStorage.getItem("hs_orders")||"[]");
+  const allOrders = orders.length ? orders : HS.orders;
+  const favs = HS.Fav.get();
+  const coupons = HS.Coupon.get();
+  $("#statOrders").textContent = allOrders.length;
+  $("#statFavs").textContent = favs.length;
+  $("#statCoupons").textContent = coupons ? coupons.filter(c => c.status==="available").length : 0;
+  $("#statPoints").textContent = u ? u.points : 0;
+}
+
+// ========== Tab 切换 ==========
+function switchTab(name){
+  $$("#userTabs .user-tab").forEach(t => t.classList.toggle("active", t.dataset.tab===name));
+  $$("#tabPanes .tab-pane").forEach(p => p.classList.toggle("active", p.dataset.pane===name));
+  // 触发各 tab 渲染
+  if(name==="orders")      renderOrders();
+  if(name==="favorites")   renderFavorites();
+  if(name==="coupons")     renderCoupons();
+  if(name==="aftersales")  renderAftersales();
+  if(name==="advisor")     renderAdvisor();
+  if(name==="quiz")        renderQuiz();
+  if(name==="addresses")   renderAddresses();
+}
+
+$$("#userTabs .user-tab").forEach(t => t.addEventListener("click", () => switchTab(t.dataset.tab)));
+
+// ========== 订单 ==========
+function getOrders(){
+  const userOrders = JSON.parse(localStorage.getItem("hs_orders")||"[]");
+  return userOrders.length ? userOrders : HS.orders;
+}
+
+function renderOrders(){
+  const list = getOrders().filter(o => currentOrderFilter==="all" || o.status===currentOrderFilter);
+  const box = $("#ordersList");
+  if(list.length===0){
+    box.innerHTML = `<div class="empty-state"><div class="icon">📦</div><div class="text">暂无${currentOrderFilter==="all"?'':getStatusLabel(currentOrderFilter)}订单</div><a class="btn btn-primary" href="product.html">去逛逛</a></div>`;
+    return;
+  }
+  const statusMap = {pending:"pending",shipped:"shipped",completed:"completed",aftersales:"aftersales"};
+  const statusLabel = {pending:"待付款",shipped:"已发货",completed:"已完成",aftersales:"售后中"};
+  box.innerHTML = list.map(o => `
+    <div class="order-card">
+      <div class="order-head">
+        <div>
+          <strong>订单号：</strong>${o.id}
+          <span style="margin-left:14px">📅 ${o.date}</span>
+        </div>
+        <div class="status ${statusMap[o.status]}">${statusLabel[o.status]}</div>
+      </div>
+      <div class="order-items">
+        ${o.items.map(it => {
+          const p = HS.products.find(x => x.id===it.id);
+          return p ? `<div class="order-thumb"><img src="${p.img}"/><div><div>${p.name}</div><div class="qty">x ${it.qty}</div></div></div>` : "";
+        }).join("")}
+      </div>
+      <div class="order-foot">
+        <div class="total">共 ${o.items.reduce((s,i)=>s+i.qty,0)} 件 · 实付 <span class="price">¥${o.total}</span></div>
+        <div class="actions">
+          ${o.status==="pending" ? `<button class="btn btn-primary btn-sm" onclick="payOrder('${o.id}')">立即付款</button>` : ''}
+          ${o.status==="shipped" ? `<button class="btn btn-outline btn-sm" onclick="viewLogistics('${o.id}')">查看物流</button><button class="btn btn-outline btn-sm" onclick="confirmReceive('${o.id}')">确认收货</button>` : ''}
+          ${o.status==="completed" ? `<button class="btn btn-outline btn-sm" onclick="rebuyOrder('${o.id}')">再次购买</button><button class="btn btn-ghost btn-sm" onclick="applyAftersale('${o.id}')">申请售后</button>` : ''}
+          ${o.status==="aftersales" ? `<button class="btn btn-ghost btn-sm">售后处理中…</button>` : ''}
+          <button class="btn btn-ghost btn-sm" onclick="viewOrderDetail('${o.id}')">订单详情</button>
+        </div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function getStatusLabel(s){return ({pending:"待付款",shipped:"已发货",completed:"已完成",aftersales:"售后中"})[s]||s}
+
+function filterOrders(status, el){
+  currentOrderFilter = status;
+  $$(".order-filter").forEach(b => {
+    b.classList.remove("btn-primary","active");
+    b.classList.add("btn-outline");
+  });
+  el.classList.remove("btn-outline");
+  el.classList.add("btn-primary","active");
+  renderOrders();
+}
+
+function payOrder(id){
+  const orders = JSON.parse(localStorage.getItem("hs_orders")||"[]");
+  const idx = orders.findIndex(o => o.id===id);
+  if(idx>-1){
+    orders[idx].status = "shipped";
+    localStorage.setItem("hs_orders", JSON.stringify(orders));
+  }
+  HS.Toast.show("✓ 支付成功", "success");
+  setTimeout(() => renderOrders(), 600);
+}
+
+function viewLogistics(id){
+  const order = getOrders().find(o => o.id===id);
+  $("#logisticsBody").innerHTML = `
+    <div style="background:var(--primary-pale);padding:14px;border-radius:6px;margin-bottom:16px">
+      <div style="font-size:15px;font-weight:600;color:var(--primary)">🚚 运输中</div>
+      <div style="font-size:12px;color:var(--gray);margin-top:4px">运单号 SF1234567890${id.slice(-4)}</div>
+    </div>
+    <div style="border-left:2px solid var(--primary-pale);padding-left:18px;margin-left:8px">
+      <div style="position:relative;padding:6px 0">
+        <div style="position:absolute;left:-23px;top:10px;width:10px;height:10px;border-radius:50%;background:var(--primary)"></div>
+        <div style="font-size:14px;font-weight:600">[武汉市] 顺丰武汉青山集散中心 已发出</div>
+        <div style="font-size:12px;color:var(--gray)">2026-09-04 10:24</div>
+      </div>
+      <div style="position:relative;padding:6px 0">
+        <div style="position:absolute;left:-23px;top:10px;width:10px;height:10px;border-radius:50%;background:var(--primary-light)"></div>
+        <div style="font-size:14px">[武汉市] 已到达 青山营业部</div>
+        <div style="font-size:12px;color:var(--gray)">2026-09-04 08:15</div>
+      </div>
+      <div style="position:relative;padding:6px 0">
+        <div style="position:absolute;left:-23px;top:10px;width:10px;height:10px;border-radius:50%;background:var(--border)"></div>
+        <div style="font-size:14px;color:var(--gray)">[武汉市] 已揽收</div>
+        <div style="font-size:12px;color:var(--gray)">2026-09-03 21:30</div>
+      </div>
+      <div style="position:relative;padding:6px 0">
+        <div style="position:absolute;left:-23px;top:10px;width:10px;height:10px;border-radius:50%;background:var(--border)"></div>
+        <div style="font-size:14px;color:var(--gray)">商品已下单</div>
+        <div style="font-size:12px;color:var(--gray)">${order.date} 18:42</div>
+      </div>
+    </div>
+  `;
+  HS.Modal.open("logisticsModal");
+}
+
+function confirmReceive(id){
+  if(!confirm("确认已收到货？")) return;
+  const orders = JSON.parse(localStorage.getItem("hs_orders")||"[]");
+  const idx = orders.findIndex(o => o.id===id);
+  if(idx>-1){
+    orders[idx].status = "completed";
+    localStorage.setItem("hs_orders", JSON.stringify(orders));
+  }
+  HS.Toast.show("✓ 已确认收货 · 感谢您的支持", "success");
+  setTimeout(() => renderOrders(), 600);
+}
+
+function rebuyOrder(id){
+  const o = getOrders().find(x => x.id===id);
+  if(!o) return;
+  o.items.forEach(it => HS.Cart.add(it.id, it.qty));
+  HS.Toast.show("✓ 已加入购物车", "success");
+  setTimeout(() => location.href = "cart.html", 600);
+}
+
+function viewOrderDetail(id){
+  const o = getOrders().find(x => x.id===id);
+  if(!o) return;
+  const itemsHtml = o.items.map(it => {
+    const p = HS.products.find(x => x.id===it.id);
+    return p ? `${p.name} × ${it.qty} = ¥${p.price * it.qty}` : "";
+  }).join("\n");
+  alert(`订单详情\n\n订单号：${o.id}\n日期：${o.date}\n状态：${getStatusLabel(o.status)}\n配送：${o.ship||'顺丰速运'}\n支付：${o.pay||'微信支付'}\n\n商品：\n${itemsHtml}\n\n收货地址：${o.address}\n实付：¥${o.total}`);
+}
+
+function applyAftersale(id){
+  currentAftersaleOrder = id;
+  $("#asOrderId").textContent = id;
+  $("#asReason").value = "";
+  HS.Modal.open("aftersaleModal");
+}
+
+function submitAftersale(){
+  const reason = $("#asReason").value.trim();
+  const type = document.querySelector('input[name=asType]:checked').value;
+  if(!reason){ HS.Toast.show("请描述问题", "error"); return; }
+
+  // 更新订单状态
+  const orders = JSON.parse(localStorage.getItem("hs_orders")||"[]");
+  const order = orders.find(o => o.id===currentAftersaleOrder);
+  if(order) order.status = "aftersales";
+  localStorage.setItem("hs_orders", JSON.stringify(orders));
+
+  // 保存售后
+  const list = JSON.parse(localStorage.getItem("hs_aftersales")||"null") || HS.aftersales.slice();
+  list.unshift({
+    id: "AS" + Date.now(),
+    orderId: currentAftersaleOrder,
+    type, reason,
+    amount: order ? order.total : 0,
+    status: "处理中",
+    date: new Date().toISOString().slice(0,10)
+  });
+  localStorage.setItem("hs_aftersales", JSON.stringify(list));
+
+  HS.Toast.show("✓ 售后申请已提交", "success");
+  HS.Modal.close("aftersaleModal");
+  setTimeout(() => renderOrders(), 600);
+}
+
+// ========== 收藏 ==========
+function renderFavorites(){
+  const favs = HS.Fav.get();
+  const list = favs.map(id => HS.products.find(p => p.id===id)).filter(Boolean);
+  const box = $("#favoritesList");
+  if(list.length===0){
+    box.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="icon">❤</div><div class="text">还没有收藏商品</div><a class="btn btn-primary" href="product.html">去逛逛</a></div>`;
+    return;
+  }
+  box.innerHTML = list.map(HS.productCard).join("");
+  // 重新触发 nav badge 更新
+  if(HS.Cart.updateBadge) HS.Cart.updateBadge();
+}
+
+// ========== 优惠券 ==========
+function renderCoupons(){
+  HS.Coupon.init();
+  const groups = [
+    {label:"可使用", data: HS.Coupon.available(), type:"available"},
+    {label:"已使用", data: HS.Coupon.used(), type:"used"},
+    {label:"已过期", data: HS.Coupon.expired(), type:"expired"},
+  ];
+  $("#couponPane").innerHTML = groups.map(g => `
+    <div style="margin-bottom:24px">
+      <h3 style="font-size:15px;margin-bottom:12px">${g.label}（${g.data.length}）</h3>
+      ${g.data.length===0 ? '<div style="text-align:center;color:var(--gray);padding:20px;background:#fff;border-radius:6px">暂无</div>' : ''}
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">
+        ${g.data.map(c => `
+          <div class="coupon">
+            <div class="coupon-left">
+              <div class="coupon-amount"><small>¥</small>${c.amount}</div>
+              <div class="coupon-condition">满${c.threshold}可用</div>
+            </div>
+            <div class="coupon-right">
+              <div class="coupon-name">${c.name}</div>
+              <div class="coupon-scope">${c.scope}</div>
+              <div class="coupon-date">${c.date} 到期</div>
+              ${g.type==="available" ? `<button class="coupon-btn" onclick="location.href='product.html'">立即使用</button>` : ''}
+              ${g.type!=="available" ? `<button class="coupon-btn used">${g.type==="used"?'已使用':'已过期'}</button>` : ''}
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `).join("");
+}
+
+// ========== 售后 ==========
+function renderAftersales(){
+  const list = JSON.parse(localStorage.getItem("hs_aftersales")||"null") || HS.aftersales.slice();
+  const box = $("#aftersalesList");
+  if(list.length===0){
+    box.innerHTML = `<div class="empty-state"><div class="icon">🛠️</div><div class="text">暂无售后记录</div></div>`;
+    return;
+  }
+  box.innerHTML = list.map(a => `
+    <div class="order-card">
+      <div class="order-head">
+        <div><strong>售后单号：</strong>${a.id} · 关联订单 ${a.orderId} · ${a.date}</div>
+        <div class="status ${a.status==='处理中'?'aftersales':'completed'}">${a.status}</div>
+      </div>
+      <div style="padding:14px 0;font-size:14px">
+        <div>类型：<strong>${a.type}</strong></div>
+        <div style="margin-top:4px">原因：${a.reason}</div>
+        <div style="margin-top:4px">金额：<span style="color:var(--red);font-weight:700">¥${a.amount}</span></div>
+      </div>
+      <div class="order-foot" style="border-top:1px solid var(--border);padding-top:10px">
+        <div style="font-size:12px;color:var(--gray)">客服将在 24h 内联系您</div>
+        <button class="btn btn-outline btn-sm" onclick="HS.Modal.open('advisorModal')">联系客服</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+// ========== 营养师 ==========
+function renderAdvisor(){
+  $("#advisorList").innerHTML = HS.advisors.map(a => `
+    <div class="advisor-card">
+      <div class="avatar">${a.avatar}</div>
+      <div class="info">
+        <div class="name">${a.name} <span class="title">· ${a.title}</span></div>
+        <div class="title">${a.specialty}</div>
+        <div class="bio">${a.bio}</div>
+        <div class="stats">
+          <span>📋 ${a.orders} 单咨询</span>
+          <span>⭐ ${a.rating}</span>
+          <span style="color:var(--primary);font-weight:600">新人首单免费 1 次</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button class="btn btn-primary btn-sm" onclick="HS.User.startChat('${a.id}')">💬 立即咨询</button>
+        <button class="btn btn-outline btn-sm" onclick="HS.Toast.show('已预约，5 分钟内回拨', 'success')">📞 电话咨询</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+// ========== 体质测试 ==========
+const quizData = [
+  {q:"您的年龄段是？", opts:["18-30 岁","31-45 岁","46-60 岁","60 岁以上"]},
+  {q:"您的睡眠质量如何？", opts:["很好(6-8 小时)","一般(入睡难/易醒)","较差(长期失眠)","倒班/不规律"]},
+  {q:"您的饮食结构是？", opts:["均衡多样","偏肉食","偏素食","外卖为主"]},
+  {q:"您是否经常运动？", opts:["每周 3 次以上","偶尔 1-2 次","几乎不运动","每天高强度"]},
+  {q:"您的体检指标有异常吗？", opts:["都很正常","血脂偏高","血糖偏高","血压偏高"]},
+  {q:"您最关注的健康问题？", opts:["免疫力/抗疲劳","肠道/消化","心脑血管","骨骼/关节"]}
+];
+let quizStep = 0;
+let quizAnswers = [];
+
+function renderQuiz(){
+  quizStep = 0; quizAnswers = [];
+  drawQuiz();
+}
+function drawQuiz(){
+  if(quizStep >= quizData.length){
+    showQuizResult();
+    return;
+  }
+  const item = quizData[quizStep];
+  $("#quizContent").innerHTML = `
+    <div class="quiz-card">
+      <div class="quiz-progress"><div class="bar" style="width:${(quizStep/quizData.length)*100}%"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:14px">
+        <span style="font-size:12px;color:var(--gray)">第 ${quizStep+1} / ${quizData.length} 题</span>
+        <a href="#" onclick="quizStep=0;quizAnswers=[];drawQuiz();return false" style="font-size:12px;color:var(--gray)">重新测试</a>
+      </div>
+      <h3>${item.q}</h3>
+      <div class="quiz-options">
+        ${item.opts.map((o, i) => `<div class="quiz-option" onclick="pickQuiz(${i}, this)">${o}</div>`).join("")}
+      </div>
+    </div>
+  `;
+}
+function pickQuiz(i, el){
+  $$(".quiz-option").forEach(o => o.classList.remove("selected"));
+  el.classList.add("selected");
+  quizAnswers[quizStep] = i;
+  setTimeout(() => { quizStep++; drawQuiz(); }, 400);
+}
+function showQuizResult(){
+  const score = {基础营养:0, 慢病养护:0, 肠胃健康:0, 运动营养:0};
+  if(quizAnswers[0]>=2) score["慢病养护"]++;
+  if(quizAnswers[1]>=1) score["肠胃健康"]++;
+  if(quizAnswers[2]>=1) score["基础营养"]++;
+  if(quizAnswers[3]<=1) score["运动营养"]++;
+  if(quizAnswers[4]>=1) score["慢病养护"] += 2;
+  if(quizAnswers[5]===0) score["基础营养"]++;
+  if(quizAnswers[5]===1) score["肠胃健康"]++;
+  if(quizAnswers[5]===2) score["慢病养护"]++;
+  if(quizAnswers[5]===3) score["运动营养"]++;
+
+  const top = Object.entries(score).sort((a,b) => b[1]-a[1])[0][0];
+  const recs = {
+    "基础营养":[{id:"d3k2",note:"骨骼 + 免疫双补"},{id:"bcomplex",note:"缓解疲劳"}],
+    "慢病养护":[{id:"natto",note:"辅助降血脂"},{id:"omega3",note:"心脑血管"}],
+    "肠胃健康":[{id:"probiotic",note:"11 株益生菌"},{id:"sleeptime",note:"睡眠 + 肠胃联动"}],
+    "运动营养":[{id:"protein",note:"75% 高蛋白"},{id:"coq10",note:"运动 + 抗氧"}]
+  }[top];
+
+  $("#quizContent").innerHTML = `
+    <div class="quiz-card" style="text-align:center;padding:40px 20px">
+      <div style="font-size:60px;margin-bottom:14px">📊</div>
+      <h3 style="font-size:22px;margin-bottom:8px">您的体质画像：<span style="color:var(--primary)">${top}</span></h3>
+      <p style="color:var(--gray);margin-bottom:24px">基于您的回答，我们为您推荐以下调理方向</p>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:480px;margin:0 auto">
+        ${recs.map(r => {
+          const p = HS.products.find(x => x.id===r.id);
+          return p ? `
+            <a href="detail.html?id=${p.id}" style="display:block;background:var(--bg);border-radius:var(--radius);padding:14px;text-decoration:none;color:inherit;transition:all 0.2s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+              <img src="${p.img}" style="width:100%;height:100px;object-fit:contain;background:#fff;border-radius:4px;margin-bottom:8px"/>
+              <div style="font-weight:600;font-size:13px">${p.name}</div>
+              <div style="font-size:11px;color:var(--gray);margin-top:2px">${r.note}</div>
+              <div style="color:var(--red);font-weight:700;margin-top:6px">¥${p.price}</div>
+            </a>
+          ` : "";
+        }).join("")}
+      </div>
+      <div style="margin-top:24px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="location.href='user.html?tab=advisor'">找营养师解读 →</button>
+        <button class="btn btn-outline" onclick="quizStep=0;quizAnswers=[];drawQuiz()">重新测试</button>
+      </div>
+    </div>
+  `;
+}
+
+// ========== 地址 ==========
+function renderAddresses(){
+  const arr = JSON.parse(localStorage.getItem("hs_addresses")||"null") || HS.addresses.slice();
+  if(!localStorage.getItem("hs_addresses")) localStorage.setItem("hs_addresses", JSON.stringify(arr));
+  $("#addressList").innerHTML = `
+    <div style="background:#fff;padding:14px 18px;border-radius:var(--radius);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow)">
+      <span style="font-weight:600">📍 我的收货地址（${arr.length}）</span>
+      <span style="font-size:12px;color:var(--gray)">最多保存 10 个</span>
+    </div>
+    ${arr.map((a, i) => `
+      <div class="order-card" style="padding:16px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div style="font-size:15px;font-weight:700">
+              ${a.name} <span style="color:var(--gray);font-weight:400;margin-left:10px">${a.phone}</span>
+              ${a.tag?`<span style="display:inline-block;background:var(--primary);color:#fff;font-size:10px;padding:1px 6px;border-radius:3px;margin-left:6px">${a.tag}</span>`:''}
+              ${a.isDefault?`<span style="display:inline-block;background:var(--red);color:#fff;font-size:10px;padding:1px 6px;border-radius:3px;margin-left:6px">默认</span>`:''}
+            </div>
+            <div style="margin-top:6px;color:var(--gray);font-size:13px">${a.region} ${a.detail}</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-shrink:0">
+            ${!a.isDefault?`<button class="btn btn-ghost btn-sm" onclick="setDefault('${a.id}')">设为默认</button>`:''}
+            <button class="btn btn-ghost btn-sm" onclick="removeAddress('${a.id}')">删除</button>
+          </div>
+        </div>
+      </div>
+    `).join("")}
+  `;
+}
+
+function showNewAddress(){
+  $("#newAddressForm").style.display = "block";
+  $("#anName").focus();
+}
+
+function addAddress(){
+  const name = $("#anName").value.trim();
+  const phone = $("#anPhone").value.trim();
+  const region = $("#anRegion").value;
+  const detail = $("#anDetail").value.trim();
+  const tag = $("#anTag").value;
+  const isDef = $("#anDefault").checked;
+  if(!name || !phone || !detail){ HS.Toast.show("请填完整", "error"); return; }
+  if(phone.length<11){ HS.Toast.show("手机号格式不对", "error"); return; }
+  const arr = JSON.parse(localStorage.getItem("hs_addresses")||"[]");
+  if(isDef) arr.forEach(a => a.isDefault = false);
+  arr.push({id:"A"+Date.now(), name, phone, region, detail, tag, isDefault:isDef});
+  localStorage.setItem("hs_addresses", JSON.stringify(arr));
+  HS.Toast.show("✓ 已新增", "success");
+  $("#newAddressForm").style.display = "none";
+  $("#anName").value = $("#anPhone").value = $("#anDetail").value = "";
+  renderAddresses();
+}
+
+function setDefault(id){
+  const arr = JSON.parse(localStorage.getItem("hs_addresses")||"[]");
+  arr.forEach(a => a.isDefault = (a.id===id));
+  localStorage.setItem("hs_addresses", JSON.stringify(arr));
+  renderAddresses();
+  HS.Toast.show("✓ 已设为默认", "success");
+}
+
+function removeAddress(id){
+  if(!confirm("确认删除？")) return;
+  const arr = JSON.parse(localStorage.getItem("hs_addresses")||"[]").filter(a => a.id!==id);
+  localStorage.setItem("hs_addresses", JSON.stringify(arr));
+  renderAddresses();
+  HS.Toast.show("✓ 已删除", "success");
+}
+
+// ========== 入口 ==========
+document.addEventListener("DOMContentLoaded", () => {
+  renderUserHero();
+  // 从 URL 读 tab
+  const params = new URLSearchParams(location.search);
+  const tab = params.get("tab") || "orders";
+  switchTab(tab);
+
+  // 监听 login 后状态变化
+  setInterval(() => { if(!$("#userName")) return; renderUserHero(); }, 1000);
+});
+</script>
+
+<!-- 浮动客服 -->
+<div class="floating-service">
+  <div class="fs-btn" onclick="HS.Modal.open('advisorModal')" title="在线咨询">
+    💬
+    <span class="dot"></span>
+    <span class="fs-btn-tooltip">在线客服</span>
+  </div>
+  <div class="fs-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">
+    ↑
+    <span class="fs-btn-tooltip">回到顶部</span>
+  </div>
+</div>
+
+</body>
+</html>

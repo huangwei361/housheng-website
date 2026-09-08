@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 1200" width="400" height="1200">
+  <defs>
+    <linearGradient id="sideBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#006d77"/>
+      <stop offset="100%" stop-color="#1a5d52"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="400" height="1200" fill="url(#sideBg)"/>
+
+  <!-- 装饰 -->
+  <circle cx="200" cy="200" r="160" fill="#ffffff" opacity="0.05"/>
+  <circle cx="200" cy="1000" r="200" fill="#ffffff" opacity="0.04"/>
+  <line x1="0" y1="450" x2="400" y2="450" stroke="#f77f00" stroke-width="1.5" opacity="0.5"/>
+  <line x1="0" y1="800" x2="400" y2="800" stroke="#f77f00" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- logo -->
+  <g transform="translate(100, 100)">
+    <circle cx="100" cy="100" r="100" fill="#ffffff"/>
+    <text x="100" y="125" font-family="serif" font-size="100" font-weight="900" fill="#006d77" text-anchor="middle" letter-spacing="-4">厚</text>
+  </g>
+
+  <text x="200" y="600" font-family="serif" font-size="56" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="10">厚 生</text>
+  <text x="200" y="660" font-family="sans-serif" font-size="20" font-weight="500" fill="#f77f00" text-anchor="middle" letter-spacing="6">HOUSHENG</text>
+
+  <line x1="100" y1="700" x2="300" y2="700" stroke="#f77f00" stroke-width="1"/>
+
+  <text x="200" y="750" font-family="serif" font-size="18" fill="#b0d4d0" text-anchor="middle" letter-spacing="4">营养 · 功法 · 理疗</text>
+  <text x="200" y="780" font-family="serif" font-size="18" fill="#b0d4d0" text-anchor="middle" letter-spacing="4">心理 · 检测 · 慢病</text>
+
+  <text x="200" y="900" font-family="serif" font-size="20" fill="#ffffff" text-anchor="middle" letter-spacing="3">厚生万物 · 养心养身</text>
+  <text x="200" y="930" font-family="sans-serif" font-size="12" fill="#b0d4d0" text-anchor="middle" letter-spacing="2">FOR LIFE · FOR WELLNESS</text>
+
+  <text x="200" y="1100" font-family="sans-serif" font-size="14" fill="#b0d4d0" text-anchor="middle">📞 13971691656</text>
+</svg>

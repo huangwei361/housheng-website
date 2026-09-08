@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>品牌 VI - 厚生 HOUSHENG</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .vi-section { padding: 60px 32px; }
+  .vi-block {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 40px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .vi-block h3 {
+    font-size: 22px;
+    color: var(--primary);
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--bg);
+  }
+  .vi-block .vi-meta {
+    color: var(--gray);
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  .color-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .color-swatch {
+    height: 120px;
+    display: flex;
+    align-items: flex-end;
+    padding: 12px;
+    color: white;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+  }
+  .color-info {
+    padding: 12px;
+    background: var(--white);
+  }
+  .color-name { font-size: 14px; font-weight: 600; color: var(--dark); }
+  .color-code { font-size: 11px; color: var(--gray); margin-top: 4px; }
+  .font-sample-cn {
+    font-size: 48px;
+    color: var(--dark);
+    line-height: 1.4;
+    margin: 16px 0;
+  }
+  .font-sample-en {
+    font-size: 36px;
+    color: var(--dark);
+    margin: 16px 0;
+    letter-spacing: 2px;
+  }
+  .logo-display {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 60px;
+    text-align: center;
+    margin: 20px 0;
+  }
+  .logo-display.dark { background: linear-gradient(135deg, #1a3a3f, #003540); }
+  .logo-display img { max-width: 240px; margin: 0 auto; }
+  .logo-variants {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .logo-variant {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+  }
+  .logo-variant.dark { background: var(--dark); color: white; }
+  .logo-variant.white { background: white; border: 1px solid var(--border); }
+  .slogan-card {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    padding: 60px 40px;
+    border-radius: 12px;
+    text-align: center;
+    margin: 20px 0;
+  }
+  .slogan-main {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+  }
+  .slogan-en {
+    font-size: 18px;
+    opacity: 0.8;
+    letter-spacing: 2px;
+  }
+  .app-card {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    margin: 12px 0;
+  }
+  .quote-block {
+    background: linear-gradient(135deg, var(--light), white);
+    border-left: 4px solid var(--accent);
+    padding: 24px 32px;
+    border-radius: 8px;
+    margin: 16px 0;
+    font-style: italic;
+    color: var(--dark);
+  }
+</style>
+</head>
+<body>
+
+<!-- 导航 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo-mark.svg" width="32" height="32" alt="厚生" style="border-radius: 8px;">
+      <span>厚生</span>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="shop.html">营养商城</a></li>
+      <li><a href="courses.html">课程中心</a></li>
+      <li><a href="therapy.html">调理服务</a></li>
+      <li><a href="checkup.html">健康检测</a></li>
+      <li><a href="schedule.html">课程表</a></li>
+      <li><a href="brand.html" class="active">品牌 VI</a></li>
+    </ul>
+    <a href="checkup.html" class="nav-cta">免费体测</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero" style="background: linear-gradient(135deg, #006d77 0%, #004f57 100%);">
+  <div class="hero-inner" style="text-align: center;">
+    <span class="hero-tag">BRAND IDENTITY</span>
+    <h1>品牌 VI 系统</h1>
+    <p class="subtitle">厚生 · HOUSHENG WELLNESS</p>
+    <p class="desc" style="margin: 0 auto;">厚生万物 · 养心养身 — 中国第一、全球领先的东方健康生活方式品牌</p>
+  </div>
+</header>
+
+<!-- 1. 品牌核心 -->
+<section class="vi-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">01 · BRAND CORE</span>
+      <h2 class="section-title">品牌核心</h2>
+    </div>
+
+    <div class="vi-block">
+      <h3>品牌信息</h3>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr><td style="padding: 12px 0; color: var(--gray); width: 140px; border-bottom: 1px solid var(--bg);">中文名</td><td style="padding: 12px 0; font-weight: 700; font-size: 18px; border-bottom: 1px solid var(--bg);">厚生</td></tr>
+        <tr><td style="padding: 12px 0; color: var(--gray); border-bottom: 1px solid var(--bg);">英文名</td><td style="padding: 12px 0; font-weight: 700; border-bottom: 1px solid var(--bg);">HOUSHENG WELLNESS（完整）/ HOUSHENG（简称）</td></tr>
+        <tr><td style="padding: 12px 0; color: var(--gray); border-bottom: 1px solid var(--bg);">拼音</td><td style="padding: 12px 0; border-bottom: 1px solid var(--bg);">Hòu Shēng</td></tr>
+        <tr><td style="padding: 12px 0; color: var(--gray); border-bottom: 1px solid var(--bg);">Slogan</td><td style="padding: 12px 0; font-weight: 600; color: var(--accent-dark); border-bottom: 1px solid var(--bg);">厚生万物 · 养心养身</td></tr>
+        <tr><td style="padding: 12px 0; color: var(--gray); border-bottom: 1px solid var(--bg);">品牌调性</td><td style="padding: 12px 0; border-bottom: 1px solid var(--bg);">东方哲学 · 现代健康 · 家庭温度</td></tr>
+        <tr><td style="padding: 12px 0; color: var(--gray); border-bottom: 1px solid var(--bg);">品牌使命</td><td style="padding: 12px 0; border-bottom: 1px solid var(--bg);">让每个家庭都能享有厚生之道</td></tr>
+        <tr><td style="padding: 12px 0; color: var(--gray);">品牌愿景</td><td style="padding: 12px 0; font-weight: 600; color: var(--primary);">中国第一、全球领先的东方健康生活方式品牌</td></tr>
+      </table>
+    </div>
+
+    <div class="quote-block">
+      "厚生" 出自《尚书·大禹谟》<strong>"厚生以养民"</strong>，是中华民族最古老的"民生"理念。<br>
+      "厚"—— 厚重、仁厚，承载着厚德载物的中国哲学；<br>
+      "生"—— 生命、生生不息，象征着对生命的尊重与延续。
+    </div>
+  </div>
+</section>
+
+<!-- 2. Slogan -->
+<section class="vi-section" style="background: var(--bg);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">02 · SLOGAN</span>
+      <h2 class="section-title">品牌口号</h2>
+    </div>
+
+    <div class="slogan-card">
+      <div class="slogan-main">厚生万物 · 养心养身</div>
+      <div class="slogan-en">HOUSHENG · For Life, For Wellness</div>
+    </div>
+
+    <div class="grid-3">
+      <div class="vi-block" style="margin: 0;">
+        <h3>主 Slogan</h3>
+        <div style="font-size: 24px; font-weight: 700; color: var(--primary); margin: 12px 0;">厚生万物</div>
+        <div style="color: var(--gray);">养心养身</div>
+        <div class="vi-meta" style="margin-top: 12px;">品牌主基调 · 体现"仁厚、生生不息"理念</div>
+      </div>
+      <div class="vi-block" style="margin: 0;">
+        <h3>副 Slogan 1</h3>
+        <div style="font-size: 24px; font-weight: 700; color: var(--primary); margin: 12px 0;">全家的健康伙伴</div>
+        <div class="vi-meta" style="margin-top: 12px;">突出"家庭场景"，适合业务介绍</div>
+      </div>
+      <div class="vi-block" style="margin: 0;">
+        <h3>副 Slogan 2</h3>
+        <div style="font-size: 24px; font-weight: 700; color: var(--primary); margin: 12px 0;">养心养身，生生不息</div>
+        <div class="vi-meta" style="margin-top: 12px;">哲学感强，适合功法/中医板块</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Logo -->
+<section class="vi-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">03 · LOGO</span>
+      <h2 class="section-title">品牌 Logo</h2>
+      <p class="section-desc">阴阳双叶象征平衡与调和 · 圆形象征完整与圆满</p>
+    </div>
+
+    <div class="logo-display">
+      <img src="logo.svg" alt="厚生 Logo">
+    </div>
+
+    <h3 style="margin: 32px 0 16px; color: var(--primary);">Logo 变体</h3>
+    <div class="logo-variants">
+      <div class="logo-variant white">
+        <img src="logo.svg" alt="标准版" style="max-width: 160px;">
+        <div style="margin-top: 12px; font-size: 13px; color: var(--gray);">标准版（白底）</div>
+      </div>
+      <div class="logo-variant dark">
+        <img src="logo.svg" alt="深色版" style="max-width: 160px;">
+        <div style="margin-top: 12px; font-size: 13px; color: white;">深色版（用于深色背景）</div>
+      </div>
+      <div class="logo-variant">
+        <img src="logo-mark.svg" alt="简化版" style="max-width: 80px;">
+        <div style="margin-top: 12px; font-size: 13px; color: var(--gray);">简化版（仅图标 · 用于导航）</div>
+      </div>
+    </div>
+
+    <h3 style="margin: 32px 0 16px; color: var(--primary);">Logo 使用规范</h3>
+    <div class="vi-block">
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding: 12px 0; border-bottom: 1px solid var(--bg);">✓ 最小宽度：80px（屏幕）/ 24mm（印刷）</li>
+        <li style="padding: 12px 0; border-bottom: 1px solid var(--bg);">✓ 安全距离：四周至少保留 Logo 宽度的 1/4</li>
+        <li style="padding: 12px 0; border-bottom: 1px solid var(--bg);">✓ 主背景：白色或浅色优先；深色背景用反白版本</li>
+        <li style="padding: 12px 0; border-bottom: 1px solid var(--bg);">✓ 禁止：拉伸、变形、改变主色、添加描边/阴影</li>
+        <li style="padding: 12px 0;">✓ 文件格式：AI / SVG（矢量） / PNG（位图）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 4. 品牌色 -->
+<section class="vi-section" style="background: var(--bg);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">04 · COLOR</span>
+      <h2 class="section-title">品牌色</h2>
+    </div>
+
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background: #006d77;">#006d77</div>
+        <div class="color-info">
+          <div class="color-name">厚生青 · Primary</div>
+          <div class="color-code">主色 · 稳重 / 健康 / 信任</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #83c5be;">#83c5be</div>
+        <div class="color-info">
+          <div class="color-name">青碧 · Secondary</div>
+          <div class="color-code">辅色 · 清新 / 自然 / 平衡</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #e29578;">#e29578</div>
+        <div class="color-info">
+          <div class="color-name">丹朱 · Accent</div>
+          <div class="color-code">点缀色 · 温暖 / 活力 / 行动</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #ffddd2; color: #c0392b;">#ffddd2</div>
+        <div class="color-info">
+          <div class="color-name">藕粉 · Light</div>
+          <div class="color-code">浅色 · 柔和 / 温柔 / 提示</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #edf6f9; color: var(--gray);">#edf6f9</div>
+        <div class="color-info">
+          <div class="color-name">霜白 · Background</div>
+          <div class="color-code">背景色 · 干净 / 留白 / 高级</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #c0392b;">#c0392b</div>
+        <div class="color-info">
+          <div class="color-name">印红 · Stamp</div>
+          <div class="color-code">印章色 · 重要 / 强调 / 古典</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="vi-block" style="margin-top: 24px;">
+      <h3>配色比例（5:3:2 黄金比例）</h3>
+      <div style="display: flex; height: 60px; border-radius: 8px; overflow: hidden; margin: 16px 0;">
+        <div style="flex: 5; background: #006d77; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">50% 主色</div>
+        <div style="flex: 3; background: #83c5be; display: flex; align-items: center; justify-content: center; color: var(--primary-dark); font-weight: 600;">30% 辅色</div>
+        <div style="flex: 2; background: #e29578; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">20% 点缀</div>
+      </div>
+      <p style="color: var(--gray); font-size: 13px;">日常 UI / 海报 / PPT 中遵循此比例，画面会显得克制、高级。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. 字体 -->
+<section class="vi-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">05 · TYPOGRAPHY</span>
+      <h2 class="section-title">字体系统</h2>
+    </div>
+
+    <div class="vi-block">
+      <h3>中文主字体</h3>
+      <div class="font-sample-cn">厚生万物 养心养身</div>
+      <div style="background: var(--bg); padding: 16px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 13px;">
+        首选：<strong style="color: var(--primary);">Microsoft YaHei</strong>（微软雅黑）<br>
+        备选：PingFang SC / Source Han Sans / Noto Sans CJK<br>
+        装饰：STKaiti（楷体）· 用于品牌正式场合
+      </div>
+    </div>
+
+    <div class="vi-block">
+      <h3>英文主字体</h3>
+      <div class="font-sample-en">HOUSHENG WELLNESS</div>
+      <div style="background: var(--bg); padding: 16px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 13px;">
+        首选：<strong style="color: var(--primary);">Inter</strong>（开源国际通用）<br>
+        备选：Helvetica Neue / Arial / Roboto<br>
+        装饰：Playfair Display · 用于品牌英文口号
+      </div>
+    </div>
+
+    <div class="vi-block">
+      <h3>字号规范</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px;">
+        <div><div style="font-size: 36px; font-weight: 800; color: var(--primary);">大标题 36</div></div>
+        <div><div style="font-size: 24px; font-weight: 700; color: var(--primary);">副标题 24</div></div>
+        <div><div style="font-size: 18px; font-weight: 600; color: var(--dark);">小标题 18</div></div>
+        <div><div style="font-size: 14px; color: var(--gray);">正文 14</div></div>
+        <div><div style="font-size: 12px; color: var(--gray);">辅助 12</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. 品牌调性 -->
+<section class="vi-section" style="background: var(--bg);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">06 · TONE</span>
+      <h2 class="section-title">品牌调性</h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="vi-block" style="margin: 0; border-top: 4px solid var(--primary);">
+        <h3>✅ 我们是这样的</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 8px 0;">• 厚重的、有文化底蕴的</li>
+          <li style="padding: 8px 0;">• 像长辈/家庭医生一样专业但温暖</li>
+          <li style="padding: 8px 0;">• 强调"调和"而非"极致"</li>
+          <li style="padding: 8px 0;">• 慢的、持续的、可传承的</li>
+          <li style="padding: 8px 0;">• 适合全家庭、全年龄段</li>
+        </ul>
+      </div>
+      <div class="vi-block" style="margin: 0; border-top: 4px solid var(--accent);">
+        <h3>❌ 我们不是这样的</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 8px 0;">• 网红打卡式、短期流行的</li>
+          <li style="padding: 8px 0;">• 极限挑战、燃脂暴汗的</li>
+          <li style="padding: 8px 0;">• 强调"逆袭""躺瘦""速成"的</li>
+          <li style="padding: 8px 0;">• 单身/小众/潮牌调性</li>
+          <li style="padding: 8px 0;">• 西方健身商业品牌范</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. 应用示例 -->
+<section class="vi-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">07 · APPLICATION</span>
+      <h2 class="section-title">应用示例</h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="app-card" style="background: linear-gradient(135deg, #006d77, #004f57); color: white; padding: 60px 40px;">
+        <div style="font-size: 14px; opacity: 0.7; margin-bottom: 16px;">品牌应用 · 海报</div>
+        <img src="logo.svg" alt="logo" style="max-width: 120px; margin: 16px 0;">
+        <h2 style="color: white; font-size: 36px; margin: 16px 0;">厚生万物</h2>
+        <p style="opacity: 0.9;">养心养身 · 全家同享</p>
+      </div>
+      <div class="app-card" style="background: var(--light); padding: 60px 40px;">
+        <div style="font-size: 14px; color: var(--gray); margin-bottom: 16px;">品牌应用 · 名片</div>
+        <img src="logo.svg" alt="logo" style="max-width: 100px; margin: 16px 0;">
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 16px;">
+          <div style="font-weight: 700; color: var(--primary);">王明 · 营养师</div>
+          <div style="font-size: 12px; color: var(--gray); margin-top: 4px;">厚生健康 · HOUSHENG WELLNESS</div>
+          <div style="font-size: 12px; color: var(--gray); margin-top: 8px;">📞 138-XXXX-XXXX</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. 品牌故事 -->
+<section class="vi-section section-primary">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" style="background: rgba(255,255,255,0.2); color: white;">08 · STORY</span>
+      <h2 class="section-title" style="color: white;">品牌故事</h2>
+    </div>
+
+    <div style="max-width: 800px; margin: 0 auto; font-size: 17px; line-height: 1.9; color: var(--secondary);">
+      <p style="margin-bottom: 20px;">
+        四千年前，舜帝对大禹说："厚生以养民"。—— 让百姓丰衣足食、健康长寿，是中华民族最古老的国家治理哲学。
+      </p>
+      <p style="margin-bottom: 20px;">
+        千年以降，厚生之道从典籍走入民间：八段锦、太极、易筋经；药膳、艾灸、推拿。这些代代相传的智慧，养育了一代又一代中国人。
+      </p>
+      <p style="margin-bottom: 20px;">
+        而今天，我们面对一个新的时代：35-55 岁的中产家庭，承受着前所未有的压力——
+      </p>
+      <p style="margin-bottom: 20px;">
+        自己的失眠、颈肩痛、慢病早期；父母的糖尿病、高血压；孩子的体态、视力、心理。
+      </p>
+      <p style="margin-bottom: 20px;">
+        医院的号越来越难挂，健身房的卡越来越没时间去，传统养生又找不到专业服务。
+      </p>
+      <p style="color: white; font-weight: 600; font-size: 19px; margin: 32px 0;">
+        "厚生"应时而生。
+      </p>
+      <p style="margin-bottom: 20px;">
+        我们把传统功法、现代营养、中医理疗、心理疏导、健康检测，融合成一个完整的家庭健康方案。
+      </p>
+      <p style="margin-bottom: 20px;">
+        让"养生"不再是老人的专利，让每个家庭——从 25 岁的女儿到 70 岁的奶奶——都能找到适合自己的健康生活方式。
+      </p>
+      <p style="color: white; font-weight: 600; font-size: 20px; text-align: center; margin-top: 40px; letter-spacing: 4px;">
+        厚生万物 · 养心养身
+      </p>
+      <p style="text-align: center; opacity: 0.7; font-size: 14px; margin-top: 12px;">
+        HOUSHENG · For Life, For Wellness
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">厚生 HOUSHENG</div>
+      <p class="footer-desc">中国第一、全球领先的东方健康生活方式品牌<br>厚生万物 · 养心养身</p>
+    </div>
+    <div>
+      <h4>业务板块</h4>
+      <ul>
+        <li><a href="shop.html">营养商城</a></li>
+        <li><a href="courses.html">课程中心</a></li>
+        <li><a href="therapy.html">调理服务</a></li>
+        <li><a href="checkup.html">健康检测</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>品牌</h4>
+      <ul>
+        <li><a href="brand.html">品牌 VI</a></li>
+        <li><a href="#">品牌故事</a></li>
+        <li><a href="#">加入我们</a></li>
+        <li><a href="#">合作洽谈</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>联系</h4>
+      <ul>
+        <li>品牌合作：brand@yourbrand.com</li>
+        <li>商务洽谈：bd@yourbrand.com</li>
+        <li>电话：400-XXX-XXXX</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 厚生 HOUSHENG WELLNESS · 厚生万物 · 养心养身</div>
+</footer>
+
+</body>
+</html>

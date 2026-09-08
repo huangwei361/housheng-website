@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>商品详情 · 厚生营养商城</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div id="navMount"></div>
+
+<div class="container">
+  <div class="breadcrumb" id="breadcrumb"></div>
+</div>
+
+<div class="container" id="detailMain"></div>
+
+<!-- 详情 + 评价 + 推荐 -->
+<section class="container section">
+  <div style="background:#fff;border-radius:14px;padding:0;overflow:hidden">
+    <!-- 标签 -->
+    <div style="display:flex;border-bottom:1px solid var(--border)">
+      <span class="detail-tab active" data-tab="desc" onclick="HS.switchTab('desc')">📋 商品详情</span>
+      <span class="detail-tab" data-tab="reviews" onclick="HS.switchTab('reviews')">⭐ 用户评价 (<span id="reviewCount">0</span>)</span>
+      <span class="detail-tab" data-tab="qa" onclick="HS.switchTab('qa')">❓ 常见问答</span>
+    </div>
+
+    <!-- 商品详情 -->
+    <div id="tabDesc" class="tab-pane active" style="padding:30px 24px">
+      <h3 style="color:var(--primary);margin-bottom:14px">📋 产品说明</h3>
+      <p style="color:var(--dark);line-height:1.8" id="productBlurb"></p>
+      <h3 style="color:var(--primary);margin:24px 0 14px">🥗 营养成分</h3>
+      <ul id="productNutrition" style="list-style:disc;padding-left:20px;line-height:2"></ul>
+      <h3 style="color:var(--primary);margin:24px 0 14px">💊 适用人群</h3>
+      <p style="color:var(--dark);line-height:1.8">适合关注<strong>免疫力 / 骨骼 / 心血管 / 脑健康</strong>的成人；特殊人群（孕妇 / 慢病 / 服药）请咨询营养师后购买。</p>
+      <h3 style="color:var(--primary);margin:24px 0 14px">📋 服用方法</h3>
+      <p style="color:var(--dark);line-height:1.8">每日 1 粒，餐后温水送服。建议连续服用 3 个月为一周期。</p>
+      <h3 style="color:var(--primary);margin:24px 0 14px">🔬 资质保障</h3>
+      <p style="color:var(--dark);line-height:1.8">✅ 蓝帽子保健食品 · 国食健字<br>✅ IFOS / NSF 国际认证（鱼油）<br>✅ 0 防腐剂 · 0 添加糖 · 0 反式脂肪<br>✅ 每批次可溯源</p>
+    </div>
+
+    <!-- 评价 -->
+    <div id="tabReviews" class="tab-pane" style="padding:30px 24px;display:none">
+      <!-- 评价概览 -->
+      <div id="reviewSummary" style="display:flex;gap:30px;padding:20px;background:var(--bg);border-radius:10px;margin-bottom:20px"></div>
+      <!-- 评价列表 -->
+      <div id="reviewList"></div>
+    </div>
+
+    <!-- 问答 -->
+    <div id="tabQa" class="tab-pane" style="padding:30px 24px;display:none">
+      <div id="qaList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 猜你喜欢 -->
+<section class="container section">
+  <div class="section-title">猜你喜欢</div>
+  <div class="product-grid" id="recoGrid"></div>
+</section>
+
+<!-- 营养师推荐 -->
+<section class="container section">
+  <div class="section-title">👨‍⚕️ 咨询营养师 <small>购买前后都可以问，专业不收费</small></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" id="advisorGrid"></div>
+</section>
+
+<div id="footerMount"></div>
+
+<style>
+.detail-tab{padding:18px 24px;font-size:14px;color:var(--gray);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;font-weight:500}
+.detail-tab:hover{color:var(--primary)}
+.detail-tab.active{color:var(--primary);border-bottom-color:var(--primary);background:var(--primary-pale);font-weight:700}
+</style>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+// 等待 main.js 完成 nav/footer mount 后再执行
+document.addEventListener("DOMContentLoaded", () => {
+setTimeout(() => {
+const esc = s => String(s||"").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const params = new URLSearchParams(location.search);
+const id = params.get("id") || "d3k2";
+const p = HS.products.find(x => x.id===id) || HS.products[0];
+
+document.getElementById("navSearchInput").value = p.name;
+document.getElementById("breadcrumb").innerHTML = `
+  <a href="index.html">首页</a><span class="sep">/</span>
+  <a href="product.html?cat=${p.cat}">${p.cat}</a><span class="sep">/</span>
+  <span class="current">${esc(p.name)}</span>
+`;
+
+const reviews = HS.Review.get(id);
+const stats = HS.Review.stats(id);
+document.getElementById("reviewCount").textContent = stats.total;
+
+// 产品说明 + 营养成分(动态填充)
+document.getElementById("productBlurb").textContent = p.blurb || "暂无";
+document.getElementById("productNutrition").innerHTML = (p.nutrition || []).map(n => `<li>${esc(n)}</li>`).join("");
+
+document.getElementById("detailMain").innerHTML = `
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;background:#fff;border-radius:14px;padding:30px;margin:14px 0">
+    <!-- 左：图片 -->
+    <div>
+      <div style="background:linear-gradient(135deg,#f5fafa,#e6f3f1);border-radius:14px;height:480px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+        <img src="${p.img}" style="max-height:440px;max-width:90%;filter:drop-shadow(0 12px 18px rgba(0,0,0,0.15))"/>
+        <span class="product-badge ${p.tags[0]==='新品'?'green':p.tags[0]==='三高'?'gold':'red'}" style="position:absolute;top:18px;left:18px;font-size:14px;padding:6px 14px">${esc(p.tags[0]||"")}</span>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:14px">
+        ${[1,2,3,4].map(i => `<div style="width:70px;height:70px;border:2px solid ${i===1?'var(--primary)':'var(--border)'};border-radius:8px;background:var(--bg);display:flex;align-items:center;justify-content:center"><img src="${p.img}" style="max-height:60px;max-width:60px"/></div>`).join("")}
+      </div>
+    </div>
+    <!-- 右：信息 -->
+    <div>
+      <h1 style="font-size:24px;font-weight:700;margin-bottom:8px">${esc(p.name)}</h1>
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;color:var(--gray);font-size:13px">
+        <span class="stars" style="font-size:14px">${"★".repeat(Math.round(p.rating))}${"☆".repeat(5-Math.round(p.rating))}</span>
+        <span>${p.rating} 分</span>
+        <span>· ${p.reviews} 条评价</span>
+        <span>· 已售 ${p.sales}+</span>
+      </div>
+      <div style="background:linear-gradient(135deg,#fff5e6,#fff);border-radius:10px;padding:20px;margin-bottom:20px;border:1px dashed var(--accent)">
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px">
+          <span style="font-size:14px;color:var(--gray)">厚生价</span>
+          <span class="price-now" style="font-size:32px">${HS.money(p.price)}</span>
+          <span class="price-was" style="font-size:14px">${HS.money(p.was)}</span>
+          <span style="background:var(--red);color:#fff;padding:2px 8px;border-radius:3px;font-size:11px">省 ${HS.money(p.was-p.price)}</span>
+        </div>
+        <div style="font-size:12px;color:var(--gray)">📦 满 199 包邮 · 🔒 7 天无理由退换</div>
+      </div>
+      <div style="margin-bottom:16px">
+        <div style="font-size:13px;color:var(--gray);margin-bottom:8px">📋 规格：</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          ${[p.spec, p.spec.replace(/\d+/, m => parseInt(m)*2+""), p.spec.replace(/\d+/, m => parseInt(m)*3+"")].map((s, i) => `<span class="spec-chip" data-spec="${esc(s)}" onclick="HS.pickSpec(this)" style="padding:8px 14px;border:1.5px solid ${i===0?'var(--primary)':'var(--border)'};border-radius:6px;cursor:pointer;font-size:13px;background:${i===0?'var(--primary-pale)':'#fff'};color:${i===0?'var(--primary)':'var(--dark)'}">${esc(s)}</span>`).join("")}
+        </div>
+      </div>
+      <div style="margin-bottom:16px">
+        <div style="font-size:13px;color:var(--gray);margin-bottom:8px">🚚 配送至：</div>
+        <select style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px">
+          <option>湖北省 武汉市 青山区</option><option>北京市</option><option>上海市</option><option>广东省 深圳市</option>
+        </select>
+        <span style="margin-left:10px;font-size:13px;color:var(--green)">✓ 现货 · 48h 内发货</span>
+      </div>
+      <div style="margin-bottom:20px">
+        <div style="font-size:13px;color:var(--gray);margin-bottom:8px">📦 数量：</div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <div class="qty-stepper">
+            <button onclick="HS.qty(-1)">−</button>
+            <input id="qtyInput" type="number" value="1" min="1" max="${p.stock}"/>
+            <button onclick="HS.qty(1)">+</button>
+          </div>
+          <span style="color:var(--gray);font-size:12px">库存 ${p.stock} 件</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:14px">
+        <button class="btn btn-primary btn-lg" style="flex:1.5" onclick="HS.addNow()">立即购买</button>
+        <button class="btn btn-outline btn-lg" style="flex:1" onclick="HS.addCart()">加入购物车</button>
+        <button class="icon-btn" style="width:48px;height:48px;font-size:18px" onclick="HS.toggleFav(this)" id="favBtn">${HS.Fav.has(p.id)?'❤':'♡'}</button>
+        <button class="icon-btn" style="width:48px;height:48px;font-size:18px" onclick="HS.toggleCmp()" id="cmpBtn">⇄</button>
+      </div>
+      <div style="display:flex;gap:14px;font-size:12px;color:var(--gray);border-top:1px solid var(--border);padding-top:14px">
+        <span>💬 在线客服</span>
+        <span style="cursor:pointer" onclick="HS.Modal.open('advisorModal')">🩺 营养师咨询</span>
+        <span>📞 13971691656</span>
+        <span>🚚 顺丰包邮</span>
+      </div>
+      <div style="margin-top:14px;background:var(--primary-pale);border-radius:8px;padding:12px;font-size:12px;color:var(--primary)">
+        🎁 购买即可领 ¥${Math.min(50, Math.floor(p.price/4))} 优惠券（满 ${Math.min(50, Math.floor(p.price/4))*4} 减 ${Math.min(50, Math.floor(p.price/4))}）
+      </div>
+    </div>
+  </div>
+`;
+
+// 评价概览
+document.getElementById("reviewSummary").innerHTML = `
+  <div style="text-align:center;min-width:120px">
+    <div style="font-size:36px;font-weight:800;color:var(--dark)">${stats.avg}</div>
+    <div class="stars" style="font-size:18px">${"★".repeat(Math.round(stats.avg))}</div>
+    <div style="font-size:12px;color:var(--gray);margin-top:4px">综合评分</div>
+  </div>
+  <div style="flex:1">
+    ${stats.dist.map(d => `
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:6px">
+        <span style="width:40px">${d.s}星</span>
+        <div style="flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden">
+          <div style="width:${stats.total?(d.n/stats.total*100):0}%;height:100%;background:#f77f00"></div>
+        </div>
+        <span style="width:50px;text-align:right">${d.n}</span>
+      </div>
+    `).join("")}
+  </div>
+  <div style="text-align:center">
+    <button class="btn btn-primary" onclick="HS.writeReview()">✍ 我要评价</button>
+  </div>
+`;
+
+// 评价卡片渲染(必须先定义,后面 213 行用到)
+HS.reviewItem = r => `
+  <div class="review">
+    <div class="review-head">
+      <div class="review-avatar">${r.avatar}</div>
+      <div>
+        <span class="review-user">${esc(r.name)}</span>
+        <span class="review-meta">${r.date}</span>
+      </div>
+      <span class="rating-display" style="margin-left:auto">${"★".repeat(r.rating)}</span>
+    </div>
+    <span class="review-sku">${esc(r.sku)}</span>
+    <div class="review-content">${esc(r.content)}</div>
+    ${r.imgs && r.imgs.length ? `<div class="review-imgs">${r.imgs.map(src => `<img src="${src}" />`).join("")}</div>` : ""}
+    <div class="review-reply">
+      <span class="tag">厚生客服：</span>${esc(r.reply)}
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:var(--gray);display:flex;align-items:center;gap:14px">
+      <span style="cursor:pointer" onclick="HS.voteHelpful(${r.uid})">👍 有用 (${r.helpful || 0})</span>
+      <span style="cursor:pointer" onclick="HS.Toast.show('回复功能开发中','success')">💬 回复</span>
+      <span style="cursor:pointer" onclick="HS.Toast.show('已记录','success')">📢 举报</span>
+    </div>
+  </div>
+`;
+
+// 评价列表
+document.getElementById("reviewList").innerHTML = `
+  <div style="display:flex;gap:8px;margin-bottom:20px">
+    <span class="filter-chip active" data-tag="" onclick="HS.filterReview(this, '')">全部 (${stats.total})</span>
+    <span class="filter-chip" data-tag="good" onclick="HS.filterReview(this, 'good')">好评 (${reviews.filter(r=>r.rating>=4).length})</span>
+    <span class="filter-chip" data-tag="mid" onclick="HS.filterReview(this, 'mid')">中评 (${reviews.filter(r=>r.rating===3).length})</span>
+    <span class="filter-chip" data-tag="bad" onclick="HS.filterReview(this, 'bad')">差评 (${reviews.filter(r=>r.rating<3).length})</span>
+    <span class="filter-chip" data-tag="img" onclick="HS.filterReview(this, 'img')">晒图 (${reviews.filter(r=>r.imgs&&r.imgs.length).length})</span>
+  </div>
+  <div id="reviewItems">
+    ${reviews.map(HS.reviewItem).join("")}
+  </div>
+`;
+
+// 问答
+document.getElementById("qaList").innerHTML = HS.faq.map((f, i) => `
+  <div style="padding:14px 0;border-bottom:1px solid var(--border)">
+    <div style="display:flex;gap:8px;font-weight:600;color:var(--primary)">
+      <span>Q${esc(i+1)}.</span><span>${esc(f.q)}</span>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px;color:var(--gray)">
+      <span>A.</span><span>${esc(f.a)}</span>
+    </div>
+  </div>
+`).join("") + `
+  <div style="padding:30px;text-align:center;background:var(--bg);border-radius:8px;margin-top:20px">
+    <p style="color:var(--gray);margin-bottom:14px">还有其他问题？</p>
+    <button class="btn btn-primary" onclick="HS.Modal.open('advisorModal')">💬 咨询营养师</button>
+  </div>
+`;
+
+// 猜你喜欢
+document.getElementById("recoGrid").innerHTML = HS.products.filter(x => x.id !== id).sort(() => Math.random()-0.5).slice(0,4).map(HS.productCard).join("");
+
+// 营养师
+document.getElementById("advisorGrid").innerHTML = HS.advisors.map(a => `
+  <div style="background:#fff;padding:20px;border-radius:10px;display:flex;gap:14px;align-items:center;box-shadow:0 2px 6px rgba(0,0,0,0.04)">
+    <div style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;flex-shrink:0">${a.avatar}</div>
+    <div style="flex:1">
+      <div style="font-size:15px;font-weight:600">${a.name} <span style="font-size:12px;color:var(--gray);font-weight:400">· ${a.title}</span></div>
+      <div style="font-size:12px;color:var(--primary);margin-top:2px">${a.specialty}</div>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="HS.Modal.open('advisorModal')">咨询</button>
+  </div>
+`).join("");
+
+// expose
+HS.qty = d => {
+  const inp = document.getElementById("qtyInput");
+  const v = Math.max(1, Math.min(p.stock, parseInt(inp.value||"1") + d));
+  inp.value = v;
+};
+HS.addCart = () => {
+  const q = parseInt(document.getElementById("qtyInput").value || "1");
+  HS.Cart.add(p.id, q);
+};
+HS.addNow = () => {
+  HS.addCart();
+  setTimeout(() => location.href = "cart.html", 600);
+};
+HS.toggleFav = el => {
+  const added = HS.Fav.toggle(p.id);
+  el.textContent = added ? "❤" : "♡";
+  el.style.color = added ? "var(--red)" : "var(--gray)";
+};
+HS.toggleCmp = () => {
+  HS.Compare.toggle(p.id);
+  document.getElementById("cmpBtn").style.color = HS.Compare.has(p.id) ? "var(--primary)" : "var(--gray)";
+};
+HS.pickSpec = el => {
+  document.querySelectorAll(".spec-chip").forEach(c => {
+    c.style.borderColor = "var(--border)";
+    c.style.background = "#fff";
+    c.style.color = "var(--dark)";
+  });
+  el.style.borderColor = "var(--primary)";
+  el.style.background = "var(--primary-pale)";
+  el.style.color = "var(--primary)";
+};
+HS.switchTab = tab => {
+  document.querySelectorAll(".detail-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
+  document.querySelectorAll(".tab-pane").forEach(p => p.style.display = "none");
+  document.getElementById("tab"+tab.charAt(0).toUpperCase()+tab.slice(1)).style.display = "block";
+};
+HS.filterReview = (el, tag) => {
+  document.querySelectorAll(".filter-chip").forEach(c => c.classList.toggle("active", c.dataset.tag === tag));
+  const list = tag === "" ? reviews :
+    tag === "good" ? reviews.filter(r => r.rating >= 4) :
+    tag === "mid" ? reviews.filter(r => r.rating === 3) :
+    tag === "bad" ? reviews.filter(r => r.rating < 3) :
+    tag === "img" ? reviews.filter(r => r.imgs && r.imgs.length) : reviews;
+  document.getElementById("reviewItems").innerHTML = list.map(HS.reviewItem).join("");
+};
+HS.writeReview = () => {
+  // 动态写评价弹窗
+  if(!document.getElementById("writeReviewModal")){
+    const m = document.createElement("div");
+    m.id = "writeReviewModal";
+    m.className = "modal-mask";
+    m.onclick = e => { if(e.target === m) HS.Modal.close("writeReviewModal"); };
+    m.innerHTML = `
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-head">
+          <div class="modal-title">✍ 写评价</div>
+          <div class="modal-close" onclick="HS.Modal.close('writeReviewModal')">×</div>
+        </div>
+        <div class="modal-body">
+          <div style="text-align:center;margin-bottom:14px">
+            <img src="${p.img}" style="width:60px;height:60px;object-fit:contain;background:var(--bg);border-radius:6px;display:inline-block"/>
+            <div style="font-size:14px;font-weight:600;margin-top:6px">${esc(p.name)}</div>
+          </div>
+          <div style="margin-bottom:14px;text-align:center">
+            <div style="font-size:13px;color:var(--gray);margin-bottom:6px">评分</div>
+            <div class="rating-input" id="writeRating">
+              <input type="radio" name="wr" id="wr5" value="5"/><label for="wr5">★</label>
+              <input type="radio" name="wr" id="wr4" value="4"/><label for="wr4">★</label>
+              <input type="radio" name="wr" id="wr3" value="3"/><label for="wr3">★</label>
+              <input type="radio" name="wr" id="wr2" value="2"/><label for="wr2">★</label>
+              <input type="radio" name="wr" id="wr1" value="1"/><label for="wr1">★</label>
+            </div>
+          </div>
+          <div style="margin-bottom:14px">
+            <label style="font-size:13px;color:var(--gray)">心得</label>
+            <textarea id="writeContent" rows="4" style="width:100%;border:1px solid var(--border);border-radius:6px;padding:10px;font-size:14px;outline:none;margin-top:6px;resize:vertical" placeholder="分享你的使用感受,20 字以上~"></textarea>
+          </div>
+          <div style="margin-bottom:14px">
+            <label style="font-size:13px;color:var(--gray)">上传图片(选填,最多 5 张)</label>
+            <div style="margin-top:6px;display:flex;gap:8px;flex-wrap:wrap">
+              ${[1,2,3,4,5].map(i => `<div onclick="HS.Toast.show('演示版暂不开放上传','success')" style="width:64px;height:64px;border:1px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--gray);cursor:pointer;font-size:20px">+</div>`).join("")}
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--gray);background:var(--bg);padding:8px 12px;border-radius:6px">
+            🎁 写评价 +20 积分 · 优质评价可获 50-200 积分奖励
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-ghost" onclick="HS.Modal.close('writeReviewModal')">取消</button>
+          <button class="btn btn-primary" onclick="HS.submitReview()">提交评价</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(m);
+  }
+  // 重置
+  document.querySelectorAll("#writeRating input").forEach(i => i.checked = false);
+  document.getElementById("writeContent").value = "";
+  HS.Modal.open("writeReviewModal");
+};
+
+HS.submitReview = () => {
+  const rating = document.querySelector("#writeRating input:checked");
+  if(!rating){ HS.Toast.show("请打分","error"); return; }
+  const content = document.getElementById("writeContent").value.trim();
+  if(content.length < 20){ HS.Toast.show("评价至少 20 字","error"); return; }
+  HS.Toast.show("✓ 评价已提交,审核通过后展示 +20 积分","success");
+  HS.Modal.close("writeReviewModal");
+};
+
+HS.voteHelpful = (idx) => {
+  HS.Review.helpful(id, idx);
+  HS.Toast.show("👍 感谢您的反馈","success");
+};
+
+document.getElementById("cmpBtn").style.color = HS.Compare.has(p.id) ? "var(--primary)" : "var(--gray)";
+}, 0);
+});
+</script>
+
+<style>
+.filter-chip{padding:5px 12px;border:1px solid var(--border);border-radius:14px;font-size:12px;color:var(--gray);cursor:pointer}
+.filter-chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+</style>
+</body>
+</html>

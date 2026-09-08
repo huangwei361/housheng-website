@@ -1,0 +1,97 @@
+# OS / 临时
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.bak
+*.tmp
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# 编辑器
+.vscode/
+.idea/
+
+# 商业敏感文件(本地保留,不入仓)
+大健康公司商业计划书.*
+大健康公司路演PPT.*
+厚生品牌宣传册*
+*.docx
+*.pdf
+*.pptx
+
+# 冗余文件
+大健康公司官网.html
+
+# 根目录一次性构建/预览脚本
+build_*.py
+crop_*.py
+fix_quotes.py
+preview.py
+preview_*.py
+preview_*.html
+preview-*.jpg
+preview_*.jpg
+ppt_preview-*.jpg
+website_preview/
+
+# 任何下划线开头的临时文件
+**/_*.py
+**/_*.html
+**/_*.png
+**/_*.svg
+**/_*.jpg
+
+# Chrome 截图工具临时数据(绝不入仓)
+**/_chrome_userdata/
+**/_chrome_userdata2/
+**/_chrome_userdata*/
+
+# Brochure: 18 个月开发遗留物,只入最终产物
+brochure/*.py
+brochure/__pycache__/
+brochure/trash
+brochure/*.old.png
+brochure/*_tmp.old.png
+brochure/check_p*.png
+brochure/check_*/
+brochure/cur_*/
+brochure/final*/
+brochure/final*.png
+brochure/final2*.png
+brochure/p*_v*.png
+brochure/p*_v[0-9]*.png
+brochure/p*_now.png
+brochure/page_*.png
+brochure/page_new_*.png
+brochure/preview_p*.png
+brochure/p*_new.png
+brochure/p*_now.png
+brochure/p8_*.png
+brochure/v*_idx_*.png
+brochure/v[23]b_p*.png
+brochure/v[23]_p[0-9]*.png
+brochure/index_broken.html
+brochure/inspect_pdf.py
+brochure/pg_*.txt
+brochure/check_7_18/
+brochure/cur_p7_18/
+
+# Shop 截图与调试残留
+shop/smoke/
+shop/tools/_*.py
+shop/tools/_*.html
+shop/tools/cdp_run.log
+shop/tools/real_click.log
+shop/tools/*.log
+shop/tools/smoke/
+
+# Brand 截图(预览图,不入仓)
+brand/smoke/
+
+# 但允许 brand/ 下的所有 SVG 入仓(品牌素材)
+# 但允许 shop/assets/products/*.svg 入仓(产品图)

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>咨询流程说明 - 厚生 HOUSHENG</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .process-detail {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border-left: 4px solid var(--primary);
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .process-detail .step-no {
+    background: var(--primary);
+    color: white;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 800;
+  }
+  .process-detail .step-content h3 {
+    color: var(--primary);
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  .process-detail .step-content .step-time {
+    display: inline-block;
+    background: var(--light);
+    color: var(--accent-dark);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .process-detail .step-content p {
+    color: var(--gray);
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 8px;
+  }
+  .process-detail .step-content ul {
+    list-style: none;
+    margin: 12px 0;
+  }
+  .process-detail .step-content li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    color: var(--dark);
+    font-size: 14px;
+  }
+  .process-detail .step-content li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 700;
+  }
+  .privacy-card {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+  }
+  .privacy-card h3 { color: white; font-size: 22px; margin-bottom: 16px; }
+  .privacy-card .privacy-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 24px;
+  }
+  .privacy-item {
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .privacy-item .icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+  .privacy-item h4 { color: white; font-size: 14px; margin-bottom: 4px; }
+  .privacy-item p { color: var(--secondary); font-size: 12px; }
+  @media (max-width: 768px) {
+    .process-detail { grid-template-columns: 1fr; }
+    .process-detail .step-no { margin: 0 auto; }
+    .privacy-card .privacy-items { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 导航 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo-mark.svg" width="32" height="32" alt="厚生" style="border-radius: 8px;">
+      <span>厚生</span>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="shop.html">营养商城</a></li>
+      <li><a href="courses.html">课程中心</a></li>
+      <li><a href="therapy.html">调理服务</a></li>
+      <li><a href="checkup.html">健康检测</a></li>
+      <li><a href="schedule.html">课程表</a></li>
+      <li><a href="consult.html" class="active">咨询流程</a></li>
+    </ul>
+    <a href="checkup.html" class="nav-cta">免费体测</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero" style="background: linear-gradient(135deg, #006d77 0%, #2a9d8f 100%);">
+  <div class="hero-inner">
+    <span class="hero-tag">👨‍⚕️ 1V1 咨询服务</span>
+    <h1>让专业的人<br>陪你走一段</h1>
+    <p class="subtitle">营养咨询 · 心理咨询 · 家庭方案</p>
+    <p class="desc">从预约到咨询，从方案到跟踪，<br>我们把每一步都做到位，让你心里有底。</p>
+    <div class="hero-actions">
+      <a href="#process" class="btn btn-primary">查看 5 步流程 →</a>
+      <a href="#pricing" class="btn btn-ghost">价格 + 套餐</a>
+    </div>
+  </div>
+</header>
+
+<!-- 核心承诺 -->
+<section style="padding: 40px 32px; background: white; border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center;">
+      <div>
+        <div style="font-size: 32px;">⏱️</div>
+        <div style="font-weight: 700; color: var(--primary); font-size: 15px; margin: 8px 0;">按时开始</div>
+        <div style="font-size: 12px; color: var(--gray);">不迟到，不拖堂</div>
+      </div>
+      <div>
+        <div style="font-size: 32px;">🔒</div>
+        <div style="font-weight: 700; color: var(--primary); font-size: 15px; margin: 8px 0;">全程保密</div>
+        <div style="font-size: 12px; color: var(--gray);">咨询内容不外传</div>
+      </div>
+      <div>
+        <div style="font-size: 32px;">📋</div>
+        <div style="font-weight: 700; color: var(--primary); font-size: 15px; margin: 8px 0;">方案可执行</div>
+        <div style="font-size: 12px; color: var(--gray);">不空谈，给具体方案</div>
+      </div>
+      <div>
+        <div style="font-size: 32px;">🔁</div>
+        <div style="font-weight: 700; color: var(--primary); font-size: 15px; margin: 8px 0;">3 天回访</div>
+        <div style="font-size: 12px; color: var(--gray);">持续跟踪效果</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 用户快速说明 -->
+<section style="background: white; padding-top: 64px;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">USER GUIDE</span>
+      <h2 class="section-title">📋 一图看懂咨询流程</h2>
+      <p class="section-desc">如果你只想知道"该做什么、按什么顺序"，看这一段就够了</p>
+    </div>
+
+    <!-- 用户速读卡片 -->
+    <div style="background: linear-gradient(135deg, #f0f9f8, white); border-radius: 16px; padding: 32px; border: 2px solid var(--primary); margin-bottom: 24px;">
+      <h3 style="color: var(--primary); font-size: 20px; margin-bottom: 20px;">✅ 你需要做的 5 件事（按顺序）</h3>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;">
+        <div style="text-align: center;">
+          <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 8px;">1</div>
+          <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">填问卷</div>
+          <div style="font-size: 12px; color: var(--gray);">5 分钟<br>小程序</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="background: var(--secondary); color: var(--primary-dark); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 8px;">2</div>
+          <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">接预沟通</div>
+          <div style="font-size: 12px; color: var(--gray);">10 分钟<br>咨询前 1 天</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="background: var(--accent); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 8px;">3</div>
+          <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">准时咨询</div>
+          <div style="font-size: 12px; color: var(--gray);">60 分钟<br>门店/视频</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="background: #6a4c93; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 8px;">4</div>
+          <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">收方案</div>
+          <div style="font-size: 12px; color: var(--gray);">24 小时内<br>电子档</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="background: #d62828; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 8px;">5</div>
+          <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">按节奏回访</div>
+          <div style="font-size: 12px; color: var(--gray);">3 / 7 / 30 / 90<br>天</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 必读 3 件事 -->
+    <div class="grid-3" style="margin-bottom: 16px;">
+      <div style="background: #fff8e1; border-left: 4px solid #f77f00; padding: 20px; border-radius: 8px;">
+        <h4 style="color: #ef6c00; margin-bottom: 8px;">⚠️ 开始前要知道</h4>
+        <p style="font-size: 13px; color: var(--dark); line-height: 1.7;">至少提前 <strong>3 天</strong>预约。临时预约可能约不到想要的咨询师和时段。</p>
+      </div>
+      <div style="background: #e8f5e9; border-left: 4px solid #2e7d32; padding: 20px; border-radius: 8px;">
+        <h4 style="color: #2e7d32; margin-bottom: 8px;">💰 付款与退费</h4>
+        <p style="font-size: 13px; color: var(--dark); line-height: 1.7;">单次咨询开始 10 分钟内不满意<strong>全额退</strong>。季度套餐 7 天内可退。</p>
+      </div>
+      <div style="background: #e3f2fd; border-left: 4px solid #1976d2; padding: 20px; border-radius: 8px;">
+        <h4 style="color: #1976d2; margin-bottom: 8px;">🔒 隐私承诺</h4>
+        <p style="font-size: 13px; color: var(--dark); line-height: 1.7;">咨询内容<strong>全程加密</strong>，咨询师签保密协议，可随时要求删除记录。</p>
+      </div>
+    </div>
+
+    <!-- 适合 vs 不适合 -->
+    <div class="grid-2" style="margin-top: 24px;">
+      <div style="background: #f0f9f8; padding: 20px 24px; border-radius: 8px;">
+        <h4 style="color: var(--primary); margin-bottom: 12px;">🙋 适合咨询的人</h4>
+        <ul style="list-style: none; padding: 0; font-size: 13px; color: var(--dark); line-height: 1.9;">
+          <li>· 体检报告有异常项但还没到疾病标准的人</li>
+          <li>· 长期外卖、饮食不规律、想调整的人</li>
+          <li>· 想减肥但试过很多方法效果不佳的人</li>
+          <li>· 家里有老人/小孩/孕产妇，需要家庭方案</li>
+          <li>· 工作压力大、失眠、情绪低落需要疏导</li>
+        </ul>
+      </div>
+      <div style="background: #fef5f5; padding: 20px 24px; border-radius: 8px;">
+        <h4 style="color: #c0392b; margin-bottom: 12px;">🚫 不适合咨询的人</h4>
+        <ul style="list-style: none; padding: 0; font-size: 13px; color: var(--dark); line-height: 1.9;">
+          <li>· 已经确诊的精神疾病（请去<strong>医院精神科</strong>）</li>
+          <li>· 重度抑郁、双相、严重失眠（先就医，病情稳定后我们配合疏导）</li>
+          <li>· 危急情况（请立即拨打 400-161-9995 心理援助热线）</li>
+          <li>· 期望"咨询一次就根治"的人（健康需要长期管理）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 步流程 -->
+<section id="process" style="background: var(--bg);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">5-STEP PROCESS</span>
+      <h2 class="section-title">从预约到跟踪 · 5 步全流程</h2>
+      <p class="section-desc">下面以"营养咨询"为例，心理咨询流程类似，<a href="#psy" style="color: var(--primary);">看心理咨询差异</a></p>
+    </div>
+
+    <!-- 步骤 1：预约 -->
+    <div class="process-detail">
+      <div class="step-no">1</div>
+      <div class="step-content">
+        <span class="step-time">⏱ 用时：2-3 分钟</span>
+        <h3>线上预约 · 选咨询师 / 时段</h3>
+        <p>通过小程序 / 公众号 / 客服微信，填写健康问卷（5 分钟），选择你方便的咨询师和时段。</p>
+        <ul>
+          <li>选咨询师：每个营养师都有擅长方向（减脂 / 三高 / 孕产 / 儿童等）</li>
+          <li>选时段：9:00-21:00，提前 3 天可约</li>
+          <li>选形式：门店面对面 / 腾讯会议线上</li>
+        </ul>
+        <p style="background: var(--bg); padding: 12px; border-radius: 6px; margin-top: 12px;">
+          💡 <strong>小贴士：</strong>第一次咨询建议面对面，更能了解你的生活习惯。
+        </p>
+      </div>
+    </div>
+
+    <!-- 步骤 2：预沟通 -->
+    <div class="process-detail" style="border-left-color: var(--secondary);">
+      <div class="step-no" style="background: var(--secondary);">2</div>
+      <div class="step-content">
+        <span class="step-time">⏱ 用时：咨询前 1-2 天</span>
+        <h3>预沟通 · 收集基础信息</h3>
+        <p>咨询师会在咨询前 1 天主动联系你，做简单的预沟通（5-10 分钟电话/微信），了解基本情况、初步判断方向。</p>
+        <ul>
+          <li>了解你的核心诉求：是想减肥？调三高？还是全家营养方案？</li>
+          <li>了解过往病史：是否有慢病、过敏、用药情况</li>
+          <li>了解家庭情况：是否有老人小孩一起住</li>
+          <li>了解饮食现状：工作餐 / 家庭餐 / 外卖占比</li>
+        </ul>
+        <p style="background: var(--bg); padding: 12px; border-radius: 6px; margin-top: 12px;">
+          💡 <strong>小贴士：</strong>这个环节是为了让正式咨询更高效，不是走过场。
+        </p>
+      </div>
+    </div>
+
+    <!-- 步骤 3：正式咨询 -->
+    <div class="process-detail" style="border-left-color: var(--accent);">
+      <div class="step-no" style="background: var(--accent);">3</div>
+      <div class="step-content">
+        <span class="step-time">⏱ 用时：60 分钟</span>
+        <h3>正式咨询 · 60 分钟深度沟通</h3>
+        <p>到店（推荐）或视频（备选）进行 60 分钟 1v1 咨询。</p>
+        <ul>
+          <li><strong>0-10 分钟：</strong>确认诉求 + 心理预期</li>
+          <li><strong>10-30 分钟：</strong>详细饮食回顾 + 体征评估</li>
+          <li><strong>30-50 分钟：</strong>定制化方案讲解（食谱 + 运动 + 习惯）</li>
+          <li><strong>50-60 分钟：</strong>答疑 + 共识下一步</li>
+        </ul>
+        <p style="background: var(--bg); padding: 12px; border-radius: 6px; margin-top: 12px;">
+          💡 <strong>小贴士：</strong>咨询中可以随时打断提问，没有"傻问题"。
+        </p>
+      </div>
+    </div>
+
+    <!-- 步骤 4：方案交付 -->
+    <div class="process-detail" style="border-left-color: #6a4c93;">
+      <div class="step-no" style="background: #6a4c93;">4</div>
+      <div class="step-content">
+        <span class="step-time">⏱ 用时：咨询后 24 小时内</span>
+        <h3>方案交付 · 可执行的电子档</h3>
+        <p>咨询结束后 24 小时内，营养师会给你一份完整的"个人健康方案"，形式是图文 + 表格，可打印可分享给家人。</p>
+        <ul>
+          <li>📋 <strong>个人健康档案：</strong>体质类型 + 关键问题</li>
+          <li>🍽 <strong>7 日食谱：</strong>早中晚 + 加餐 · 替代方案</li>
+          <li>🛒 <strong>采购清单：</strong>每周买什么 + 大概预算</li>
+          <li>🏃 <strong>运动建议：</strong>每周频次 + 强度 + 注意</li>
+          <li>📊 <strong>关键指标：</strong>1-3 个月要追踪的数据</li>
+          <li>⚠️ <strong>避坑指南：</strong>常见误区 + 你的专属提醒</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 步骤 5：跟踪回访 -->
+    <div class="process-detail" style="border-left-color: #d62828;">
+      <div class="step-no" style="background: #d62828;">5</div>
+      <div class="step-content">
+        <span class="step-time">⏱ 用时：长期（无固定时长）</span>
+        <h3>跟踪回访 · 3-7-30 天节奏</h3>
+        <p>不是咨询完就结束，营养师会按节奏主动回访，确保方案真正落地。</p>
+        <ul>
+          <li><strong>3 天回访：</strong>微信确认方案执行情况、解决"卡住"的点</li>
+          <li><strong>7 天复盘：</strong>调整方案细节（不合口味的菜、运动强度）</li>
+          <li><strong>30 天评估：</strong>看数据变化（体重/腰围/睡眠/精神）</li>
+          <li><strong>90 天复测：</strong>对比 1v1 营养师 + 检测数据</li>
+        </ul>
+        <p style="background: var(--bg); padding: 12px; border-radius: 6px; margin-top: 12px;">
+          💡 <strong>关于复购：</strong>你可以选择"按次付费"（498/次）或"季度跟踪套餐"（1280/季度，含 4 次咨询+月度复测+无限制微信答疑），后者更划算。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 心理咨询差异 -->
+<section id="psy">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">PSYCHOLOGY</span>
+      <h2 class="section-title">心理咨询的特殊说明</h2>
+      <p class="section-desc">心理咨询比营养咨询更敏感，流程有差异</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="vi-block" style="margin: 0; background: white; padding: 32px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">✅ 我们提供</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--dark);">
+            <span style="position: absolute; left: 0; color: var(--primary);">✓</span>
+            一般心理问题疏导（焦虑、压力、失眠、人际关系）
+          </li>
+          <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--dark);">
+            <span style="position: absolute; left: 0; color: var(--primary);">✓</span>
+            情绪管理 · 正念训练 · 心理成长
+          </li>
+          <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--dark);">
+            <span style="position: absolute; left: 0; color: var(--primary);">✓</span>
+            亲子关系 / 婚姻关系咨询
+          </li>
+          <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--dark);">
+            <span style="position: absolute; left: 0; color: var(--primary);">✓</span>
+            企业 EAP 团体辅导
+          </li>
+        </ul>
+      </div>
+      <div class="vi-block" style="margin: 0; background: #fff5f5; padding: 32px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <h3 style="color: #c0392b; margin-bottom: 16px;">❌ 我们不提供</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--dark);">
+            <span style="position: absolute; left: 0; color: #c0392b;">✗</span>
+            精神疾病的诊断和治疗（需医院精神科）
+          </li>
+          <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--dark);">
+            <span style="position: absolute; left: 0; color: #c0392b;">✗</span>
+            重度抑郁、双相情感障碍的药物调整
+          </li>
+          <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--dark);">
+            <span style="position: absolute; left: 0; color: #c0392b;">✗</span>
+            危机干预 / 自杀干预（需拨打 400-161-9995）
+          </li>
+          <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--dark);">
+            <span style="position: absolute; left: 0; color: #c0392b;">✗</span>
+            任何形式的处方药物建议
+          </li>
+        </ul>
+        <p style="background: white; padding: 12px; border-radius: 6px; margin-top: 12px; font-size: 13px; color: var(--gray);">
+          ⚠️ 如果你有以上情况，我们会建议你先去医院精神科就诊，情况稳定后我们再配合做心理疏导。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 隐私保护 -->
+<section>
+  <div class="container">
+    <div class="privacy-card">
+      <h3>🔒 隐私保护承诺</h3>
+      <p style="opacity: 0.9;">我们把咨询内容当作银行账户密码来保护</p>
+      <div class="privacy-items">
+        <div class="privacy-item">
+          <div class="icon">🔐</div>
+          <h4>全程加密</h4>
+          <p>咨询录音、聊天记录、档案都加密存储，仅你本人可访问</p>
+        </div>
+        <div class="privacy-item">
+          <div class="icon">🤐</div>
+          <h4>严格保密</h4>
+          <p>咨询师均签有保密协议，违反一次即解除合作，永不续用</p>
+        </div>
+        <div class="privacy-item">
+          <div class="icon">🗑️</div>
+          <h4>可随时删除</h4>
+          <p>你随时可以要求删除你的所有咨询记录，7 天内彻底清除</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 价格 + 套餐 -->
+<section id="pricing" class="section-bg">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">PRICING</span>
+      <h2 class="section-title">价格 + 套餐</h2>
+      <p class="section-desc">按次付费起步，长期跟踪套餐更划算</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-image cool">🥗</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag">按次付费</span></div>
+          <div class="card-title">营养咨询 · 单次</div>
+          <div class="card-subtitle">60 分钟 · 1v1</div>
+          <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+            <li>✓ 1 次 60 分钟咨询</li>
+            <li>✓ 1 份个人健康方案</li>
+            <li>✓ 3 天回访 1 次</li>
+            <li>✗ 不含后续跟踪</li>
+          </ul>
+          <div class="card-price">
+            <span class="price-symbol">¥</span>
+            <span class="price-value">498</span>
+            <span class="price-original">¥698</span>
+            <span class="price-suffix">/ 次</span>
+          </div>
+          <button class="btn btn-primary btn-block">预约单次</button>
+        </div>
+      </div>
+
+      <div class="card" style="border: 2px solid var(--accent);">
+        <div class="card-image warm">📋</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag tag-accent">推荐</span></div>
+          <div class="card-title">营养咨询 · 季度套餐</div>
+          <div class="card-subtitle">3 个月 · 深度陪伴</div>
+          <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+            <li>✓ 4 次 1v1 咨询</li>
+            <li>✓ 季度 INBODY 检测 1 次</li>
+            <li>✓ 月度方案调整</li>
+            <li>✓ 微信群无限答疑</li>
+            <li>✓ 7 天内无理由退款</li>
+          </ul>
+          <div class="card-price">
+            <span class="price-symbol">¥</span>
+            <span class="price-value">1280</span>
+            <span class="price-original">¥1992</span>
+            <span class="price-suffix" style="color: var(--accent); margin-left: 4px;">省 712</span>
+          </div>
+          <button class="btn btn-primary btn-block">购买套餐</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-image">👨‍👩‍👧</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag">家庭</span></div>
+          <div class="card-title">家庭营养方案</div>
+          <div class="card-subtitle">3-4 人 · 90 分钟 · 上门</div>
+          <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+            <li>✓ 营养师上门 90 分钟</li>
+            <li>✓ 4 人份定制食谱</li>
+            <li>✓ 厨房食材清单</li>
+            <li>✓ 1 个月跟踪</li>
+            <li>✓ 家庭成员个体方案</li>
+          </ul>
+          <div class="card-price">
+            <span class="price-symbol">¥</span>
+            <span class="price-value">1980</span>
+            <span class="price-original">¥2980</span>
+            <span class="price-suffix">/ 家庭</span>
+          </div>
+          <button class="btn btn-primary btn-block">预约家庭</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-image dark">🧠</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag">按次</span></div>
+          <div class="card-title">心理咨询 · 单次</div>
+          <div class="card-subtitle">50 分钟 · 1v1 · 视频</div>
+          <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+            <li>✓ 1 次 50 分钟咨询</li>
+            <li>✓ 1 份心理评估报告</li>
+            <li>✓ 1 周内文字答疑</li>
+            <li>✗ 不含长期跟踪</li>
+          </ul>
+          <div class="card-price">
+            <span class="price-symbol">¥</span>
+            <span class="price-value">698</span>
+            <span class="price-original">¥998</span>
+            <span class="price-suffix">/ 次</span>
+          </div>
+          <button class="btn btn-primary btn-block">预约单次</button>
+        </div>
+      </div>
+
+      <div class="card" style="border: 2px solid var(--primary);">
+        <div class="card-image soft">🧘</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag tag-primary">深度</span></div>
+          <div class="card-title">心理咨询 · 季度套餐</div>
+          <div class="card-subtitle">3 个月 · 系统陪伴</div>
+          <ul style="list-style: none; margin: 12px 0; font-size: 13px; color: var(--gray);">
+            <li>✓ 6 次 1v1 咨询</li>
+            <li>✓ 季度心理评估</li>
+            <li>✓ 每周情绪记录表</li>
+            <li>✓ 7×24 小时文字支持</li>
+            <li>✓ 1 次家庭成员咨询</li>
+          </ul>
+          <div class="card-price">
+            <span class="price-symbol">¥</span>
+            <span class="price-value">3680</span>
+            <span class="price-original">¥5988</span>
+            <span class="price-suffix" style="color: var(--accent); margin-left: 4px;">省 2308</span>
+          </div>
+          <button class="btn btn-primary btn-block">购买套餐</button>
+        </div>
+      </div>
+
+      <div class="card" style="background: linear-gradient(135deg, var(--light), white);">
+        <div class="card-body" style="padding: 32px; text-align: center;">
+          <div style="font-size: 32px; margin-bottom: 12px;">💎</div>
+          <div class="card-title">不确定选哪个？</div>
+          <p style="color: var(--gray); margin: 12px 0;">顾问 1 小时内帮你定制方案</p>
+          <a href="checkup.html" class="btn btn-secondary btn-block">免费咨询</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">常见问题</h2>
+    </div>
+    <div style="max-width: 800px; margin: 0 auto;">
+      <div class="faq">
+        <div class="faq-q">第一次咨询应该选哪个老师？</div>
+        <div class="faq-a">看你的核心诉求。每个营养师都有擅长方向，预约页面会写清楚。如果不确定，提交预约后我们顾问会根据你的情况推荐。</div>
+      </div>
+      <div class="faq">
+        <div class="faq-q">线上咨询和面对面效果一样吗？</div>
+        <div class="faq-a">对于"信息收集 + 方案设计"环节，线上完全够用。但如果是首次咨询、需要做 INBODY 检测 / 现场教做菜，建议面对面。两种形式的方案质量一样。</div>
+      </div>
+      <div class="faq">
+        <div class="faq-q">咨询后能退吗？</div>
+        <div class="faq-a">单次咨询：开始后 10 分钟内不满意，全额退款。季度套餐：7 天内未使用第 1 次咨询可全额退款。第 1 次咨询后按已使用次数 × 单次价扣除，余额退还。</div>
+      </div>
+      <div class="faq">
+        <div class="faq-q">咨询能开发票吗？</div>
+        <div class="faq-a">可以。普通发票电子版当天开，专票 7 个工作日。抬头可写公司或个人。</div>
+      </div>
+      <div class="faq">
+        <div class="faq-q">家里老人不会用智能手机怎么办？</div>
+        <div class="faq-a">建议选"家庭营养方案"上门服务，营养师直接到家里和老人沟通。或者你替老人预约，咨询时陪同。</div>
+      </div>
+      <div class="faq">
+        <div class="faq-q">心理咨询师有证书吗？</div>
+        <div class="faq-a">所有心理咨询师均持国家二级/三级心理咨询师证 + 累计 8 年+ 临床经验。我们有 3 名全职 + 5 名签约咨询师，可根据你的情况匹配。</div>
+      </div>
+      <div class="faq">
+        <div class="faq-q">家人能一起做咨询吗？</div>
+        <div class="faq-a">营养咨询可以做"家庭方案"。心理咨询一般是 1v1，但套餐内含 1 次"家庭咨询"名额。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-primary">
+  <div class="container" style="text-align: center;">
+    <h2 class="section-title">开始你的第一次咨询</h2>
+    <p class="section-desc">顾问 1 小时内联系你，先聊聊不收费</p>
+    <div style="display: flex; gap: 12px; justify-content: center; max-width: 600px; margin: 32px auto 0; flex-wrap: wrap;">
+      <input type="text" class="input" placeholder="您的称呼" style="flex: 1; min-width: 200px;">
+      <input type="tel" class="input" placeholder="手机号" style="flex: 1; min-width: 200px;">
+      <button class="btn btn-primary">免费预约</button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">厚生 HOUSHENG</div>
+      <p class="footer-desc">厚生万物 · 养心养身<br>营养 · 运动 · 功法 · 中医 · 心理 · 检测</p>
+    </div>
+    <div>
+      <h4>业务板块</h4>
+      <ul>
+        <li><a href="shop.html">营养商城</a></li>
+        <li><a href="courses.html">课程中心</a></li>
+        <li><a href="therapy.html">调理服务</a></li>
+        <li><a href="checkup.html">健康检测</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>咨询相关</h4>
+      <ul>
+        <li><a href="schedule.html">每周课表</a></li>
+        <li><a href="consult.html">咨询流程</a></li>
+        <li><a href="consult.html#pricing">咨询价格</a></li>
+        <li><a href="consult.html#psy">心理咨询说明</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>联系</h4>
+      <ul>
+        <li>客服微信：（请补充）</li>
+        <li>电话：400-XXX-XXXX</li>
+        <li>邮箱：consult@yourbrand.com</li>
+        <li>工作时间：9:00-21:00</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 厚生 HOUSHENG WELLNESS · 厚生万物 · 养心养身</div>
+</footer>
+
+<script>
+document.querySelectorAll('.faq').forEach(faq => {
+  faq.addEventListener('click', () => faq.classList.toggle('open'));
+});
+</script>
+</body>
+</html>

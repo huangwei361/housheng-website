@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>商品列表 · 厚生营养商城</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div id="navMount"></div>
+
+<div class="container">
+  <div class="breadcrumb" id="breadcrumb"></div>
+</div>
+
+<div class="container">
+  <div class="layout-with-side">
+    <!-- 侧边筛选 -->
+    <aside class="filter-side">
+      <div class="filter-group">
+        <div class="filter-title">📂 分类</div>
+        <div class="filter-list" id="filterCat"></div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-title">💰 价格</div>
+        <div class="filter-list" id="filterPrice"></div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-title">🏷️ 功能</div>
+        <div class="filter-list" id="filterTag"></div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-title">⭐ 评分</div>
+        <div class="filter-list" id="filterRating"></div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-title">🔥 折扣</div>
+        <div class="filter-list">
+          <label><input type="checkbox" id="onlyDiscount"/> 仅看折扣</label>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 主体 -->
+    <main>
+      <!-- 搜索结果统计 -->
+      <div id="resultBar" style="margin-bottom:14px;color:var(--gray);font-size:14px"></div>
+
+      <!-- 排序 -->
+      <div class="sort-bar">
+        <div class="sort-tabs" id="sortTabs">
+          <span class="sort-tab active" data-sort="default">综合</span>
+          <span class="sort-tab" data-sort="sales">销量</span>
+          <span class="sort-tab" data-sort="price-asc">价格 ↑</span>
+          <span class="sort-tab" data-sort="price-desc">价格 ↓</span>
+          <span class="sort-tab" data-sort="rating">好评</span>
+          <span class="sort-tab" data-sort="new">新品</span>
+        </div>
+        <div class="sort-tools">
+          <span id="pageInfo">第 1 页</span>
+          <button class="btn btn-ghost btn-sm" onclick="HS.Modal.open('compareModal')">🔍 对比 (<span id="cmpCount">0</span>)</button>
+        </div>
+      </div>
+
+      <!-- 列表 -->
+      <div class="product-grid" id="productGrid"></div>
+
+      <!-- 空状态 -->
+      <div id="emptyState" style="display:none;text-align:center;padding:60px 0;color:var(--gray)">
+        <div style="font-size:60px;margin-bottom:14px">🤔</div>
+        <p>没有匹配的商品</p>
+        <button class="btn btn-outline" style="margin-top:14px" onclick="HS.clearFilter()">清除筛选</button>
+      </div>
+
+      <!-- 分页 -->
+      <div class="pagination" id="pagination"></div>
+    </main>
+  </div>
+</div>
+
+<div id="footerMount"></div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+const esc = s => String(s||"").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const params = new URLSearchParams(location.search);
+const PAGE_SIZE = 8;
+let state = {
+  cat: params.get("cat") || "all",
+  q:   params.get("q") || "",
+  sort: "default",
+  price: "",
+  tags: [],
+  rating: 0,
+  onlyDiscount: false,
+  page: 1,
+};
+
+function filtered(){
+  let list = HS.products.slice();
+  if(state.cat !== "all") list = list.filter(p => p.cat === state.cat);
+  if(state.q){
+    const q = state.q.toLowerCase();
+    list = list.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.cat.toLowerCase().includes(q) ||
+      p.blurb.toLowerCase().includes(q) ||
+      p.tags.some(t => t.toLowerCase().includes(q))
+    );
+  }
+  if(state.price){
+    const [a,b] = state.price.split("-").map(Number);
+    list = list.filter(p => p.price >= a && (b ? p.price <= b : true));
+  }
+  if(state.tags.length) list = list.filter(p => state.tags.some(t => p.tags.includes(t)));
+  if(state.rating) list = list.filter(p => p.rating >= state.rating);
+  if(state.onlyDiscount) list = list.filter(p => p.was > p.price);
+  if(state.sort === "sales") list.sort((a,b) => b.sales - a.sales);
+  if(state.sort === "price-asc") list.sort((a,b) => a.price - b.price);
+  if(state.sort === "price-desc") list.sort((a,b) => b.price - a.price);
+  if(state.sort === "rating") list.sort((a,b) => b.rating - a.rating);
+  if(state.sort === "new" || state.sort === "default") list.sort((a,b) => 0); // 保持原序
+  return list;
+}
+
+function render(){
+  // 面包屑
+  const catName = state.cat==="all" ? "全部商品" : state.cat;
+  document.getElementById("breadcrumb").innerHTML = `
+    <a href="index.html">首页</a><span class="sep">/</span>
+    <a href="product.html">商品</a><span class="sep">/</span>
+    <span class="current">${esc(catName)}${state.q?`（搜索：${esc(state.q)}）`:""}</span>
+  `;
+  if(state.q) document.getElementById("navSearchInput").value = state.q;
+
+  // 侧边筛选
+  const catCounts = HS.products.reduce((m,p) => { m[p.cat]=(m[p.cat]||0)+1; return m; }, {});
+  catCounts["all"] = HS.products.length;
+  document.getElementById("filterCat").innerHTML = Object.entries(catCounts).map(([k,v]) => `
+    <label><input type="radio" name="cat" value="${k}" ${state.cat===k?"checked":""} onchange="HS.pickCat('${k}')"/> ${k==="all"?"全部":k} <span class="count">(${v})</span></label>
+  `).join("");
+
+  document.getElementById("filterPrice").innerHTML = [
+    ["0-100","¥0-100"],["100-200","¥100-200"],["200-300","¥200-300"],["300-","¥300+"]
+  ].map(([v,l]) => `<label><input type="radio" name="price" value="${v}" ${state.price===v?"checked":""} onchange="HS.pickPrice('${v}')"/> ${l}</label>`).join("");
+
+  const allTags = [...new Set(HS.products.flatMap(p => p.tags))].sort();
+  document.getElementById("filterTag").innerHTML = allTags.map(t => `
+    <label><input type="checkbox" value="${t}" ${state.tags.includes(t)?"checked":""} onchange="HS.toggleTag('${t}')"/> ${t}</label>
+  `).join("");
+
+  document.getElementById("filterRating").innerHTML = [4.5, 4.0, 3.5].map(r => `
+    <label><input type="radio" name="rating" value="${r}" ${state.rating===r?"checked":""} onchange="HS.pickRating(${r})"/> ${r} 星及以上</label>
+  `).join("");
+
+  document.getElementById("cmpCount").textContent = HS.Compare.count();
+
+  // 列表
+  const list = filtered();
+  const total = list.length;
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  if(state.page > totalPages) state.page = totalPages;
+  const slice = list.slice((state.page-1)*PAGE_SIZE, state.page*PAGE_SIZE);
+  document.getElementById("productGrid").innerHTML = slice.map(HS.productCard).join("");
+  document.getElementById("emptyState").style.display = slice.length ? "none" : "block";
+  document.getElementById("resultBar").innerHTML = `共 <strong style="color:var(--primary)">${total}</strong> 件商品${state.q?` 匹配"<span style="color:var(--primary)">${esc(state.q)}</span>"`:""}`;
+
+  // 分页
+  renderPagination(totalPages);
+
+  // 排序 tab
+  document.querySelectorAll(".sort-tab").forEach(t => t.classList.toggle("active", t.dataset.sort === state.sort));
+}
+
+function renderPagination(total){
+  const p = state.page;
+  let html = `<a ${p===1?'class="disabled"':''} onclick="HS.goPage(${p-1})">‹ 上一页</a>`;
+  // 最多显示 5 个
+  const start = Math.max(1, p-2);
+  const end = Math.min(total, start+4);
+  if(start > 1) html += `<a onclick="HS.goPage(1)">1</a>${start>2?'<span>...</span>':''}`;
+  for(let i=start; i<=end; i++) html += `<a class="${i===p?'active':''}" onclick="HS.goPage(${i})">${i}</a>`;
+  if(end < total) html += `${end<total-1?'<span>...</span>':''}<a onclick="HS.goPage(${total})">${total}</a>`;
+  html += `<a ${p===total?'class="disabled"':''} onclick="HS.goPage(${p+1})">下一页 ›</a>`;
+  document.getElementById("pagination").innerHTML = html;
+  document.getElementById("pageInfo").textContent = `第 ${p} / ${total} 页`;
+}
+
+// expose
+HS.pickCat = k => { state.cat = k; state.page = 1; render(); };
+HS.pickPrice = v => { state.price = state.price===v?"":v; state.page = 1; render(); };
+HS.toggleTag = t => { const i = state.tags.indexOf(t); if(i>-1) state.tags.splice(i,1); else state.tags.push(t); state.page=1; render(); };
+HS.pickRating = r => { state.rating = state.rating===r?0:r; state.page=1; render(); };
+HS.goPage = p => { state.page = p; render(); window.scrollTo({top:0, behavior:"smooth"}); };
+HS.clearFilter = () => { state = {cat:state.cat, q:state.q, sort:"default", price:"", tags:[], rating:0, onlyDiscount:false, page:1}; render(); };
+document.querySelectorAll(".sort-tab").forEach(t => t.addEventListener("click", () => { state.sort = t.dataset.sort; state.page = 1; render(); }));
+document.getElementById("onlyDiscount").addEventListener("change", e => { state.onlyDiscount = e.target.checked; state.page=1; render(); });
+
+render();
+</script>
+</body>
+</html>
