@@ -293,8 +293,20 @@ input,select,textarea{font-family:inherit;font-size:14px}
   #advisorGrid{grid-template-columns:1fr !important}
 
   /* checkout.html 步骤条:3 段折行 */
-  .stepper{gap:14px !important;flex-wrap:wrap !important}
+  .stepper{gap:14px !important;flex-wrap:wrap !important;padding:14px !important}
   .stepper > div[style*="flex:0 0 60px"]{display:none}
+
+  /* cart.html 步骤条:连接线换行,3 段紧凑 */
+  div[style*="display:flex;align-items:center;justify-content:center;gap:30px;padding:20px;background:#fff"]{
+    gap:6px !important;padding:12px !important;flex-wrap:wrap;justify-content:space-between !important;font-size:13px
+  }
+  /* 步骤条连接线在 mobile 转为短横线 */
+  div[style*="display:flex;align-items:center;justify-content:center;gap:30px;padding:20px;background:#fff"] > span{
+    flex:0 0 16px;overflow:hidden;height:1px;background:#d1d5db;color:transparent !important;font-size:0
+  }
+  div[style*="display:flex;align-items:center;justify-content:center;gap:30px;padding:20px;background:#fff"] > span::before{
+    content:"———"
+  }
 
   /* 优惠/支付方式 4 列 → 2 列 */
   .pay-method-grid{grid-template-columns:repeat(2,1fr) !important}
