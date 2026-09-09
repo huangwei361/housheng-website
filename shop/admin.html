@@ -283,21 +283,25 @@ body{background:#f5fafa;margin:0;font-family:"PingFang SC","Microsoft YaHei",san
 }
 @media (max-width:768px){
   .admin-sidebar{transform:translateX(-100%);transition:transform 0.3s}
-  .admin-sidebar.open{transform:translateX(0)}
+  .admin-sidebar.open{transform:translateX(0);box-shadow:0 0 30px rgba(0,0,0,0.4)}
   .admin-main{margin-left:0}
   .admin-stats-row.cols-4,.admin-stats-row.cols-5,.admin-stats-row.cols-3{grid-template-columns:1fr 1fr}
-  .admin-topbar .left h2{font-size:18px}
-  .admin-topbar .right input{width:160px !important;font-size:12px}
-  .admin-topbar{padding:0 14px}
+  .admin-topbar .left h2{font-size:16px}
+  .admin-topbar .left .breadcrumb-mini{display:none}
+  .admin-topbar .right input{width:140px !important;font-size:12px;padding:6px 10px}
+  .admin-topbar{padding:0 12px;height:54px}
   .admin-menu-btn{display:flex !important}
   .admin-sidebar.open ~ .admin-overlay{display:block}
 
   /* main 内部 grid 全部转 1 列 */
-  .admin-content{padding:14px !important}
+  .admin-content{padding:12px !important}
   .admin-content div[style*="grid-template-columns:repeat(6,1fr)"]{grid-template-columns:repeat(2,1fr) !important}
   .admin-content div[style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr !important}
   .admin-content div[style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:1fr 1fr !important}
   .admin-content div[style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:1fr !important}
+  /* 仪表盘核心 2fr 1fr(销售趋势+漏斗)、1fr 1fr(实时动态+渠道)→ 1 列 */
+  .admin-content div[style*="grid-template-columns:2fr 1fr"]{grid-template-columns:1fr !important}
+  .admin-content div[style*="grid-template-columns:1fr 1fr;"]{grid-template-columns:1fr !important}
   .channel-grid,.settings-grid{grid-template-columns:1fr !important}
 
   /* 表格横向滚动 */
@@ -305,17 +309,92 @@ body{background:#f5fafa;margin:0;font-family:"PingFang SC","Microsoft YaHei",san
 
   /* canvas 图缩小 */
   .admin-content canvas{max-width:100%;height:auto !important}
+  .admin-content svg{max-width:100%;height:auto !important}
 
   /* 调整 padding */
   .admin-content > div[style*="padding:20px"]{padding:14px !important}
+  /* 销售趋势 svg 容器 高度缩小 */
+  .admin-content svg[viewBox="0 0 800 220"]{height:180px !important}
+  /* 销售趋势按钮组 4 个 flex-wrap */
+  .admin-content .admin-section-title .actions{flex-wrap:wrap;gap:4px}
+  .admin-content .admin-section-title{flex-wrap:wrap;gap:8px}
+  /* funnel 漏斗图 在 768 也可折行 */
+  .funnel-item .label{width:64px;font-size:12px}
+  .funnel-item .pct{width:54px;font-size:12px}
+  /* 实时动态 icon 列在 768 可适度缩 */
+  .realtime-item .icon{font-size:14px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center}
+  /* 营销卡片 meta 列在 768 wrap */
+  .promo-card .meta{flex-wrap:wrap;gap:8px}
+  /* admin 用户卡片头像 缩 */
+  .admin-user{padding:12px 16px}
+  .admin-user > div[style*="display:flex;align-items:center"]{gap:6px}
+  /* sidebar 内部 padding 适度 */
+  .admin-sidebar{padding:14px 0}
+  .admin-logo{padding:0 16px 14px;font-size:15px}
+  .admin-nav-item{padding:9px 16px;font-size:12px}
+  .admin-nav-section{padding:10px 16px 4px;font-size:9px}
+  /* 客户详情 头像缩 */
+  .customer-side .avatar{width:70px;height:70px;font-size:30px;margin-bottom:10px}
+  .customer-side .name{font-size:18px}
+  .customer-side .stats{margin-top:14px;gap:8px}
+
+  /* 库存预警/营销/内容项 thumb 缩 */
+  .content-item .thumb{width:80px;height:60px;font-size:18px;flex-shrink:0}
+  .content-item{flex-wrap:wrap;gap:10px}
+  .content-item .info{min-width:0}
+
+  /* 实时滚动 item 紧凑 */
+  .realtime-item{padding:8px 0;font-size:12px;gap:8px}
+  .realtime-item .amount{font-size:13px}
+
+  /* 客户详情面板 280px 1fr → 1 列 */
+  .customer-detail{grid-template-columns:1fr !important;min-height:auto !important}
+  .customer-side{padding:18px}
+
+  /* 顶部右侧 input 隐藏(避免拥挤) */
+  /* 已在 480 隐藏,768 缩小 */
+
+  /* filter-bar 紧凑 */
+  .admin-filter-bar{padding:10px 12px;gap:8px}
+  .admin-filter-bar .filter-input{min-width:110px;padding:6px 10px;font-size:12px}
+  .admin-filter-bar .actions .btn{padding:4px 10px;font-size:12px}
+
+  /* admin 登录页 mobile */
+  .admin-login-box{width:90%;max-width:340px;padding:28px 22px}
 }
 
 @media (max-width:480px){
-  .admin-stats-row.cols-4,.admin-stats-row.cols-5,.admin-stats-row.cols-3{grid-template-columns:1fr !important}
+  .admin-stats-row.cols-4,.admin-stats-row.cols-5,.admin-stats-row.cols-3{grid-template-columns:1fr 1fr !important}
   .admin-content div[style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:1fr !important}
   .admin-topbar .right input{display:none}
-  .admin-topbar .left h2{font-size:16px}
-  .admin-content h3{font-size:16px !important}
+  .admin-topbar .left h2{font-size:15px}
+  .admin-topbar .left .breadcrumb-mini{display:none}
+  .admin-content h3{font-size:15px !important}
+  .admin-section{padding:14px 12px}
+  .admin-section-title{font-size:14px}
+  .admin-stat-card{padding:12px 10px}
+  .admin-stat-card .value{font-size:20px}
+  .admin-stat-card .label{font-size:11px}
+  .admin-table{font-size:11px}
+  .admin-table th,.admin-table td{padding:7px 5px}
+  /* 隐藏次要右侧 icon(❓ 帮助) */
+  .admin-topbar .right .icon-btn:nth-of-type(2){display:none}
+  /* 折线图/SVG 在 480 进一步缩 */
+  .admin-content svg[viewBox="0 0 800 220"]{height:160px !important}
+  .funnel-item{flex-wrap:wrap;gap:6px}
+  .funnel-item .label{width:54px;font-size:11px}
+  .funnel-item .pct{width:50px;font-size:12px}
+  /* 告警/营销/内容 缩 */
+  .alert-item{padding:8px 10px;gap:10px}
+  .alert-item .icon{width:30px;height:30px;font-size:16px}
+  .promo-card{padding:12px}
+  .content-item .thumb{width:64px;height:48px;font-size:16px}
+  /* 客户详情 头像缩 */
+  .customer-side .avatar{width:60px;height:60px;font-size:28px}
+  .customer-side .name{font-size:17px}
+  /* 实时动态更紧凑 */
+  .realtime-item{padding:7px 0;font-size:11px;gap:6px}
+  .realtime-item .time{width:42px}
 }
 </style>
 <style>

@@ -312,6 +312,121 @@ input,select,textarea{font-family:inherit;font-size:14px}
   /* user.html tab 横向滚动 */
   .user-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap !important}
   .user-tab{white-space:nowrap;flex-shrink:0}
+
+  /* ===== account.html 财务中心 ===== */
+  .account-hero{padding:20px 18px !important;margin-bottom:14px}
+  .account-hero > div[style*="display:flex;justify-content:space-between"]{
+    flex-direction:column !important;gap:14px;align-items:flex-start !important
+  }
+  .account-hero > div[style*="display:flex;justify-content:space-between"] > div[style*="text-align:right"]{
+    text-align:left !important
+  }
+  .account-hero .balance{font-size:32px !important}
+  .account-hero .actions{flex-wrap:wrap;gap:8px}
+  .account-hero .actions .btn{flex:1;min-width:0;justify-content:center;padding:6px 10px;font-size:12px}
+  .account-stats{grid-template-columns:repeat(2,1fr) !important;gap:10px}
+  .account-stat-card{padding:14px 10px}
+  .account-stat-card .n{font-size:20px}
+  .recharge-grid{grid-template-columns:repeat(2,1fr) !important;gap:10px}
+  .recharge-card{padding:14px 10px}
+  .recharge-card .price{font-size:24px}
+
+  /* ===== consult.html 营养师咨询 ===== */
+  .consult-grid{grid-template-columns:1fr !important;gap:14px}
+  .consult-step{padding:18px 14px}
+  .consult-topic-grid{grid-template-columns:repeat(2,1fr) !important;gap:10px}
+  .consult-topic{padding:14px 8px}
+  .consult-topic .icon{font-size:26px}
+  .consult-slot-grid{grid-template-columns:repeat(3,1fr) !important;gap:8px}
+  .consult-slot{padding:8px 4px;font-size:12px}
+  .consult-advisor-card{padding:12px !important;gap:10px !important}
+  .consult-advisor-card > div[style*="width:54px"]{width:48px !important;height:48px !important;font-size:18px !important}
+  .booking-summary{position:static !important}
+
+  /* ===== compare.html 商品对比 ===== */
+  .compare-toolbar{flex-direction:column !important;align-items:flex-start !important;gap:12px}
+  .compare-toolbar .add-picker{width:100%;flex-wrap:wrap}
+  .compare-toolbar select{flex:1;min-width:0}
+  .compare-page .compare-table{display:block !important;overflow-x:auto !important;-webkit-overflow-scrolling:touch;white-space:nowrap}
+  .compare-page .compare-table thead,.compare-page .compare-table tbody,.compare-page .compare-table tr{display:table-row-group}
+  /* compare 表格 4 列商品在 mobile 横向滚动 */
+
+  /* ===== chat.html 消息中心 ===== */
+  .chat-page{grid-template-columns:1fr !important;height:auto !important;min-height:0}
+  .chat-sidebar{border-right:none !important;border-bottom:1px solid var(--border);max-height:240px}
+  .chat-sidebar-tabs{position:sticky;top:0;background:#fff;z-index:5}
+  .chat-thread-list{max-height:200px;overflow-y:auto}
+  .chat-main{min-height:380px}
+  .chat-main-head{padding:12px 14px;flex-wrap:wrap;gap:8px}
+  .chat-main-head .btn{padding:4px 10px;font-size:12px}
+  .chat-main-body{padding:14px}
+  .chat-main-foot{padding:10px 12px;gap:6px}
+  .chat-main-foot .btn{padding:4px 8px;font-size:14px}
+  .chat-main-foot input{padding:8px 12px;font-size:13px}
+  .chat-msg .bubble{max-width:80%;font-size:13px}
+  .chat-quick-replies{padding:0 14px 8px;gap:5px}
+  .chat-quick-reply{padding:4px 10px;font-size:11px}
+
+  /* ===== 通用 nav 在 mobile 适度缩 ===== */
+  .navbar .container{padding:10px 14px}
+  .brand-name{font-size:15px}
+  .brand-slogan{font-size:10px}
+  .nav-links a{font-size:13px}
+  .nav-links{gap:12px}
+  .nav-search input{padding:8px 38px 8px 14px;font-size:13px}
+  .nav-search button{width:30px;height:30px}
+
+  /* ===== invoice-row 发票行在 mobile 折行 ===== */
+  .invoice-row{flex-wrap:wrap;gap:6px;font-size:13px}
+  /* ===== user-hero stats 在 mobile 2 列 ===== */
+  .user-hero .stats{flex-wrap:wrap;gap:14px 20px}
+  .user-hero .stat{flex:1 0 40%}
+  /* ===== advisor-card 顾问卡 mobile 紧凑 ===== */
+  .advisor-card{padding:14px;gap:12px}
+  .advisor-card .avatar{width:54px;height:54px;font-size:20px}
+  /* ===== quiz-options 测评 mobile 2 列保持 ===== */
+  .quiz-options{grid-template-columns:1fr 1fr}
+  /* ===== order-items 订单商品 mobile 横滚 ===== */
+  .order-items{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  /* ===== compare-table mobile 横向滚动 ===== */
+  .compare-page .compare-table img{width:60px;height:60px}
+  /* ===== account-form 移动端折行 ===== */
+  .address-form{grid-template-columns:1fr !important}
+  /* ===== 商品详情主图 768 高度已处理 ===== */
+  /* ===== 浮动客服按钮 缩小 ===== */
+  .floating-service{right:12px;bottom:60px;gap:6px}
+  .floating-service .fs-btn{width:40px;height:40px;font-size:16px}
+  .chat-bubble{width:48px;height:48px;font-size:20px}
+  .chat-panel{width:300px;height:420px}
+}
+
+/* ===== 微信内打开提示(外链拦截引导) ===== */
+.wechat-tip{position:sticky;top:0;z-index:9999;background:linear-gradient(135deg,#fff7e6,#ffe8b3);border-bottom:2px solid #f77f00;box-shadow:0 2px 8px rgba(247,127,0,0.15);animation:wechatTipSlide 0.3s}
+@keyframes wechatTipSlide{from{transform:translateY(-100%)}to{transform:translateY(0)}}
+.wechat-tip-inner{display:flex;align-items:center;gap:12px;max-width:1280px;margin:0 auto;padding:10px 20px;font-size:13px}
+.wechat-tip-icon{font-size:22px;flex-shrink:0}
+.wechat-tip-text{flex:1;min-width:0;color:#5a3a00;line-height:1.5}
+.wechat-tip-text .t1{font-weight:700;margin-bottom:2px}
+.wechat-tip-text .t2{font-size:12px;color:#8b5a00}
+.wechat-tip-text b{color:#c0392b;background:#fff;padding:1px 6px;border-radius:4px;margin:0 2px;font-weight:700}
+.wechat-tip-actions{display:flex;gap:6px;flex-shrink:0;align-items:center}
+.wechat-tip-actions .btn-copy{padding:5px 12px;background:#f77f00;color:#fff;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;white-space:nowrap}
+.wechat-tip-actions .btn-copy:hover{background:#d96d00}
+.wechat-tip-actions .btn-close{width:28px;height:28px;border-radius:50%;background:transparent;color:#8b5a00;font-size:18px;cursor:pointer;border:none;display:flex;align-items:center;justify-content:center;line-height:1}
+.wechat-tip-actions .btn-close:hover{background:rgba(0,0,0,0.06)}
+
+@media (max-width:768px){
+  .wechat-tip-inner{padding:8px 12px;gap:8px}
+  .wechat-tip-icon{font-size:18px}
+  .wechat-tip-text .t1{font-size:13px}
+  .wechat-tip-text .t2{font-size:11px}
+  .wechat-tip-actions .btn-copy{padding:4px 10px;font-size:11px}
+}
+@media (max-width:480px){
+  .wechat-tip-inner{flex-wrap:wrap;gap:6px;padding:8px 10px}
+  .wechat-tip-icon{font-size:16px}
+  .wechat-tip-text .t2{font-size:10px;line-height:1.4}
+  .wechat-tip-actions{margin-left:auto}
 }
 
 /* 小屏手机(< 480px)再优化 */
@@ -330,6 +445,32 @@ input,select,textarea{font-family:inherit;font-size:14px}
   /* banner 内容缩小 */
   h2{font-size:24px !important}
   h1{font-size:22px !important}
+
+  /* 子页面 480px 更紧凑 */
+  .account-stats{grid-template-columns:1fr 1fr !important}
+  .recharge-grid{grid-template-columns:1fr !important}
+  .consult-topic-grid{grid-template-columns:1fr !important}
+  .consult-slot-grid{grid-template-columns:repeat(2,1fr) !important}
+  .account-hero .balance{font-size:28px !important}
+  .chat-sidebar{max-height:200px}
+  .chat-main-head{padding:10px 12px}
+  .chat-main-foot{padding:8px 10px}
+  .floating-service{right:8px;bottom:50px}
+  .floating-service .fs-btn{width:36px;height:36px;font-size:15px}
+  .chat-bubble{width:42px;height:42px;font-size:18px}
+  /* admin 在 480px 进一步压缩 */
+  .admin-content{padding:10px !important}
+  .admin-section{padding:14px}
+  .admin-section-title{font-size:14px}
+  .admin-stat-card{padding:14px 12px}
+  .admin-stat-card .value{font-size:22px}
+  .admin-stat-card .label{font-size:11px}
+  .admin-table{font-size:12px}
+  .admin-table th,.admin-table td{padding:8px 6px}
+  .admin-topbar .right .icon-btn:nth-child(1){display:none} /* 隐藏 ❓ 帮助 */
+  .admin-stats-row.cols-5{grid-template-columns:1fr 1fr !important}
+  .funnel-item{flex-wrap:wrap;gap:8px}
+  .funnel-item .label{width:60px;font-size:12px}
 }
 
 /* ===== Checkout 结算页 ===== */
