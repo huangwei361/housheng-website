@@ -18,47 +18,9 @@
     history:     "hs_browse_history",
   };
 
-  // ========== 微信内打开提示(非微信官方域名拦截) ==========
-  function renderWechatTip(){
-    const ua = navigator.userAgent || "";
-    if(!/MicroMessenger/i.test(ua)) return "";
-    return `
-    <div class="wechat-tip" id="wechatTip">
-      <div class="wechat-tip-inner">
-        <div class="wechat-tip-icon">⚠️</div>
-        <div class="wechat-tip-text">
-          <div class="t1">您正在微信中浏览</div>
-          <div class="t2">点击右上角 <b>···</b> → 选择 <b>「在浏览器打开」</b> 即可获得完整体验</div>
-        </div>
-        <div class="wechat-tip-actions">
-          <button class="btn-copy" onclick="HS.copyWechatLink()">📋 复制链接</button>
-          <button class="btn-close" onclick="document.getElementById('wechatTip').remove()" title="知道了">×</button>
-        </div>
-      </div>
-    </div>`;
-  }
-  function copyWechatLink(){
-    const url = location.href;
-    const fallback = () => {
-      const ta = document.createElement("textarea");
-      ta.value = url; ta.style.position="fixed"; ta.style.opacity="0";
-      document.body.appendChild(ta); ta.select();
-      try{ document.execCommand("copy"); HS.Toast.show("✓ 链接已复制,请粘贴到浏览器打开","success"); }
-      catch(e){ HS.Toast.show("复制失败,请手动复制: " + url,"error"); }
-      document.body.removeChild(ta);
-    };
-    if(navigator.clipboard && window.isSecureContext){
-      navigator.clipboard.writeText(url).then(
-        () => HS.Toast.show("✓ 链接已复制,请粘贴到浏览器打开","success"),
-        fallback
-      );
-    } else { fallback(); }
-  }
-
   // ========== 顶部 nav / footer 渲染 ==========
   function renderTopBar(){
     return `
-    ${renderWechatTip()}
     <div class="top-bar">
       <div class="container">
         <div>📞 健康咨询：13971691656（微信同号） · 📧 huangwei_361@163.com</div>
@@ -566,7 +528,6 @@
   HS.init = init;
   HS.esc = esc;        // escape HTML helper, available globally
   HS.money = money;    // ¥ formatter
-  HS.copyWechatLink = copyWechatLink;
   HS.toggleAdminSidebar = function(forceClose){
     const sb = document.querySelector(".admin-sidebar");
     const ov = document.querySelector(".admin-overlay");

@@ -400,35 +400,6 @@ input,select,textarea{font-family:inherit;font-size:14px}
   .chat-panel{width:300px;height:420px}
 }
 
-/* ===== 微信内打开提示(外链拦截引导) ===== */
-.wechat-tip{position:sticky;top:0;z-index:9999;background:linear-gradient(135deg,#fff7e6,#ffe8b3);border-bottom:2px solid #f77f00;box-shadow:0 2px 8px rgba(247,127,0,0.15);animation:wechatTipSlide 0.3s}
-@keyframes wechatTipSlide{from{transform:translateY(-100%)}to{transform:translateY(0)}}
-.wechat-tip-inner{display:flex;align-items:center;gap:12px;max-width:1280px;margin:0 auto;padding:10px 20px;font-size:13px}
-.wechat-tip-icon{font-size:22px;flex-shrink:0}
-.wechat-tip-text{flex:1;min-width:0;color:#5a3a00;line-height:1.5}
-.wechat-tip-text .t1{font-weight:700;margin-bottom:2px}
-.wechat-tip-text .t2{font-size:12px;color:#8b5a00}
-.wechat-tip-text b{color:#c0392b;background:#fff;padding:1px 6px;border-radius:4px;margin:0 2px;font-weight:700}
-.wechat-tip-actions{display:flex;gap:6px;flex-shrink:0;align-items:center}
-.wechat-tip-actions .btn-copy{padding:5px 12px;background:#f77f00;color:#fff;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;white-space:nowrap}
-.wechat-tip-actions .btn-copy:hover{background:#d96d00}
-.wechat-tip-actions .btn-close{width:28px;height:28px;border-radius:50%;background:transparent;color:#8b5a00;font-size:18px;cursor:pointer;border:none;display:flex;align-items:center;justify-content:center;line-height:1}
-.wechat-tip-actions .btn-close:hover{background:rgba(0,0,0,0.06)}
-
-@media (max-width:768px){
-  .wechat-tip-inner{padding:8px 12px;gap:8px}
-  .wechat-tip-icon{font-size:18px}
-  .wechat-tip-text .t1{font-size:13px}
-  .wechat-tip-text .t2{font-size:11px}
-  .wechat-tip-actions .btn-copy{padding:4px 10px;font-size:11px}
-}
-@media (max-width:480px){
-  .wechat-tip-inner{flex-wrap:wrap;gap:6px;padding:8px 10px}
-  .wechat-tip-icon{font-size:16px}
-  .wechat-tip-text .t2{font-size:10px;line-height:1.4}
-  .wechat-tip-actions{margin-left:auto}
-}
-
 /* 小屏手机(< 480px)再优化 */
 @media (max-width:480px){
   /* 商品 grid 1 列 */
