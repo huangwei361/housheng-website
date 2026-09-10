@@ -95,3 +95,19 @@ brand/smoke/
 
 # 但允许 brand/ 下的所有 SVG 入仓(品牌素材)
 # 但允许 shop/assets/products/*.svg 入仓(产品图)
+
+# website 顶层开发残留(不入仓)
+website/_cleanup.bat
+website/_*.bat
+website/fix_*.py
+website/gen_*.py
+website/link_*.py
+# website 商城开发残留
+website/shop/smoke/
+website/shop/tools/smoke/
+website/shop/tools/_*.py
+website/shop/tools/_*.html
+website/shop/README.md
+# 营养手册(独立项目,不入仓)
+营养手册/
+
