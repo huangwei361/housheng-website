@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>财务中心 - 厚生 HOUSHENG</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.tab-pane.active{display:block;animation:fadeIn 0.3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<div id="navMount"></div>
+
+<div class="container" style="padding:20px">
+
+  <!-- 财务 Hero -->
+  <div class="account-hero">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1">
+      <div>
+        <div class="balance-label">💰 储值余额</div>
+        <div class="balance" id="balanceAmt">¥0</div>
+        <div class="points">⭐ 健康积分 <strong id="pointsAmt">0</strong> · VIP1 会员</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:13px;opacity:0.85">即将过期积分</div>
+        <div style="font-size:22px;font-weight:800">200</div>
+        <div style="font-size:11px;opacity:0.75;margin-top:2px">2026-12-31 到期</div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="showRecharge()">💳 充值</button>
+      <button class="btn" onclick="HS.Toast.show('已发起提现申请,1-3 工作日到账','success')">💸 提现</button>
+      <button class="btn" onclick="switchTab('transactions')">📊 账单明细</button>
+      <button class="btn" onclick="HS.Toast.show('积分可在购物时抵扣 100:1','success')">⭐ 积分兑换</button>
+    </div>
+  </div>
+
+  <!-- 4 统计 -->
+  <div class="account-stats">
+    <div class="account-stat-card">
+      <div class="n" id="statBalance">¥0</div>
+      <div class="l">储值余额</div>
+    </div>
+    <div class="account-stat-card">
+      <div class="n" id="statPoints">0</div>
+      <div class="l">健康积分</div>
+    </div>
+    <div class="account-stat-card">
+      <div class="n" id="statCoupons">0</div>
+      <div class="l">优惠券</div>
+    </div>
+    <div class="account-stat-card">
+      <div class="n" id="statLevel">VIP1</div>
+      <div class="l">会员等级</div>
+    </div>
+  </div>
+
+  <!-- 面包屑 -->
+  <div class="breadcrumb">
+    <a href="index.html">首页</a> <span class="sep">/</span>
+    <a href="user.html">会员中心</a> <span class="sep">/</span>
+    <span class="current">财务中心</span>
+  </div>
+
+  <!-- Tabs -->
+  <div class="user-tabs">
+    <div class="user-tab active" data-tab="recharge" onclick="switchTab('recharge')">💳 储值</div>
+    <div class="user-tab" data-tab="transactions" onclick="switchTab('transactions')">📊 账单</div>
+    <div class="user-tab" data-tab="points" onclick="switchTab('points')">⭐ 积分</div>
+    <div class="user-tab" data-tab="coupons" onclick="switchTab('coupons')">🎁 优惠券</div>
+    <div class="user-tab" data-tab="invoice" onclick="switchTab('invoice')">🧾 发票</div>
+  </div>
+
+  <div id="tabPanes">
+
+    <!-- 储值 -->
+    <div class="tab-pane active" data-pane="recharge">
+      <div style="background:linear-gradient(135deg,var(--primary-pale),#fff);padding:20px;border-radius:var(--radius);margin-bottom:16px">
+        <h3 style="font-size:16px;margin-bottom:6px">💳 储值卡说明</h3>
+        <p style="font-size:13px;color:var(--gray);line-height:1.7">
+          · 储值卡可用于本商城所有商品结算(营养品/咨询/服务)<br>
+          · 储值有赠送,充 500 送 30、充 1000 送 80、最高送 12%<br>
+          · 储值余额永久有效,无过期时间<br>
+          · 支持余额支付 + 微信/支付宝混合结算
+        </p>
+      </div>
+      <h3 style="font-size:16px;margin-bottom:14px">充值金额</h3>
+      <div class="recharge-grid" id="rechargeGrid"></div>
+      <div style="margin-top:20px;text-align:center;color:var(--gray);font-size:13px">
+        🔒 支付安全:微信支付 / 支付宝 / 银联 / 信用卡<br>
+        大额储值请联系客服开通对公转账
+      </div>
+    </div>
+
+    <!-- 账单 -->
+    <div class="tab-pane" data-pane="transactions">
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+        <button class="btn btn-primary btn-sm tx-filter active" data-type="all" onclick="filterTx('all', this)">全部</button>
+        <button class="btn btn-outline btn-sm tx-filter" data-type="recharge" onclick="filterTx('recharge', this)">充值</button>
+        <button class="btn btn-outline btn-sm tx-filter" data-type="order" onclick="filterTx('order', this)">消费</button>
+        <button class="btn btn-outline btn-sm tx-filter" data-type="refund" onclick="filterTx('refund', this)">退款</button>
+        <button class="btn btn-outline btn-sm tx-filter" data-type="consult" onclick="filterTx('consult', this)">咨询</button>
+        <button class="btn btn-outline btn-sm tx-filter" data-type="points" onclick="filterTx('points', this)">积分</button>
+      </div>
+      <div class="admin-section" style="margin:0;box-shadow:none">
+        <div id="txList"></div>
+      </div>
+      <div style="text-align:center;margin-top:14px">
+        <button class="btn btn-outline" onclick="HS.Toast.show('已加载全部','success')">加载更多</button>
+      </div>
+    </div>
+
+    <!-- 积分 -->
+    <div class="tab-pane" data-pane="points">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+        <div class="admin-section" style="margin:0">
+          <h3 style="font-size:15px;margin-bottom:14px">⭐ 积分总览</h3>
+          <div style="display:flex;justify-content:space-around;text-align:center">
+            <div>
+              <div style="font-size:32px;font-weight:800;color:var(--primary)" id="ptsTotal">0</div>
+              <div style="font-size:12px;color:var(--gray);margin-top:4px">当前积分</div>
+            </div>
+            <div>
+              <div style="font-size:32px;font-weight:800;color:var(--gold)">200</div>
+              <div style="font-size:12px;color:var(--gray);margin-top:4px">即将过期</div>
+            </div>
+            <div>
+              <div style="font-size:32px;font-weight:800;color:var(--green)">380</div>
+              <div style="font-size:12px;color:var(--gray);margin-top:4px">本月新增</div>
+            </div>
+          </div>
+        </div>
+        <div class="admin-section" style="margin:0">
+          <h3 style="font-size:15px;margin-bottom:14px">💡 积分玩法</h3>
+          <div style="font-size:13px;color:var(--gray);line-height:2">
+            · 消费 1 元 = 1 积分<br>
+            · 100 积分 = 1 元(下单时抵扣)<br>
+            · 评价晒图 +20 积分/条<br>
+            · 邀请新用户 +100 积分<br>
+            · 生日礼包 +500 积分
+          </div>
+        </div>
+      </div>
+      <h3 style="font-size:15px;margin:14px 0">🎁 积分兑换</h3>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+        <div class="admin-section" style="margin:0;text-align:center;padding:18px">
+          <div style="font-size:36px">🥛</div>
+          <div style="font-weight:600;margin-top:8px">蛋白粉试用装</div>
+          <div style="font-size:12px;color:var(--gray);margin:4px 0">3 天装体验</div>
+          <div style="color:var(--red);font-weight:700">800 积分</div>
+          <button class="btn btn-outline btn-sm" style="margin-top:8px" onclick="redeemPoints(800, '蛋白粉试用装')">立即兑换</button>
+        </div>
+        <div class="admin-section" style="margin:0;text-align:center;padding:18px">
+          <div style="font-size:36px">🍵</div>
+          <div style="font-weight:600;margin-top:8px">酸枣仁茶 1 盒</div>
+          <div style="font-size:12px;color:var(--gray);margin:4px 0">安神助眠</div>
+          <div style="color:var(--red);font-weight:700">1200 积分</div>
+          <button class="btn btn-outline btn-sm" style="margin-top:8px" onclick="redeemPoints(1200, '酸枣仁茶 1 盒')">立即兑换</button>
+        </div>
+        <div class="admin-section" style="margin:0;text-align:center;padding:18px">
+          <div style="font-size:36px">📋</div>
+          <div style="font-weight:600;margin-top:8px">体质检测 1 次</div>
+          <div style="font-size:12px;color:var(--gray);margin:4px 0">专业评估</div>
+          <div style="color:var(--red);font-weight:700">2000 积分</div>
+          <button class="btn btn-outline btn-sm" style="margin-top:8px" onclick="redeemPoints(2000, '体质检测 1 次')">立即兑换</button>
+        </div>
+        <div class="admin-section" style="margin:0;text-align:center;padding:18px">
+          <div style="font-size:36px">💆</div>
+          <div style="font-weight:600;margin-top:8px">营养师 30 分钟</div>
+          <div style="font-size:12px;color:var(--gray);margin:4px 0">1v1 咨询</div>
+          <div style="color:var(--red);font-weight:700">3500 积分</div>
+          <button class="btn btn-outline btn-sm" style="margin-top:8px" onclick="redeemPoints(3500, '营养师咨询 30 分钟')">立即兑换</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 优惠券 -->
+    <div class="tab-pane" data-pane="coupons">
+      <div style="background:#fff;padding:14px 18px;border-radius:var(--radius);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow)">
+        <span style="font-weight:600">🎁 我的优惠券</span>
+        <a href="user.html?tab=coupons" class="btn btn-outline btn-sm">查看领券中心 →</a>
+      </div>
+      <div id="couponList"></div>
+    </div>
+
+    <!-- 发票 -->
+    <div class="tab-pane" data-pane="invoice">
+      <div class="admin-section" style="margin:0">
+        <h3 style="font-size:15px;margin-bottom:14px">🧾 发票抬头管理</h3>
+        <div class="admin-form-grid">
+          <label>抬头类型
+            <select>
+              <option>个人</option>
+              <option>企业</option>
+            </select>
+          </label>
+          <label>发票抬头<input type="text" placeholder="个人填姓名 / 企业填公司全称" /></label>
+          <label>税号<input type="text" placeholder="企业必填 18 位" /></label>
+          <label>开户银行<input type="text" placeholder="企业选填" /></label>
+          <label>银行账号<input type="text" placeholder="企业选填" /></label>
+          <label>注册地址<input type="text" placeholder="企业选填" /></label>
+          <label>注册电话<input type="text" placeholder="企业选填" /></label>
+          <label>收票邮箱<input type="email" placeholder="接收电子发票" /></label>
+        </div>
+        <div style="margin-top:14px;display:flex;gap:8px;justify-content:flex-end">
+          <button class="btn btn-ghost">取消</button>
+          <button class="btn btn-primary" onclick="HS.Toast.show('✓ 发票抬头已保存','success')">保存</button>
+        </div>
+      </div>
+
+      <div class="admin-section" style="margin-top:16px">
+        <h3 style="font-size:15px;margin-bottom:14px">📄 发票记录</h3>
+        <table class="admin-table">
+          <thead><tr><th>发票号</th><th>订单号</th><th>金额</th><th>抬头</th><th>状态</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td>FP20260820001</td><td>ORD20260820001</td><td>¥424</td><td>黄巍</td><td><span class="status completed">已开</span></td><td><a class="btn btn-ghost btn-sm" onclick="HS.Toast.show('下载中...','success')">下载</a></td></tr>
+            <tr><td>FP20260810002</td><td>ORD20260810005</td><td>¥98</td><td>黄巍</td><td><span class="status completed">已开</span></td><td><a class="btn btn-ghost btn-sm" onclick="HS.Toast.show('下载中...','success')">下载</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="footerMount"></div>
+
+<!-- 充值弹窗 -->
+<div class="modal-mask" id="rechargeModal" onclick="if(event.target===this)HS.Modal.close('rechargeModal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title">💳 确认充值</div>
+      <div class="modal-close" onclick="HS.Modal.close('rechargeModal')">×</div>
+    </div>
+    <div class="modal-body">
+      <div style="text-align:center;padding:20px 0">
+        <div style="font-size:14px;color:var(--gray)">充值金额</div>
+        <div style="font-size:36px;font-weight:800;color:var(--red);margin:10px 0" id="rechargeAmount">¥0</div>
+        <div id="rechargeBonus" style="font-size:13px;color:var(--green)">赠送 ¥0</div>
+        <div style="font-size:18px;font-weight:700;margin-top:14px">实付: <span id="rechargePay" style="color:var(--red)">¥0</span></div>
+      </div>
+      <div style="background:var(--bg);padding:14px;border-radius:6px;font-size:13px;color:var(--gray)">
+        💡 支付完成后余额将即时到账,赠送金额将随主金额一起使用
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="HS.Modal.close('rechargeModal')">取消</button>
+      <button class="btn btn-primary" onclick="confirmRecharge()">确认支付</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+let currentRecharge = null;
+
+function refreshStats(){
+  const a = HS.Account.get() || HS.account;
+  $("#balanceAmt").textContent = HS.money(a.balance);
+  $("#pointsAmt").textContent = a.points;
+  $("#statBalance").textContent = HS.money(a.balance);
+  $("#statPoints").textContent = a.points;
+  $("#statCoupons").textContent = (HS.Coupon.available() || []).length;
+  $("#statLevel").textContent = a.level || "VIP1";
+  $("#ptsTotal").textContent = a.points;
+}
+
+function renderRecharge(){
+  $("#rechargeGrid").innerHTML = HS.rechargePlans.map((p,i) => `
+    <div class="recharge-card ${p.tag?'hot':''}" onclick="showRecharge(${i})">
+      ${p.tag?`<span class="tag">${p.tag==='hot'?'HOT':p.tag==='best'?'BEST':''}</span>`:''}
+      <div class="price"><small>¥</small>${p.amount}</div>
+      <div class="bonus">+ 送 ¥${p.bonus}</div>
+      <div class="desc">${p.desc}</div>
+    </div>
+  `).join("");
+}
+
+function showRecharge(i){
+  if(typeof i === "number") currentRecharge = HS.rechargePlans[i];
+  if(!currentRecharge) currentRecharge = HS.rechargePlans[1];
+  $("#rechargeAmount").textContent = "¥" + currentRecharge.amount;
+  $("#rechargeBonus").textContent = "赠送 ¥" + currentRecharge.bonus;
+  $("#rechargePay").textContent = "¥" + currentRecharge.amount;
+  HS.Modal.open("rechargeModal");
+}
+
+function confirmRecharge(){
+  if(!currentRecharge) return;
+  HS.Account.recharge(currentRecharge.amount, currentRecharge.bonus);
+  HS.Modal.close("rechargeModal");
+  HS.Toast.show(`✓ 充值成功!余额 ¥${currentRecharge.amount + currentRecharge.bonus} 已到账`, "success");
+  refreshStats();
+  renderTransactions();
+  currentRecharge = null;
+}
+
+let currentTxFilter = "all";
+function renderTransactions(){
+  const list = HS.Account.transactions().filter(t => currentTxFilter==="all" || t.type===currentTxFilter);
+  const typeName = {recharge:"充值",order:"消费",refund:"退款",consult:"咨询",points:"积分"};
+  const typeIcon = {recharge:"💰",order:"🛒",refund:"↩️",consult:"🩺",points:"⭐"};
+  $("#txList").innerHTML = list.length===0 ? '<div style="text-align:center;padding:30px;color:var(--gray)">暂无记录</div>' :
+    list.map(t => `
+      <div class="tx-row ${t.type}">
+        <div class="icon">${typeIcon[t.type]||'•'}</div>
+        <div class="info">
+          <div class="t">${t.desc}</div>
+          <div class="m">${t.date} · ${t.id} · ${typeName[t.type]||'其他'}</div>
+        </div>
+        <div class="amount ${t.amount>0?'positive':'negative'}">${t.amount>0?'+':''}${HS.money(Math.abs(t.amount))}</div>
+      </div>
+    `).join("");
+}
+
+function filterTx(type, el){
+  currentTxFilter = type;
+  $$(".tx-filter").forEach(b => { b.classList.remove("btn-primary","active"); b.classList.add("btn-outline"); });
+  el.classList.remove("btn-outline"); el.classList.add("btn-primary","active");
+  renderTransactions();
+}
+
+function renderCoupons(){
+  HS.Coupon.init();
+  const groups = [
+    {label:"可使用", data: HS.Coupon.available(), type:"available"},
+    {label:"已使用", data: HS.Coupon.used(), type:"used"},
+    {label:"已过期", data: HS.Coupon.expired(), type:"expired"},
+  ];
+  $("#couponList").innerHTML = groups.map(g => `
+    <div style="margin-bottom:24px">
+      <h3 style="font-size:15px;margin-bottom:12px">${g.label}（${g.data.length}）</h3>
+      ${g.data.length===0 ? '<div style="text-align:center;color:var(--gray);padding:20px;background:#fff;border-radius:6px">暂无</div>' : ''}
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">
+        ${g.data.map(c => `
+          <div class="coupon">
+            <div class="coupon-left">
+              <div class="coupon-amount"><small>¥</small>${c.amount}</div>
+              <div class="coupon-condition">满${c.threshold}可用</div>
+            </div>
+            <div class="coupon-right">
+              <div class="coupon-name">${c.name}</div>
+              <div class="coupon-scope">${c.scope} · ${c.date} 到期</div>
+              ${g.type==="available" ? `<button class="coupon-btn" onclick="location.href='product.html'">立即使用</button>` : ''}
+              ${g.type!=="available" ? `<button class="coupon-btn used">${g.type==="used"?'已使用':'已过期'}</button>` : ''}
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `).join("");
+}
+
+function redeemPoints(cost, name){
+  const a = HS.Account.get() || HS.account;
+  if(a.points < cost){
+    HS.Toast.show(`积分不足,需要 ${cost} 积分`, "error");
+    return;
+  }
+  if(!confirm(`确认用 ${cost} 积分兑换「${name}」?`)) return;
+  a.points -= cost;
+  HS.Account.set(a);
+  HS.Toast.show(`✓ 兑换成功!「${name}」将在 24h 内寄出`, "success");
+  refreshStats();
+}
+
+function switchTab(name){
+  $$(".user-tab").forEach(t => t.classList.toggle("active", t.dataset.tab===name));
+  $$(".tab-pane").forEach(p => p.classList.toggle("active", p.dataset.pane===name));
+  if(name==="transactions") renderTransactions();
+  if(name==="coupons") renderCoupons();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  refreshStats();
+  renderRecharge();
+  renderTransactions();
+  // 从 URL 读 tab
+  const params = new URLSearchParams(location.search);
+  if(params.get("tab")) switchTab(params.get("tab"));
+});
+</script>
+
+</body>
+</html>

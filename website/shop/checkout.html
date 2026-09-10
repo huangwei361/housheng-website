@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>提交订单 - 厚生 HOUSHENG 营养商城</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="navMount"></div>
+
+<div class="container" style="padding:20px">
+
+  <!-- 步骤条 -->
+  <div class="stepper" style="display:flex;justify-content:center;align-items:center;gap:40px;padding:20px 0 30px;background:#fff;border-radius:var(--radius);margin-bottom:20px;box-shadow:var(--shadow)">
+    <div class="step done" style="display:flex;align-items:center;gap:10px;color:var(--gray)">
+      <span style="width:32px;height:32px;border-radius:50%;background:var(--border);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">✓</span>
+      <div><div style="font-weight:600;color:var(--dark)">我的购物车</div><div style="font-size:11px">01</div></div>
+    </div>
+    <div style="flex:0 0 60px;height:2px;background:var(--primary)"></div>
+    <div class="step active" style="display:flex;align-items:center;gap:10px">
+      <span style="width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</span>
+      <div><div style="font-weight:700;color:var(--primary)">填写并核对订单</div><div style="font-size:11px;color:var(--primary)">02</div></div>
+    </div>
+    <div style="flex:0 0 60px;height:2px;background:var(--border)"></div>
+    <div class="step" style="display:flex;align-items:center;gap:10px;color:var(--gray)">
+      <span style="width:32px;height:32px;border-radius:50%;background:var(--border);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
+      <div><div style="font-weight:600">完成支付</div><div style="font-size:11px">03</div></div>
+    </div>
+  </div>
+
+  <div class="breadcrumb">
+    <a href="index.html">首页</a> <span class="sep">/</span>
+    <a href="cart.html">购物车</a> <span class="sep">/</span>
+    <span class="current">提交订单</span>
+  </div>
+
+  <!-- 主区 -->
+  <div class="checkout-grid">
+
+    <!-- 左：表单 -->
+    <div>
+
+      <!-- 收货地址 -->
+      <div class="panel">
+        <div class="panel-title">
+          <span><span class="step-num">1</span> 收货地址</span>
+          <a href="user.html?tab=addresses" class="btn btn-ghost btn-sm">地址管理 →</a>
+        </div>
+
+        <div id="addressList"></div>
+
+        <div class="add-address" onclick="toggleAddressForm()">+ 使用新地址</div>
+
+        <div id="addressForm" style="display:none">
+          <div class="address-form">
+            <label>收货人<input type="text" id="newName" placeholder="姓名" /></label>
+            <label>手机号<input type="tel" id="newPhone" placeholder="11 位手机号" /></label>
+            <label>省/市/区
+              <select id="newRegion">
+                <option>湖北省 武汉市 青山区</option>
+                <option>湖北省 武汉市 武昌区</option>
+                <option>湖北省 武汉市 江汉区</option>
+                <option>湖北省 武汉市 江岸区</option>
+                <option>北京市 朝阳区</option>
+                <option>上海市 浦东新区</option>
+                <option>广东省 深圳市 南山区</option>
+              </select>
+            </label>
+            <label class="full">详细地址<input type="text" id="newDetail" placeholder="街道、楼号、门牌号" /></label>
+            <label>地址标签
+              <select id="newTag">
+                <option value="家">家</option>
+                <option value="公司">公司</option>
+                <option value="父母">父母</option>
+              </select>
+            </label>
+            <label style="flex-direction:row;align-items:center;gap:6px;padding-top:24px"><input type="checkbox" id="newDefault" /> 设为默认</label>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+            <button class="btn btn-ghost" onclick="toggleAddressForm()">取消</button>
+            <button class="btn btn-primary" onclick="saveAddress()">保存并使用</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 配送方式 -->
+      <div class="panel">
+        <div class="panel-title"><span><span class="step-num">2</span> 配送方式</span></div>
+        <div class="pay-method-grid" id="shipMethod">
+          <div class="pay-method active" data-method="顺丰速运" onclick="pickShip(this)">
+            <div class="icon">📦</div>
+            <div>顺丰速运</div>
+            <div style="font-size:11px;color:var(--gray);margin-top:2px">48h 内 · 包邮</div>
+          </div>
+          <div class="pay-method" data-method="EMS" onclick="pickShip(this)">
+            <div class="icon">✈️</div>
+            <div>EMS</div>
+            <div style="font-size:11px;color:var(--gray);margin-top:2px">3-5 天 · ¥10</div>
+          </div>
+          <div class="pay-method" data-method="京东物流" onclick="pickShip(this)">
+            <div class="icon">🚚</div>
+            <div>京东物流</div>
+            <div style="font-size:11px;color:var(--gray);margin-top:2px">次日达 · 包邮</div>
+          </div>
+          <div class="pay-method" data-method="门店自提" onclick="pickShip(this)">
+            <div class="icon">🏪</div>
+            <div>门店自提</div>
+            <div style="font-size:11px;color:var(--gray);margin-top:2px">武汉·青山店</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 支付方式 -->
+      <div class="panel">
+        <div class="panel-title"><span><span class="step-num">3</span> 支付方式</span></div>
+        <div class="pay-method-grid" id="payMethod">
+          <div class="pay-method active" data-method="微信支付" onclick="pickPay(this)">
+            <div class="icon" style="color:#07c160">💚</div>
+            <div>微信支付</div>
+            <div style="font-size:11px;color:var(--gray);margin-top:2px">推荐</div>
+          </div>
+          <div class="pay-method" data-method="支付宝" onclick="pickPay(this)">
+            <div class="icon" style="color:#1677ff">💙</div>
+            <div>支付宝</div>
+            <div style="font-size:11px;color:var(--gray);margin-top:2px">花呗可分期</div>
+          </div>
+          <div class="pay-method" data-method="银行卡" onclick="pickPay(this)">
+            <div class="icon">💳</div>
+            <div>银行卡</div>
+            <div style="font-size:11px;color:var(--gray);margin-top:2px">储蓄/信用卡</div>
+          </div>
+          <div class="pay-method" data-method="货到付款" onclick="pickPay(this)">
+            <div class="icon">💵</div>
+            <div>货到付款</div>
+            <div style="font-size:11px;color:var(--gray);margin-top:2px">+5 元手续费</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 发票 -->
+      <div class="panel">
+        <div class="panel-title"><span><span class="step-num">4</span> 发票信息</span></div>
+        <div class="invoice-row">
+          <label><input type="radio" name="invoice" value="none" checked onchange="toggleInvoice()"> 不开发票</label>
+          <label><input type="radio" name="invoice" value="person" onchange="toggleInvoice()"> 个人</label>
+          <label><input type="radio" name="invoice" value="company" onchange="toggleInvoice()"> 企业</label>
+        </div>
+        <div id="invoiceForm" style="display:none">
+          <div class="address-form">
+            <label>抬头<input type="text" id="invTitle" placeholder="个人填姓名 / 企业填公司全称" /></label>
+            <label>税号<input type="text" id="invTaxNo" placeholder="企业必填 18 位" /></label>
+            <label>邮箱<input type="email" id="invEmail" placeholder="电子发票发送邮箱" /></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 商品清单 -->
+      <div class="panel">
+        <div class="panel-title"><span><span class="step-num">5</span> 商品清单</span><span id="itemCount" style="font-size:13px;color:var(--gray);font-weight:400"></span></div>
+        <div id="orderItems"></div>
+      </div>
+
+      <!-- 备注 -->
+      <div class="panel">
+        <div class="panel-title"><span><span class="step-num">6</span> 订单备注</span></div>
+        <textarea id="orderRemark" rows="3" style="width:100%;border:1px solid var(--border);border-radius:6px;padding:10px;font-size:14px;outline:none;resize:vertical" placeholder="选填 · 对本次订单的特殊要求(150字内)"></textarea>
+      </div>
+
+    </div>
+
+    <!-- 右：摘要 -->
+    <div>
+      <div class="panel" style="position:sticky;top:80px">
+        <div class="panel-title"><span>订单摘要</span></div>
+
+        <div class="summary-row"><span>商品总额</span><span class="price" id="sumSub">¥0</span></div>
+        <div class="summary-row"><span>运费</span><span class="price" id="sumShip">¥0</span></div>
+        <div class="summary-row">
+          <span>优惠券</span>
+          <a href="#" onclick="openCouponPicker();return false" style="color:var(--primary);font-size:13px" id="couponLink">选择 →</a>
+        </div>
+        <div class="summary-row" id="couponRow" style="display:none">
+          <span style="color:var(--gray);font-size:13px" id="couponLabel">-</span>
+          <span class="price" id="couponAmt" style="color:var(--red)">-¥0</span>
+        </div>
+        <div class="summary-row total"><span>应付</span><span class="price" id="sumTotal">¥0</span></div>
+
+        <button class="btn btn-primary btn-block btn-lg" style="margin-top:16px" onclick="submitOrder()">提交订单</button>
+        <p style="font-size:11px;color:var(--gray);text-align:center;margin-top:10px">点击「提交订单」即表示同意《用户协议》《隐私政策》</p>
+      </div>
+
+      <!-- 客服 -->
+      <div class="panel" style="background:linear-gradient(135deg,var(--primary-pale),#fff)">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:46px;height:46px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px">💬</div>
+          <div>
+            <div style="font-weight:700">7×24 客服</div>
+            <div style="font-size:12px;color:var(--gray);margin-top:2px">下单问题随时咨询</div>
+            <a href="tel:13971691656" style="font-size:13px;color:var(--primary);font-weight:600">📞 13971691656</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="footerMount"></div>
+
+<!-- 优惠券选择弹窗 -->
+<div class="modal-mask" id="couponPickerModal" onclick="if(event.target===this)HS.Modal.close('couponPickerModal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title">🎁 选择优惠券</div>
+      <div class="modal-close" onclick="HS.Modal.close('couponPickerModal')">×</div>
+    </div>
+    <div class="modal-body" id="couponPickerBody"></div>
+  </div>
+</div>
+
+<!-- 支付成功弹窗 -->
+<div class="modal-mask" id="paySuccessModal" onclick="if(event.target===this)location.href='user.html?tab=orders'">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-body success-modal">
+      <div class="check">✓</div>
+      <h3>订单提交成功！</h3>
+      <p>订单号 <strong id="successOrderId" style="color:var(--primary)">-</strong></p>
+      <p>应付金额 <strong id="successAmount" style="color:var(--red);font-size:22px">¥0</strong></p>
+      <p style="font-size:13px;color:var(--gray)">请在 30 分钟内完成支付，超时订单自动取消</p>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:24px">
+        <button class="btn btn-outline" onclick="location.href='index.html'">返回首页</button>
+        <button class="btn btn-primary" onclick="simulatePay()">立即支付</button>
+        <button class="btn btn-secondary" onclick="location.href='user.html?tab=orders'">查看订单</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+// ========== 状态 ==========
+let selAddressId = null;
+let selCoupon = null;
+let selShip = "顺丰速运";
+let selPay = "微信支付";
+let newAddress = null;
+
+function $(s){return document.querySelector(s)}
+function money(n){return "¥" + Number(n).toLocaleString("zh-CN")}
+
+// ========== 地址渲染 ==========
+function renderAddress(){
+  const addresses = (JSON.parse(localStorage.getItem("hs_addresses")) || HS.addresses.slice());
+  // 首次：把 data 中的地址写进 localStorage
+  if(!localStorage.getItem("hs_addresses")) localStorage.setItem("hs_addresses", JSON.stringify(addresses));
+
+  const def = addresses.find(a => a.isDefault) || addresses[0];
+  selAddressId = selAddressId || def.id;
+
+  $("#addressList").innerHTML = addresses.map(a => `
+    <div class="address-card ${a.id===selAddressId?'':''}" style="margin-bottom:10px;${a.id===selAddressId?'border-color:var(--primary);background:var(--primary-pale)':'border-color:var(--border);background:#fff'}" onclick="pickAddress('${a.id}')">
+      <div class="address-info">
+        <div>
+          <span class="name">${a.name}</span>
+          <span class="phone">${a.phone}</span>
+          ${a.tag?`<span style="display:inline-block;background:var(--primary);color:#fff;font-size:10px;padding:1px 6px;border-radius:3px;margin-left:6px">${a.tag}</span>`:''}
+          ${a.isDefault?`<span style="display:inline-block;background:var(--red);color:#fff;font-size:10px;padding:1px 6px;border-radius:3px;margin-left:6px">默认</span>`:''}
+        </div>
+        <div class="addr">${a.region} ${a.detail}</div>
+      </div>
+      <div class="address-actions">
+        ${a.id===selAddressId?`<span style="color:var(--primary);font-weight:600;font-size:14px">✓ 已选</span>`:`<button class="btn btn-outline btn-sm">使用</button>`}
+      </div>
+    </div>
+  `).join("");
+}
+
+function pickAddress(id){
+  selAddressId = id;
+  renderAddress();
+}
+
+function toggleAddressForm(){
+  const f = $("#addressForm");
+  f.style.display = f.style.display==="none" ? "block" : "none";
+}
+
+function saveAddress(){
+  const name = $("#newName").value.trim();
+  const phone = $("#newPhone").value.trim();
+  const region = $("#newRegion").value;
+  const detail = $("#newDetail").value.trim();
+  const tag = $("#newTag").value;
+  const isDef = $("#newDefault").checked;
+
+  if(!name || !phone || !detail){ HS.Toast.show("请填完整", "error"); return; }
+  if(phone.length<11){ HS.Toast.show("手机号格式不对", "error"); return; }
+
+  const arr = JSON.parse(localStorage.getItem("hs_addresses")||"[]");
+  const id = "A" + Date.now();
+  if(isDef) arr.forEach(a => a.isDefault = false);
+  arr.push({id, name, phone, region, detail, tag, isDefault:isDef});
+  localStorage.setItem("hs_addresses", JSON.stringify(arr));
+  selAddressId = id;
+  HS.Toast.show("✓ 新地址已保存", "success");
+  toggleAddressForm();
+  renderAddress();
+}
+
+// ========== 配送 / 支付 ==========
+function pickShip(el){
+  $$("#shipMethod .pay-method").forEach(m => m.classList.remove("active"));
+  el.classList.add("active");
+  selShip = el.dataset.method;
+  calcTotal();
+}
+function pickPay(el){
+  $$("#payMethod .pay-method").forEach(m => m.classList.remove("active"));
+  el.classList.add("active");
+  selPay = el.dataset.method;
+}
+function toggleInvoice(){
+  const v = document.querySelector('input[name=invoice]:checked').value;
+  $("#invoiceForm").style.display = (v==="none") ? "none" : "block";
+}
+
+function $$(s, el=document){return Array.from(el.querySelectorAll(s))}
+
+// ========== 商品清单 ==========
+function renderItems(){
+  const cart = HS.Cart.get();
+  if(cart.length===0){
+    $("#orderItems").innerHTML = `<div class="empty-state"><div class="icon">🛒</div><div class="text">购物车为空</div><a class="btn btn-primary" href="product.html">去逛逛</a></div>`;
+    return;
+  }
+  $("#orderItems").innerHTML = cart.map(it => {
+    const p = HS.products.find(x => x.id===it.id);
+    if(!p) return "";
+    return `
+      <div class="order-item">
+        <img src="${p.img}" alt="${p.name}"/>
+        <div class="info">
+          <div class="name">${p.name}</div>
+          <div class="spec">${p.spec}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="price">${money(p.price * it.qty)}</div>
+          <div style="font-size:12px;color:var(--gray)">x ${it.qty}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+  $("#itemCount").textContent = "共 " + cart.reduce((s,i)=>s+i.qty,0) + " 件";
+}
+
+// ========== 摘要 ==========
+function calcTotal(){
+  const cart = HS.Cart.get();
+  const sub = cart.reduce((s,i) => {
+    const p = HS.products.find(x => x.id===i.id);
+    return s + (p ? p.price * i.qty : 0);
+  }, 0);
+  const ship = (selShip==="EMS") ? 10 : 0;
+  const codFee = (selPay==="货到付款") ? 5 : 0;
+  const disc = selCoupon ? selCoupon.amount : 0;
+  const total = Math.max(0, sub + ship + codFee - disc);
+  $("#sumSub").textContent = money(sub);
+  $("#sumShip").textContent = money(ship + codFee);
+  $("#sumTotal").textContent = money(total);
+  if(selCoupon){
+    $("#couponRow").style.display = "flex";
+    $("#couponLabel").textContent = `${selCoupon.name} (满${selCoupon.threshold}减${selCoupon.amount})`;
+    $("#couponAmt").textContent = "-¥" + selCoupon.amount;
+    $("#couponLink").textContent = "更换 →";
+  } else {
+    $("#couponRow").style.display = "none";
+    $("#couponLink").textContent = "选择 →";
+  }
+}
+
+// ========== 优惠券 ==========
+function openCouponPicker(){
+  HS.Coupon.init();
+  const cart = HS.Cart.get();
+  const sub = cart.reduce((s,i) => {
+    const p = HS.products.find(x => x.id===i.id);
+    return s + (p ? p.price * i.qty : 0);
+  }, 0);
+
+  const available = HS.Coupon.available();
+  const eligible = available.filter(c => sub >= c.threshold);
+  const notEligible = available.filter(c => sub < c.threshold);
+
+  $("#couponPickerBody").innerHTML = `
+    <div style="margin-bottom:14px;padding:10px 14px;background:var(--bg);border-radius:6px;font-size:13px;color:var(--gray)">
+      当前订单金额 <strong style="color:var(--red)">${money(sub)}</strong> · 满 199 包邮
+    </div>
+    ${eligible.length===0 && notEligible.length===0 ? '<div class="empty-state"><div class="icon">🎁</div><div class="text">暂无可用券</div></div>' : ''}
+    ${eligible.length>0 ? `<h4 style="font-size:14px;margin-bottom:10px;color:var(--primary)">✓ 可使用（${eligible.length}）</h4>` : ''}
+    ${eligible.map(c => `
+      <div class="coupon" style="margin-bottom:10px;cursor:pointer;${selCoupon&&selCoupon.id===c.id?'border-color:var(--red);border-style:solid':''}" onclick="pickCoupon('${c.id}')">
+        <div class="coupon-left">
+          <div class="coupon-amount"><small>¥</small>${c.amount}</div>
+          <div class="coupon-condition">满${c.threshold}可用</div>
+        </div>
+        <div class="coupon-right">
+          <div class="coupon-name">${c.name}</div>
+          <div class="coupon-scope">${c.scope} · ${c.date} 到期</div>
+          ${selCoupon&&selCoupon.id===c.id?`<button class="coupon-btn used">✓ 已选</button>`:`<button class="coupon-btn">使用</button>`}
+        </div>
+      </div>
+    `).join("")}
+    ${notEligible.length>0 ? `<h4 style="font-size:14px;margin:20px 0 10px;color:var(--gray)">不可用（差 ¥${Math.min(...notEligible.map(c => c.threshold-sub))}）</h4>` : ''}
+    ${notEligible.map(c => `
+      <div class="coupon" style="margin-bottom:10px;opacity:0.5">
+        <div class="coupon-left">
+          <div class="coupon-amount"><small>¥</small>${c.amount}</div>
+          <div class="coupon-condition">满${c.threshold}可用</div>
+        </div>
+        <div class="coupon-right">
+          <div class="coupon-name">${c.name}</div>
+          <div class="coupon-scope">还差 ¥${c.threshold-sub} · ${c.scope}</div>
+        </div>
+      </div>
+    `).join("")}
+    <div style="margin-top:16px;text-align:right">
+      <button class="btn btn-ghost btn-sm" onclick="clearCoupon()">不使用优惠券</button>
+    </div>
+  `;
+  HS.Modal.open("couponPickerModal");
+}
+
+function pickCoupon(id){
+  const c = HS.Coupon.get().find(x => x.id===id && x.status==="available");
+  if(!c) return;
+  selCoupon = c;
+  HS.Modal.close("couponPickerModal");
+  calcTotal();
+  HS.Toast.show("✓ 已选择优惠券", "success");
+}
+
+function clearCoupon(){
+  selCoupon = null;
+  HS.Modal.close("couponPickerModal");
+  calcTotal();
+}
+
+// ========== 提交订单 ==========
+function submitOrder(){
+  const cart = HS.Cart.get();
+  if(cart.length===0){ HS.Toast.show("购物车为空", "error"); return; }
+
+  const addresses = JSON.parse(localStorage.getItem("hs_addresses")||"[]");
+  const addr = addresses.find(a => a.id===selAddressId);
+  if(!addr){ HS.Toast.show("请选择收货地址", "error"); return; }
+
+  // 校验发票
+  const inv = document.querySelector('input[name=invoice]:checked').value;
+  if(inv!=="none"){
+    const title = $("#invTitle").value.trim();
+    if(!title){ HS.Toast.show("请填发票抬头", "error"); return; }
+    if(inv==="company" && !$("#invTaxNo").value.trim()){ HS.Toast.show("请填税号", "error"); return; }
+  }
+
+  // 计算
+  const sub = cart.reduce((s,i) => {
+    const p = HS.products.find(x => x.id===i.id);
+    return s + (p ? p.price * i.qty : 0);
+  }, 0);
+  const ship = (selShip==="EMS") ? 10 : 0;
+  const codFee = (selPay==="货到付款") ? 5 : 0;
+  const disc = selCoupon ? selCoupon.amount : 0;
+  const total = sub + ship + codFee - disc;
+
+  // 生成订单
+  const orderId = "ORD" + new Date().toISOString().slice(0,10).replace(/-/g,"") + String(Math.floor(Math.random()*9000)+1000);
+  const order = {
+    id: orderId,
+    date: new Date().toISOString().slice(0,10),
+    status: "pending",
+    items: cart,
+    address: `${addr.region} ${addr.detail} (${addr.name} ${addr.phone})`,
+    ship: selShip,
+    pay: selPay,
+    coupon: selCoupon ? selCoupon.id : null,
+    remark: $("#orderRemark").value.trim(),
+    invoice: inv,
+    invoiceInfo: inv!=="none" ? {title:$("#invTitle").value, taxNo:$("#invTaxNo").value, email:$("#invEmail").value} : null,
+    sub, shipFee:ship, codFee, disc, total
+  };
+
+  // 保存
+  const orders = JSON.parse(localStorage.getItem("hs_orders")||"[]");
+  orders.unshift(order);
+  localStorage.setItem("hs_orders", JSON.stringify(orders));
+
+  // 标记券已用
+  if(selCoupon){
+    const coupons = HS.Coupon.get();
+    const c = coupons.find(x => x.id===selCoupon.id && x.status==="available");
+    if(c) c.status = "used";
+    localStorage.setItem("hs_coupons", JSON.stringify(coupons));
+  }
+
+  // 清空购物车
+  HS.Cart.clear();
+
+  // 显示成功弹窗
+  $("#successOrderId").textContent = orderId;
+  $("#successAmount").textContent = money(total);
+  HS.Modal.open("paySuccessModal");
+}
+
+function simulatePay(){
+  // 找到刚生成的订单
+  const orders = JSON.parse(localStorage.getItem("hs_orders")||"[]");
+  if(orders[0]) orders[0].status = "shipped";
+  localStorage.setItem("hs_orders", JSON.stringify(orders));
+  HS.Modal.close("paySuccessModal");
+  location.href = "user.html?tab=orders";
+}
+
+// ========== 入口 ==========
+document.addEventListener("DOMContentLoaded", () => {
+  renderAddress();
+  renderItems();
+  calcTotal();
+  // 自动选最大可用券
+  const sub = HS.Cart.total();
+  const best = HS.Coupon.pickBest(sub);
+  if(best) selCoupon = best;
+  calcTotal();
+});
+</script>
+
+<!-- 浮动客服 -->
+<div class="floating-service">
+  <div class="fs-btn" onclick="HS.Modal.open('advisorModal')" title="在线咨询">
+    💬
+    <span class="dot"></span>
+    <span class="fs-btn-tooltip">在线客服</span>
+  </div>
+  <div class="fs-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">
+    ↑
+    <span class="fs-btn-tooltip">回到顶部</span>
+  </div>
+</div>
+
+</body>
+</html>

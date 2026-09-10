@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公共营养学 · 厚生 HOUSHENG</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 顶部权益提示 -->
+<div style="background: linear-gradient(90deg, #006d77, #83c5be); color: white; padding: 8px 32px; text-align: center; font-size: 13px; font-weight: 500;">
+  🌿 业务 ① · 公共营养学 · <strong>严选好物 + 1v1 营养咨询</strong>，先加微信领 50 元体验券
+</div>
+
+<!-- 导航 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo-mark.svg" width="32" height="32" alt="厚生" style="border-radius: 8px;">
+      <span>厚生</span>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="shop.html">营养商城</a></li>
+      <li><a href="courses.html">课程中心</a></li>
+      <li><a href="therapy.html">调理服务</a></li>
+      <li><a href="checkup.html">健康检测</a></li>
+      <li><a href="schedule.html">课程表</a></li>
+      <li><a href="brand.html">品牌 VI</a></li>
+    </ul>
+    <a href="#consult" class="nav-cta">免费咨询</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero" style="background: linear-gradient(135deg, #006d77 0%, #2a9d8f 50%, #83c5be 100%);">
+  <div class="hero-inner">
+    <span class="hero-tag">🧪 业务 ① · 公共营养学</span>
+    <h1>吃对一日三餐<br>比吃一堆保健品更管用</h1>
+    <p class="subtitle">严选好物 · 1v1 营养咨询 · 家庭营养方案</p>
+    <p class="desc">国家注册营养师团队 + 严选自有品牌 + 1v1 调理方案，<br>为 35-55 岁中产家庭提供"能落地的吃法"。</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn btn-primary">看营养好物 →</a>
+      <a href="#courses" class="btn btn-ghost">1v1 营养咨询</a>
+    </div>
+  </div>
+</header>
+
+<!-- 6 大业务快速导航 -->
+<section style="padding: 24px 32px; background: var(--bg); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center; font-size: 13px;">
+      <span style="color: var(--gray); font-weight: 600;">六大业务：</span>
+      <a href="biz-nutrition.html" class="filter-chip active" style="text-decoration:none;">① 营养学</a>
+      <a href="biz-fitness.html" class="filter-chip" style="text-decoration:none;">② 运动健康</a>
+      <a href="biz-gongfa.html" class="filter-chip" style="text-decoration:none;">③ 传统功法</a>
+      <a href="biz-tcm.html" class="filter-chip" style="text-decoration:none;">④ 中医理疗</a>
+      <a href="biz-mind.html" class="filter-chip" style="text-decoration:none;">⑤ 心理睡眠</a>
+      <a href="biz-checkup.html" class="filter-chip" style="text-decoration:none;">⑥ 检测慢病</a>
+    </div>
+  </div>
+</section>
+
+<!-- 业务介绍 -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">ABOUT</span>
+      <h2 class="section-title">营养学板块 · 我们做什么</h2>
+      <p class="section-desc">不是卖保健品，而是帮你"吃对"</p>
+    </div>
+
+    <div class="grid-3" style="margin-bottom: 48px;">
+      <div class="card" style="padding: 32px;">
+        <div style="font-size: 36px; margin-bottom: 12px;">🥗</div>
+        <h3 style="color: var(--primary); margin-bottom: 12px;">一餐一案</h3>
+        <p style="color: var(--gray); font-size: 14px; line-height: 1.7;">不是套模板的"一日三餐表"，而是你和家人的体质、生活节奏、慢病情况定制的"能落地一周食谱"。</p>
+      </div>
+      <div class="card" style="padding: 32px;">
+        <div style="font-size: 36px; margin-bottom: 12px;">🛒</div>
+        <h3 style="color: var(--primary); margin-bottom: 12px;">严选好物</h3>
+        <p style="color: var(--gray); font-size: 14px; line-height: 1.7;">自有品牌 30+ SKU + 严选大牌 200+ SKU。所有商品必须"营养师背书 + 第三方检测 + 客户口碑"三关才上架。</p>
+      </div>
+      <div class="card" style="padding: 32px;">
+        <div style="font-size: 36px; margin-bottom: 12px;">👨‍⚕️</div>
+        <h3 style="color: var(--primary); margin-bottom: 12px;">真人营养师</h3>
+        <p style="color: var(--gray); font-size: 14px; line-height: 1.7;">国家注册营养师 12 人驻店，1v1 咨询 60-90 分钟全程真人沟通，3 个月跟踪调整，不甩报告不管你。</p>
+      </div>
+    </div>
+
+    <div style="background: var(--light); border-radius: 12px; padding: 24px 32px; margin-bottom: 32px;">
+      <h4 style="color: var(--primary); margin-bottom: 12px;">👥 适合谁？</h4>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; font-size: 14px; color: var(--dark);">
+        <span>• 35-55 岁三高/脂肪肝人群</span>
+        <span>• 备孕/孕期/产后妈妈</span>
+        <span>• 老人慢病管理</span>
+        <span>• 减脂/增肌需求</span>
+        <span>• 挑食/营养不均衡儿童</span>
+        <span>• 长期亚健康、易疲劳</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 商品区 ===== -->
+<section id="products" class="section-bg">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">PRODUCTS</span>
+      <h2 class="section-title">营养好物严选</h2>
+      <p class="section-desc">自有品牌 30+ SKU + 严选大牌 200+ SKU，每一款都经营养师审核</p>
+    </div>
+
+    <!-- 子分类 1：营养品/保健品 -->
+    <div style="margin-bottom: 56px;">
+      <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+        <span>💊</span> 营养补充 · 严选大牌
+      </h3>
+      <p style="color: var(--gray); margin-bottom: 24px; font-size: 14px;">普通食品 · 营养素补充 · 蓝帽子保健品。严选三大原则：成分透明、含量达标、口碑验证。</p>
+      <div class="grid-4">
+
+        <div class="card">
+          <div class="card-image">🌿</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag tag-accent">严选</span><span class="tag">自有品牌</span></div>
+            <div class="card-title">本草调理 · 祛湿茶包</div>
+            <div class="card-subtitle">30 包 / 盒 · 独立小包</div>
+            <div class="card-desc">赤小豆 + 薏米 + 茯苓 + 芡实经典配比。湿气重、易疲劳、舌苔白腻人群常备。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">89</span>
+              <span class="price-original">¥128</span>
+            </div>
+            <a href="details/nutrition-pqushi-tea.html">加微信购买</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image cool">🐟</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag tag-accent">严选</span><span class="tag">进口</span></div>
+            <div class="card-title">深海鱼油 · Omega-3</div>
+            <div class="card-subtitle">90 粒 / 瓶 · 60% 高纯度</div>
+            <div class="card-desc">挪威进口 EPA+DHA 双高配比。三高、心脑血管养护人群；中老年日常补充。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">198</span>
+              <span class="price-original">¥268</span>
+            </div>
+            <a href="details/nutrition-pfish-oil.html">加微信购买</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image warm">🌞</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag tag-accent">严选</span><span class="tag">家庭装</span></div>
+            <div class="card-title">维生素 D3 + K2</div>
+            <div class="card-subtitle">60 粒 / 瓶 · 5000IU</div>
+            <div class="card-desc">阳光维生素 + 钙定向配方。久坐办公室、孕妇、老人骨密度养护。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">128</span>
+              <span class="price-original">¥168</span>
+            </div>
+            <a href="details/nutrition-pvit-d3-k2.html">加微信购买</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image green">🧬</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag">新品</span><span class="tag">自有品牌</span></div>
+            <div class="card-title">复合益生菌 · 成人款</div>
+            <div class="card-subtitle">30 袋 / 盒 · 400 亿 CFU</div>
+            <div class="card-desc">9 株专利菌 + 益生元。便秘腹泻、肠易激、免疫力低下人群。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">158</span>
+              <span class="price-original">¥218</span>
+            </div>
+            <a href="details/nutrition-pprobiotics.html">加微信购买</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 子分类 2：养生茶饮/食材 -->
+    <div style="margin-bottom: 56px;">
+      <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+        <span>🍵</span> 食养茶饮 · 当季严选
+      </h3>
+      <p style="color: var(--gray); margin-bottom: 24px; font-size: 14px;">药食同源食材 · 当季限定 · 营养师配方调配。</p>
+      <div class="grid-3">
+
+        <div class="card">
+          <div class="card-image">🍵</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag tag-accent">严选</span><span class="tag">当季</span></div>
+            <div class="card-title">菊花决明子茶 · 护眼方</div>
+            <div class="card-subtitle">20 包 / 盒 · 办公室常备</div>
+            <div class="card-desc">杭白菊 + 决明子 + 枸杞 + 桂花。久盯屏幕、眼干眼涩、血压偏高人群。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">68</span>
+              <span class="price-original">¥98</span>
+            </div>
+            <a href="details/nutrition-pjuhua-tea.html">加微信购买</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image warm">🌰</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag tag-accent">严选</span><span class="tag">节气</span></div>
+            <div class="card-title">八珍糕粉 · 健脾养胃方</div>
+            <div class="card-subtitle">15 袋 / 盒 · 独立包装</div>
+            <div class="card-desc">山药 + 芡实 + 莲子 + 茯苓 + 薏米等 8 味。脾胃弱、湿气重、儿童挑食。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">108</span>
+              <span class="price-original">¥148</span>
+            </div>
+            <a href="details/nutrition-pbazheng-powder.html">加微信购买</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image dark">🍯</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag tag-accent">严选</span><span class="tag">溯源</span></div>
+            <div class="card-title">土蜂蜜 · 秦岭原产</div>
+            <div class="card-subtitle">500g / 瓶 · 当年新蜜</div>
+            <div class="card-desc">秦岭深山土蜂采集，自然结晶。润燥、缓解咳嗽、儿童辅食。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">138</span>
+              <span class="price-original">¥198</span>
+            </div>
+            <a href="details/nutrition-phoney.html">加微信购买</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 子分类 3：养生器材/工具 -->
+    <div>
+      <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+        <span>⚖️</span> 家用营养工具
+      </h3>
+      <p style="color: var(--gray); margin-bottom: 24px; font-size: 14px;">让"吃对"成为日常的小工具。</p>
+      <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+
+        <div class="card">
+          <div class="card-image cool">⚖️</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag">严选</span></div>
+            <div class="card-title">智能体脂秤 · 8 项指标</div>
+            <div class="card-subtitle">家用蓝牙款 · 配 APP</div>
+            <div class="card-desc">体重 / 体脂率 / 内脏脂肪 / 肌肉量 / 基础代谢等 8 项数据，自动同步家庭健康档案。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">298</span>
+              <span class="price-original">¥398</span>
+            </div>
+            <a href="details/nutrition-pbody-scale.html">加微信购买</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image">🥣</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag">自有品牌</span></div>
+            <div class="card-title">厚生 · 慢炖养生壶</div>
+            <div class="card-subtitle">1.5L · 陶瓷釉内胆</div>
+            <div class="card-desc">8 段精炖 / 24h 预约。煮茶、煲汤、煮粥、炖银耳一壶搞定。配 12 道节气食养食谱。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">268</span>
+              <span class="price-original">¥368</span>
+            </div>
+            <a href="details/nutrition-phealth-pot.html">加微信购买</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 课程/咨询服务区 ===== -->
+<section id="courses">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">COURSES & CONSULT</span>
+      <h2 class="section-title">营养咨询与课程</h2>
+      <p class="section-desc">4 大核心服务，从"怎么吃"到"吃出效果"</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+
+      <!-- 课程 1：1v1 营养咨询 -->
+      <div class="card" style="padding: 32px; border-left: 6px solid var(--primary);">
+        <div style="display: flex; flex-wrap: wrap; align-items: start; gap: 24px;">
+          <div style="flex: 0 0 200px; text-align: center; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 32px 16px; border-radius: 12px;">
+            <div style="font-size: 48px; margin-bottom: 8px;">👨‍⚕️</div>
+            <div style="font-size: 14px; opacity: 0.9;">1v1 私享</div>
+          </div>
+          <div style="flex: 1; min-width: 320px;">
+            <div class="card-tags"><span class="tag tag-accent">爆款</span><span class="tag">1v1 真人</span><span class="tag">3 个月跟踪</span></div>
+            <h3 style="color: var(--primary); font-size: 24px; margin: 8px 0 12px 0;">1v1 营养师私人咨询</h3>
+            <p style="color: var(--gray); margin-bottom: 20px;">国家注册营养师 1v1 沟通，60-90 分钟深度评估 + 3 个月跟踪调整</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; font-size: 14px;">
+              <div>
+                <strong style="color: var(--primary);">📚 课程内容</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>体质测评（中医 9 质 + 西医指标）</li>
+                  <li>饮食习惯 + 慢病情况全面摸底</li>
+                  <li>定制一周食谱 + 食材清单</li>
+                  <li>补剂建议（按需推荐，不强推）</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">🔄 服务流程</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>① 填写 200 题健康问卷</li>
+                  <li>② 到店或视频 1v1（60-90 分钟）</li>
+                  <li>③ 5 个工作日出方案</li>
+                  <li>④ 每月 1 次复盘（3 次）</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💝 配套服务</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>1v1 微信群 3 个月</li>
+                  <li>随时提问（24h 响应）</li>
+                  <li>每周打卡点评</li>
+                  <li>体质变化季度报告</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💰 价格 + 效果</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>¥698 / 3 个月 / 单人</li>
+                  <li>家庭双人 1098 元</li>
+                  <li>预期：3 个月改善指标 / 减重 / 精力</li>
+                  <li>不满意 7 天无理由退</li>
+                </ul>
+              </div>
+            </div>
+
+            href="details/nutrition-cfamily-21day.html"咨询 →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 课程 2：家庭营养 21 天训练营 -->
+      <div class="card" style="padding: 32px; border-left: 6px solid var(--secondary);">
+        <div style="display: flex; flex-wrap: wrap; align-items: start; gap: 24px;">
+          <div style="flex: 0 0 200px; text-align: center; background: linear-gradient(135deg, var(--secondary), #5fa89f); color: white; padding: 32px 16px; border-radius: 12px;">
+            <div style="font-size: 48px; margin-bottom: 8px;">👨‍👩‍👧</div>
+            <div style="font-size: 14px; opacity: 0.9;">21 天训练营</div>
+          </div>
+          <div style="flex: 1; min-width: 320px;">
+            <div class="card-tags"><span class="tag tag-accent">推荐</span><span class="tag">线上 + 社群</span><span class="tag">家庭共享</span></div>
+            <h3 style="color: var(--primary); font-size: 24px; margin: 8px 0 12px 0;">家庭营养 · 21 天习惯养成营</h3>
+            <p style="color: var(--gray); margin-bottom: 20px;">一家三口一起学，从"知道"到"做到"。21 天后形成稳定饮食节奏。</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; font-size: 14px;">
+              <div>
+                <strong style="color: var(--primary);">📚 课程内容</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>21 节视频课（每节 15-20 分钟）</li>
+                  <li>家庭餐一周 21 道食谱</li>
+                  <li>食材采购清单 + 备餐技巧</li>
+                  <li>孩子 / 老人 / 成人差异化方案</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">🔄 服务流程</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>① 开营前 1v1 营养师评估</li>
+                  <li>② 每天 1 节视频 + 1 道食谱</li>
+                  <li>③ 每日群内打卡 + 营养师点评</li>
+                  <li>④ 结营颁发证书 + 长期群</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💝 配套服务</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>3 人微信群 21 天</li>
+                  <li>营养师每日答疑</li>
+                  <li>2 次线上直播复盘</li>
+                  <li>结营后 1 年免费答疑群</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💰 价格 + 效果</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>¥499 / 21 天 / 家庭（3 人共享）</li>
+                  <li>原价 ¥899</li>
+                  <li>预期：3 人 21 天建立健康饮食习惯</li>
+                  <li>不满意 3 天无理由退</li>
+                </ul>
+              </div>
+            </div>
+
+            href="details/nutrition-cconsult-1v1.html" →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 课程 3：慢病营养管理 -->
+      <div class="card" style="padding: 32px; border-left: 6px solid var(--accent);">
+        <div style="display: flex; flex-wrap: wrap; align-items: start; gap: 24px;">
+          <div style="flex: 0 0 200px; text-align: center; background: linear-gradient(135deg, var(--accent), #c9816a); color: white; padding: 32px 16px; border-radius: 12px;">
+            <div style="font-size: 48px; margin-bottom: 8px;">🩺</div>
+            <div style="font-size: 14px; opacity: 0.9;">慢病调理</div>
+          </div>
+          <div style="flex: 1; min-width: 320px;">
+            <div class="card-tags"><span class="tag tag-accent">高客单</span><span class="tag">三高 / 脂肪肝</span><span class="tag">6 个月跟踪</span></div>
+            <h3 style="color: var(--primary); font-size: 24px; margin: 8px 0 12px 0;">慢病营养管理 · 6 个月方案</h3>
+            <p style="color: var(--gray); margin-bottom: 20px;">针对三高、脂肪肝、糖尿病前期人群，营养 + 运动 + 中医理疗三方联合干预</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; font-size: 14px;">
+              <div>
+                <strong style="color: var(--primary);">📚 课程内容</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>12 次营养师 1v1 深度沟通</li>
+                  <li>个性化餐谱每月迭代</li>
+                  <li>配合检测（每 2 月 1 次指标复查）</li>
+                  <li>中西医联合干预方案</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">🔄 服务流程</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>① 首次 90 分钟深度评估</li>
+                  <li>② 出具 6 个月管理方案</li>
+                  <li>③ 每月 1 次 1v1 复盘</li>
+                  <li>④ 每 2 月指标复测 + 方案调整</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💝 配套服务</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>专属营养师 6 个月</li>
+                  <li>私人微信群（家庭 + 营养师）</li>
+                  <li>中医理疗师配合咨询</li>
+                  <li>赠送 4 次检测（基础 + 深度）</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💰 价格 + 效果</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>¥4980 / 6 个月 / 单人</li>
+                  <li>家庭双人 7980 元</li>
+                  <li>预期：3-6 个月改善指标 / 减重 / 减药</li>
+                  <li>签约式承诺：未达目标免费延期</li>
+                </ul>
+              </div>
+            </div>
+
+            href="details/nutrition-cchronic-6m.html"
+          </div>
+        </div>
+      </div>
+
+      <!-- 课程 4：儿童营养课 -->
+      <div class="card" style="padding: 32px; border-left: 6px solid var(--light);">
+        <div style="display: flex; flex-wrap: wrap; align-items: start; gap: 24px;">
+          <div style="flex: 0 0 200px; text-align: center; background: linear-gradient(135deg, #f4a261, #e76f51); color: white; padding: 32px 16px; border-radius: 12px;">
+            <div style="font-size: 48px; margin-bottom: 8px;">👶</div>
+            <div style="font-size: 14px; opacity: 0.9;">儿童专属</div>
+          </div>
+          <div style="flex: 1; min-width: 320px;">
+            <div class="card-tags"><span class="tag tag-accent">新上线</span><span class="tag">3-12 岁</span><span class="tag">家长共学</span></div>
+            <h3 style="color: var(--primary); font-size: 24px; margin: 8px 0 12px 0;">儿童营养 · 挑食 / 偏食 / 长不高</h3>
+            <p style="color: var(--gray); margin-bottom: 20px;">儿童营养师 1v1 评估 + 家长共学 + 14 天食谱调整</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; font-size: 14px;">
+              <div>
+                <strong style="color: var(--primary);">📚 课程内容</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>孩子体质 + 饮食习惯深度评估</li>
+                  <li>挑食 / 偏食行为矫正方法</li>
+                  <li>14 天儿童营养食谱</li>
+                  <li>家长沟通技巧（不催不吼）</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">🔄 服务流程</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>① 家长填 100 题儿童问卷</li>
+                  <li>② 60 分钟视频 1v1（家长 + 营养师）</li>
+                  <li>③ 14 天食谱 + 行为方案</li>
+                  <li>④ 每周群内 1v1 反馈调整</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💝 配套服务</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>专属儿童营养师 1 个月</li>
+                  <li>家长 1v1 群 4 周</li>
+                  <li>每周食谱迭代 1 次</li>
+                  <li>赠送 1 次儿童体测</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💰 价格 + 效果</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>¥598 / 1 个月 / 1 个孩子</li>
+                  <li>二孩家庭 898 元</li>
+                  <li>预期：1 个月挑食改善 / 体重达标</li>
+                  <li>不满意 7 天无理由退</li>
+                </ul>
+              </div>
+            </div>
+
+            href="details/nutrition-ckids-1m.html"
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 营养师团队 -->
+<section class="section-bg">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">TEAM</span>
+      <h2 class="section-title">我们的营养师团队</h2>
+      <p class="section-desc">12 位国家注册营养师，平均行业经验 6 年+</p>
+    </div>
+    <div class="grid-4">
+      <div class="card" style="text-align: center; padding: 24px;">
+        <div style="width: 80px; height: 80px; background: var(--primary); border-radius: 50%; margin: 0 auto 16px auto; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; font-weight: 700;">陈</div>
+        <h4 style="color: var(--primary); margin-bottom: 4px;">陈雪 · 首席营养师</h4>
+        <p style="color: var(--gray); font-size: 13px;">注册营养师 · 10 年经验</p>
+        <p style="font-size: 12px; color: var(--gray); margin-top: 8px;">擅长：慢病管理 / 减脂</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 24px;">
+        <div style="width: 80px; height: 80px; background: var(--secondary); border-radius: 50%; margin: 0 auto 16px auto; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; font-weight: 700;">林</div>
+        <h4 style="color: var(--primary); margin-bottom: 4px;">林芳 · 儿童营养</h4>
+        <p style="color: var(--gray); font-size: 13px;">注册营养师 · 8 年经验</p>
+        <p style="font-size: 12px; color: var(--gray); margin-top: 8px;">擅长：挑食 / 偏食 / 长高</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 24px;">
+        <div style="width: 80px; height: 80px; background: var(--accent); border-radius: 50%; margin: 0 auto 16px auto; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; font-weight: 700;">王</div>
+        <h4 style="color: var(--primary); margin-bottom: 4px;">王莉 · 孕产营养</h4>
+        <p style="color: var(--gray); font-size: 13px;">注册营养师 · 7 年经验</p>
+        <p style="font-size: 12px; color: var(--gray); margin-top: 8px;">擅长：备孕 / 孕期 / 产后</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 24px;">
+        <div style="width: 80px; height: 80px; background: #2a9d8f; border-radius: 50%; margin: 0 auto 16px auto; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; font-weight: 700;">赵</div>
+        <h4 style="color: var(--primary); margin-bottom: 4px;">赵明 · 中医食疗</h4>
+        <p style="color: var(--gray); font-size: 13px;">营养师 + 中医师 · 12 年</p>
+        <p style="font-size: 12px; color: var(--gray); margin-top: 8px;">擅长：体质调理 / 食疗</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 用户见证 -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">TESTIMONIALS</span>
+      <h2 class="section-title">用户怎么评价</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card" style="padding: 32px;">
+        <div style="color: var(--accent); font-size: 24px; margin-bottom: 12px;">★★★★★</div>
+        <p style="color: var(--dark); line-height: 1.7; margin-bottom: 20px;">"3 个月营养咨询，脂肪肝从轻度恢复正常。陈老师每周都会跟进，不甩报告。老公也一起减了 8 斤。"</p>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">王</div>
+          <div>
+            <div style="font-weight: 600; color: var(--dark);">王女士 · 45 岁</div>
+            <div style="font-size: 12px; color: var(--gray);">脂肪肝 · 已恢复</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="padding: 32px;">
+        <div style="color: var(--accent); font-size: 24px; margin-bottom: 12px;">★★★★★</div>
+        <p style="color: var(--dark); line-height: 1.7; margin-bottom: 20px;">"孩子挑食严重，林芳老师教的方法真管用，14 天后孩子开始主动吃青菜了。一家三口都报名了。"</p>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">李</div>
+          <div>
+            <div style="font-weight: 600; color: var(--dark);">李女士 · 38 岁</div>
+            <div style="font-size: 12px; color: var(--gray);">孩子挑食 · 已改善</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="padding: 32px;">
+        <div style="color: var(--accent); font-size: 24px; margin-bottom: 12px;">★★★★★</div>
+        <p style="color: var(--dark); line-height: 1.7; margin-bottom: 20px;">"慢病管理半年，血压从 150 降到 130，停了降压药。营养师 + 中医理疗师配合，效果比单纯吃药好太多。"</p>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">张</div>
+          <div>
+            <div style="font-weight: 600; color: var(--dark);">张先生 · 52 岁</div>
+            <div style="font-size: 12px; color: var(--gray);">高血压 · 已减药</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="consult" class="section-primary">
+  <div class="container" style="text-align: center;">
+    <h2 class="section-title">从今天开始，吃对一日三餐</h2>
+    <p class="section-desc">9.9 元营养师咨询体验 · 免费体质测评 · 严选好物 9 折券</p>
+    <div style="display: flex; gap: 12px; justify-content: center; margin-top: 32px; flex-wrap: wrap;">
+      <a href="#" class="btn btn-primary">9.9 元营养咨询体验</a>
+      <a href="#" class="btn btn-ghost">免费体质测评</a>
+      <a href="#" class="btn btn-ghost">领严选好物 9 折券</a>
+    </div>
+    <p style="margin-top: 24px; color: white; font-size: 13px; opacity: 0.9;">加微信：HoushengHealth · 9:00-21:00 在线</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">厚生 HOUSHENG</div>
+      <p class="footer-desc">厚生万物 · 养心养身<br>营养 · 运动 · 功法 · 中医 · 心理 · 检测</p>
+    </div>
+    <div>
+      <h4>六大业务</h4>
+      <ul>
+        <li><a href="biz-nutrition.html">① 公共营养学</a></li>
+        <li><a href="biz-fitness.html">② 运动健康</a></li>
+        <li><a href="biz-gongfa.html">③ 传统功法</a></li>
+        <li><a href="biz-tcm.html">④ 中医理疗</a></li>
+        <li><a href="biz-mind.html">⑤ 心理睡眠</a></li>
+        <li><a href="biz-checkup.html">⑥ 检测慢病</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>快速入口</h4>
+      <ul>
+        <li><a href="shop.html">营养商城</a></li>
+        <li><a href="courses.html">课程中心</a></li>
+        <li><a href="therapy.html">调理服务</a></li>
+        <li><a href="checkup.html">健康检测</a></li>
+        <li><a href="brand.html">品牌 VI</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>联系咨询</h4>
+      <ul>
+        <li>客服微信：HoushengHealth</li>
+        <li>电话：400-XXX-XXXX</li>
+        <li>邮箱：hi@yourbrand.com</li>
+        <li>工作时间：9:00-21:00</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 厚生 HOUSHENG WELLNESS · 厚生万物 · 养心养身</div>
+</footer>
+
+</body>
+</html>

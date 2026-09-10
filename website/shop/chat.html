@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>消息中心 - 厚生 HOUSHENG</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="navMount"></div>
+
+<div class="container" style="padding:20px">
+
+  <div class="breadcrumb">
+    <a href="index.html">首页</a> <span class="sep">/</span>
+    <span class="current">消息中心</span>
+  </div>
+
+  <div class="chat-page">
+
+    <!-- 左:会话列表 -->
+    <div class="chat-sidebar">
+      <div class="chat-sidebar-head">
+        <div style="font-weight:700;font-size:16px">💬 消息中心</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:2px" id="unreadTotal">0 条未读</div>
+      </div>
+      <div class="chat-sidebar-tabs">
+        <div class="chat-sidebar-tab active" data-filter="all" onclick="filterThread('all', this)">全部</div>
+        <div class="chat-sidebar-tab" data-filter="merchant" onclick="filterThread('merchant', this)">商家</div>
+        <div class="chat-sidebar-tab" data-filter="advisor" onclick="filterThread('advisor', this)">顾问</div>
+        <div class="chat-sidebar-tab" data-filter="aftersales" onclick="filterThread('aftersales', this)">售后</div>
+      </div>
+      <div class="chat-thread-list" id="threadList"></div>
+    </div>
+
+    <!-- 右:对话区 -->
+    <div class="chat-main" id="chatMain">
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--gray)">
+        <div style="text-align:center">
+          <div style="font-size:60px;opacity:0.4;margin-bottom:14px">💬</div>
+          <div style="font-size:15px">选择一个会话开始聊天</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="footerMount"></div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+let currentFilter = "all";
+let currentThreadId = null;
+
+function renderThreadList(){
+  const threads = HS.Chat.threads().filter(t => currentFilter==="all" || t.type===currentFilter);
+  const list = threads.length === 0 ? '<div style="text-align:center;color:var(--gray);padding:30px 12px;font-size:13px">暂无会话</div>' :
+    threads.map(t => {
+      const last = t.messages[t.messages.length-1] || {};
+      return `
+        <div class="chat-thread ${t.id===currentThreadId?'active':''}" onclick="openThread('${t.id}')">
+          <div class="chat-avatar" style="background:${t.type==='merchant'?'linear-gradient(135deg,var(--primary),var(--primary-light))':t.type==='advisor'?'linear-gradient(135deg,var(--green),#52b788)':'linear-gradient(135deg,var(--accent),#f4a261)'};width:40px;height:40px;font-size:14px">${t.avatar}</div>
+          <div class="info" style="flex:1;min-width:0">
+            <div style="font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px">${HS.esc(t.name)}</div>
+            <div style="font-size:12px;color:var(--gray);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${HS.esc(last.text || '')}</div>
+          </div>
+          <div style="font-size:11px;color:var(--gray-light);text-align:right;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            <span>${t.lastTime}</span>
+            ${t.unread>0?`<span class="chat-unread-num">${t.unread}</span>`:''}
+          </div>
+        </div>
+      `;
+    }).join("");
+  $("#threadList").innerHTML = list;
+
+  // 更新未读
+  const total = HS.Chat.totalUnread();
+  $("#unreadTotal").textContent = `${total} 条未读`;
+}
+
+function filterThread(f, el){
+  currentFilter = f;
+  $$(".chat-sidebar-tab").forEach(t => t.classList.remove("active"));
+  el.classList.add("active");
+  renderThreadList();
+}
+
+function openThread(id){
+  currentThreadId = id;
+  HS.Chat.markRead(id);
+  renderThreadList();
+  renderChatMain();
+}
+
+function renderChatMain(){
+  const t = HS.Chat.thread(currentThreadId);
+  if(!t){
+    $("#chatMain").innerHTML = '<div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--gray)"><div style="text-align:center"><div style="font-size:60px;opacity:0.4;margin-bottom:14px">💬</div><div style="font-size:15px">选择一个会话开始聊天</div></div></div>';
+    return;
+  }
+
+  const quickReplies = {
+    merchant: ["物流查询", "退换货", "发票申请", "修改地址"],
+    advisor:  ["我想咨询三高", "肠胃问题", "睡眠问题", "运动营养"],
+    aftersales: ["售后进度", "退款到账时间", "补发商品", "投诉建议"]
+  };
+
+  $("#chatMain").innerHTML = `
+    <div class="chat-main-head">
+      <div class="chat-avatar" style="background:${t.type==='merchant'?'linear-gradient(135deg,var(--primary),var(--primary-light))':t.type==='advisor'?'linear-gradient(135deg,var(--green),#52b788)':'linear-gradient(135deg,var(--accent),#f4a261)'};width:44px;height:44px;font-size:16px">${t.avatar}</div>
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:15px">${HS.esc(t.name)}</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:2px">${HS.esc(t.role)} · 在线</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="HS.Toast.show('已发起语音通话请求','success')">📞 语音</button>
+      <button class="btn btn-ghost btn-sm" onclick="HS.Toast.show('通话中...','success')">📹 视频</button>
+    </div>
+    <div class="chat-main-body" id="msgBody">
+      ${t.messages.map(m => renderMsg(m, t)).join("")}
+    </div>
+    <div class="chat-quick-replies">
+      ${(quickReplies[t.type] || []).map(r => `<span class="chat-quick-reply" onclick="quickReply('${HS.esc(r).replace(/'/g, "\\'")}')">${r}</span>`).join("")}
+    </div>
+    <div class="chat-main-foot">
+      <button class="btn btn-ghost btn-sm" onclick="HS.Toast.show('演示版暂不支持图片','success')" title="图片">📷</button>
+      <button class="btn btn-ghost btn-sm" onclick="HS.Toast.show('演示版暂不支持文件','success')" title="文件">📎</button>
+      <input type="text" id="msgInput" placeholder="输入消息... Enter 发送" onkeydown="if(event.key==='Enter')sendMsg()" />
+      <button class="send-btn" onclick="sendMsg()">➤</button>
+    </div>
+  `;
+  // 滚到底
+  setTimeout(() => { const b = $("#msgBody"); if(b) b.scrollTop = b.scrollHeight; }, 0);
+}
+
+function renderMsg(m, t){
+  const avatarBg = m.from === "me" 
+    ? "linear-gradient(135deg,var(--primary),var(--primary-light))"
+    : (t.type==='merchant'?'linear-gradient(135deg,var(--primary),var(--primary-light))':t.type==='advisor'?'linear-gradient(135deg,var(--green),#52b788)':'linear-gradient(135deg,var(--accent),#f4a261)');
+  const avatarChar = m.from === "me" ? "我" : t.avatar;
+  return `
+    <div class="chat-msg ${m.from}">
+      <div class="avatar" style="background:${avatarBg}">${avatarChar}</div>
+      <div>
+        <div class="bubble">${HS.esc(m.text)}</div>
+        <div class="time">${m.time}</div>
+      </div>
+    </div>
+  `;
+}
+
+function sendMsg(){
+  const inp = $("#msgInput");
+  const text = inp.value.trim();
+  if(!text) return;
+  HS.Chat.send(currentThreadId, text);
+  inp.value = "";
+  renderChatMain();
+  // 自动滚动 + 1.5s 后等自动回复追加
+  setTimeout(() => {
+    renderChatMain();
+  }, 1500);
+}
+
+function quickReply(text){
+  $("#msgInput").value = text;
+  sendMsg();
+}
+
+// 从 URL ?tid= 读取会话
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(location.search);
+  const tid = params.get("tid");
+  if(tid) openThread(tid);
+  renderThreadList();
+});
+</script>
+
+</body>
+</html>

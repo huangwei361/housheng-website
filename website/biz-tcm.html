@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中医理疗 · 厚生 HOUSHENG</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 顶部权益提示 -->
+<div style="background: linear-gradient(90deg, #006d77, #83c5be); color: white; padding: 8px 32px; text-align: center; font-size: 13px; font-weight: 500;">
+  💆 业务 ④ · 中医理疗 · <strong>9.9 元肩颈体验</strong>，新人限 1 次，到店即享
+</div>
+
+<!-- 导航 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo-mark.svg" width="32" height="32" alt="厚生" style="border-radius: 8px;">
+      <span>厚生</span>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="shop.html">营养商城</a></li>
+      <li><a href="courses.html">课程中心</a></li>
+      <li><a href="therapy.html">调理服务</a></li>
+      <li><a href="checkup.html">健康检测</a></li>
+      <li><a href="schedule.html">课程表</a></li>
+      <li><a href="brand.html">品牌 VI</a></li>
+    </ul>
+    <a href="#consult" class="nav-cta">9.9 元体验</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero" style="background: linear-gradient(135deg, #006d77 0%, #2a9d8f 50%, #83c5be 100%);">
+  <div class="hero-inner">
+    <span class="hero-tag">💆 业务 ④ · 中医理疗</span>
+    <h1>推拿 · 艾灸 · 刮痧 · 拔罐<br>缓解 · 调理 · 养护</h1>
+    <p class="subtitle">推拿 · 艾灸 · 刮痧 · 拔罐 · 穴位 · 经络</p>
+    <p class="desc">专业技师团队 + 中医师辨证 + 调理方案，<br>针对肩颈腰腿、宫寒、湿气、失眠等亚健康问题进行体质调理。</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn btn-primary">看理疗器材 →</a>
+      <a href="#courses" class="btn btn-ghost">9.9 元肩颈体验</a>
+    </div>
+  </div>
+</header>
+
+<!-- 6 大业务快速导航 -->
+<section style="padding: 24px 32px; background: var(--bg); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center; font-size: 13px;">
+      <span style="color: var(--gray); font-weight: 600;">六大业务：</span>
+      <a href="biz-nutrition.html" class="filter-chip" style="text-decoration:none;">① 营养学</a>
+      <a href="biz-fitness.html" class="filter-chip" style="text-decoration:none;">② 运动健康</a>
+      <a href="biz-gongfa.html" class="filter-chip" style="text-decoration:none;">③ 传统功法</a>
+      <a href="biz-tcm.html" class="filter-chip active" style="text-decoration:none;">④ 中医理疗</a>
+      <a href="biz-mind.html" class="filter-chip" style="text-decoration:none;">⑤ 心理睡眠</a>
+      <a href="biz-checkup.html" class="filter-chip" style="text-decoration:none;">⑥ 检测慢病</a>
+    </div>
+  </div>
+</section>
+
+<!-- 业务介绍 -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">ABOUT</span>
+      <h2 class="section-title">中医理疗板块 · 6 大项目</h2>
+      <p class="section-desc">"缓解 / 调理 / 养护" — 不宣称治疗，只关注你的身体感受</p>
+    </div>
+
+    <div class="grid-3" style="margin-bottom: 48px;">
+      <div class="card" style="padding: 32px;">
+        <div style="font-size: 36px; margin-bottom: 12px;">💆</div>
+        <h3 style="color: var(--primary); margin-bottom: 12px;">推拿按摩</h3>
+        <p style="color: var(--gray); font-size: 14px; line-height: 1.7;">全身 / 肩颈 / 腰背 / 头部 / 足疗。专业技师，针对性调理酸痛僵硬。</p>
+      </div>
+      <div class="card" style="padding: 32px;">
+        <div style="font-size: 36px; margin-bottom: 12px;">🌿</div>
+        <h3 style="color: var(--primary); margin-bottom: 12px;">艾灸温通</h3>
+        <p style="color: var(--gray); font-size: 14px; line-height: 1.7;">温灸 / 隔姜灸 / 督脉灸 / 暖宫灸。温通经络、祛寒湿、改善宫寒。</p>
+      </div>
+      <div class="card" style="padding: 32px;">
+        <div style="font-size: 36px; margin-bottom: 12px;">🪒</div>
+        <h3 style="color: var(--primary); margin-bottom: 12px;">刮痧拔罐</h3>
+        <p style="color: var(--gray); font-size: 14px; line-height: 1.7;">疏通经络、排出寒湿。适合颈肩僵硬、感冒初期、疲劳乏力。</p>
+      </div>
+    </div>
+
+    <div style="background: var(--light); border-radius: 12px; padding: 24px 32px; margin-bottom: 32px;">
+      <h4 style="color: var(--primary); margin-bottom: 12px;">👥 适合谁？</h4>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; font-size: 14px; color: var(--dark);">
+        <span>• 久坐肩颈僵硬</span>
+        <span>• 腰背酸痛 / 腰肌劳损</span>
+        <span>• 宫寒 / 痛经 / 月经不调</span>
+        <span>• 湿气重 / 痰多 / 油光</span>
+        <span>• 失眠 / 压力大</span>
+        <span>• 阳康后调理</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 商品区 ===== -->
+<section id="products" class="section-bg">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">PRODUCTS</span>
+      <h2 class="section-title">理疗器材与艾灸用品</h2>
+      <p class="section-desc">家用艾灸 + 刮痧板 + 拔罐器，在家也能做</p>
+    </div>
+
+    <div style="margin-bottom: 48px;">
+      <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 24px;">🌿 艾灸用品</h3>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-image">🌿</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag tag-accent">爆款</span><span class="tag">自有品牌</span></div>
+            <div class="card-title">厚生 · 蕲艾艾条</div>
+            <div class="card-subtitle">10 支装 · 3 年陈艾</div>
+            <div class="card-desc">湖北蕲春 3 年陈艾，纯艾叶制绒。火力温和、渗透力强。家庭艾灸入门款。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">68</span>
+              <span class="price-original">¥98</span>
+            </div>
+            <a href="details/tcm-pmugwort-stick.html">加微信购买</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image warm">🔥</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag tag-accent">严选</span></div>
+            <div class="card-title">随身灸 · 铜盒款</div>
+            <div class="card-subtitle">6 盒装 · 配 54 支艾柱</div>
+            <div class="card-desc">纯铜艾灸盒，可调温。腹部 / 腰部 / 腿部都能用。配穴位图 + 教程。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">128</span>
+              <span class="price-original">¥168</span>
+            </div>
+            <a href="details/tcm-pmoxibustion-box.html">加微信购买</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image dark">🪔</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag">严选</span></div>
+            <div class="card-title">足灸仪 · 实木款</div>
+            <div class="card-subtitle">家用熏蒸足灸</div>
+            <div class="card-desc">实木箱体 + 艾灸 + 红光。足底穴位覆盖，温通下焦。适合手脚冰凉人群。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">498</span>
+              <span class="price-original">¥698</span>
+            </div>
+            <a href="details/tcm-pfoot-moxa.html">加微信购买</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 48px;">
+      <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 24px;">🪒 刮痧 / 拔罐 / 按摩</h3>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-image cool">🪒</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag tag-accent">严选</span></div>
+            <div class="card-title">天然砭石刮痧板</div>
+            <div class="card-subtitle">配刮痧油 100ml</div>
+            <div class="card-desc">山东泗水砭石，含 40+ 微量元素。面部 / 身体两用。配 12 节视频课。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">98</span>
+              <span class="price-original">¥138</span>
+            </div>
+            <a href="details/tcm-pbian-stone.html">加微信购买</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image">🫙</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag">严选</span></div>
+            <div class="card-title">真空拔罐器 · 12 罐</div>
+            <div class="card-subtitle">家用抽气式</div>
+            <div class="card-desc">透明 PC 材质 + 抽气枪。吸力可控，安全不烫。配穴位图。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">88</span>
+              <span class="price-original">¥128</span>
+            </div>
+            <a href="details/tcm-pcupping-set.html">加微信购买</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image green">💆</div>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag">严选</span></div>
+            <div class="card-title">按摩槌 · 实木八锤</div>
+            <div class="card-subtitle">榉木 / 经络拍打</div>
+            <div class="card-desc">八角 8 颗按摩头，拍打经络。肩颈 / 腰部 / 腿部通用。家庭保健好物。</div>
+            <div class="card-price">
+              <span class="price-symbol">¥</span>
+              <span class="price-value">78</span>
+              <span class="price-original">¥108</span>
+            </div>
+            <a href="details/tcm-pmassage-hammer.html">加微信购买</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 课程/服务区 ===== -->
+<section id="courses">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">SERVICES & COURSES</span>
+      <h2 class="section-title">理疗服务与课程</h2>
+      <p class="section-desc">4 大服务，从单次体验到长期方案</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+
+      <!-- 服务 1：肩颈调理单次 -->
+      <div class="card" style="padding: 32px; border-left: 6px solid var(--primary);">
+        <div style="display: flex; flex-wrap: wrap; align-items: start; gap: 24px;">
+          <div style="flex: 0 0 200px; text-align: center; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 32px 16px; border-radius: 12px;">
+            <div style="font-size: 48px; margin-bottom: 8px;">💆</div>
+            <div style="font-size: 14px; opacity: 0.9;">门店服务</div>
+          </div>
+          <div style="flex: 1; min-width: 320px;">
+            <div class="card-tags"><span class="tag tag-accent">爆款</span><span class="tag">高复购</span><span class="tag">60 分钟</span></div>
+            <h3 style="color: var(--primary); font-size: 24px; margin: 8px 0 12px 0;">肩颈调理 · 推拿 + 艾灸</h3>
+            <p style="color: var(--gray); margin-bottom: 20px;">专业技师针对久坐、低头族。推拿 40 分钟 + 艾灸 20 分钟。</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; font-size: 14px;">
+              <div>
+                <strong style="color: var(--primary);">📚 服务内容</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>肩颈推拿 40 分钟</li>
+                  <li>大椎 / 肩井 / 颈夹脊重点疏通</li>
+                  <li>艾灸温通 20 分钟</li>
+                  <li>头部放松 5 分钟</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">🔄 服务流程</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>① 到店登记 + 简单问诊</li>
+                  <li>② 技师肩颈评估</li>
+                  <li>③ 推拿 + 艾灸 60 分钟</li>
+                  <li>④ 茶水休息 + 注意事项</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💝 配套服务</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>资深技师 5 年+</li>
+                  <li>独立包间 + 一次性用品</li>
+                  <li>免费 WiFi / 茶水</li>
+                  <li>调理后微信回访</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💰 价格 + 效果</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>¥298 / 单次（60 分钟）</li>
+                  <li>10 次卡 ¥2400（8 折）</li>
+                  <li>预期：即时轻松 / 长期改善</li>
+                  <li>不满意首单可退</li>
+                </ul>
+              </div>
+            </div>
+            href="details/tcm-ctizhi-12w.html" →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 服务 2：体质调理 12 周方案 -->
+      <div class="card" style="padding: 32px; border-left: 6px solid var(--secondary);">
+        <div style="display: flex; flex-wrap: wrap; align-items: start; gap: 24px;">
+          <div style="flex: 0 0 200px; text-align: center; background: linear-gradient(135deg, var(--secondary), #5fa89f); color: white; padding: 32px 16px; border-radius: 12px;">
+            <div style="font-size: 48px; margin-bottom: 8px;">🪷</div>
+            <div style="font-size: 14px; opacity: 0.9;">体质调理</div>
+          </div>
+          <div style="flex: 1; min-width: 320px;">
+            <div class="card-tags"><span class="tag tag-accent">推荐</span><span class="tag">中医师辨证</span><span class="tag">12 周</span></div>
+            <h3 style="color: var(--primary); font-size: 24px; margin: 8px 0 12px 0;">体质调理 · 12 周方案</h3>
+            <p style="color: var(--gray); margin-bottom: 20px;">中医师 1v1 辨证 + 推拿 + 艾灸 + 食疗，针对 9 种体质定制</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; font-size: 14px;">
+              <div>
+                <strong style="color: var(--primary);">📚 服务内容</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>中医师辨证（9 种体质）</li>
+                  <li>每周 1 次理疗（推拿 + 艾灸）</li>
+                  <li>个性化食疗方案</li>
+                  <li>起居 + 情志调养指导</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">🔄 服务流程</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>① 首次 60 分钟中医师问诊</li>
+                  <li>② 出具 12 周调理方案</li>
+                  <li>③ 每周 1 次到店理疗</li>
+                  <li>④ 每月 1 次方案复盘</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💝 配套服务</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>专属中医师 + 技师 12 周</li>
+                  <li>1v1 微信群（家庭 + 医师）</li>
+                  <li>营养师配合餐谱</li>
+                  <li>体质变化月度报告</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💰 价格 + 效果</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>¥5800 / 12 周 / 单人</li>
+                  <li>家庭双人 9800 元</li>
+                  <li>预期：12 周体质明显改善</li>
+                  <li>未达目标免费延期 4 周</li>
+                </ul>
+              </div>
+            </div>
+            href="details/tcm-cwomen-8w.html"
+          </div>
+        </div>
+      </div>
+
+      <!-- 服务 3：女性调理 -->
+      <div class="card" style="padding: 32px; border-left: 6px solid var(--accent);">
+        <div style="display: flex; flex-wrap: wrap; align-items: start; gap: 24px;">
+          <div style="flex: 0 0 200px; text-align: center; background: linear-gradient(135deg, var(--accent), #c9816a); color: white; padding: 32px 16px; border-radius: 12px;">
+            <div style="font-size: 48px; margin-bottom: 8px;">🌸</div>
+            <div style="font-size: 14px; opacity: 0.9;">女性专属</div>
+          </div>
+          <div style="flex: 1; min-width: 320px;">
+            <div class="card-tags"><span class="tag tag-accent">女性</span><span class="tag">暖宫</span><span class="tag">8 周</span></div>
+            <h3 style="color: var(--primary); font-size: 24px; margin: 8px 0 12px 0;">女性调理 · 暖宫 + 痛经</h3>
+            <p style="color: var(--gray); margin-bottom: 20px;">中医女科医师 + 督脉灸 + 腹部推拿。宫寒、痛经、月经不调。</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; font-size: 14px;">
+              <div>
+                <strong style="color: var(--primary);">📚 服务内容</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>女科中医师辨证</li>
+                  <li>督脉灸 + 腹部艾灸</li>
+                  <li>经期前后重点调理</li>
+                  <li>暖宫食疗方</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">🔄 服务流程</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>① 首次 60 分钟问诊</li>
+                  <li>② 8 周调理方案</li>
+                  <li>③ 每周 1-2 次到店</li>
+                  <li>④ 跟踪月经周期改善</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💝 配套服务</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>女医师 + 女技师全程</li>
+                  <li>独立女性包间</li>
+                  <li>经期注意事项指导</li>
+                  <li>1v1 微信群 8 周</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💰 价格 + 效果</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>¥3280 / 8 周 / 12 次</li>
+                  <li>原价 ¥4980</li>
+                  <li>预期：8 周改善痛经 / 调理宫寒</li>
+                  <li>不满意 3 次内可退</li>
+                </ul>
+              </div>
+            </div>
+            href="details/tcm-chome-moxa-14d.html"
+          </div>
+        </div>
+      </div>
+
+      <!-- 服务 4：家庭艾灸课 -->
+      <div class="card" style="padding: 32px; border-left: 6px solid #4a4a4a;">
+        <div style="display: flex; flex-wrap: wrap; align-items: start; gap: 24px;">
+          <div style="flex: 0 0 200px; text-align: center; background: linear-gradient(135deg, #4a4a4a, #2d2d2d); color: white; padding: 32px 16px; border-radius: 12px;">
+            <div style="font-size: 48px; margin-bottom: 8px;">📚</div>
+            <div style="font-size: 14px; opacity: 0.9;">家庭课程</div>
+          </div>
+          <div style="flex: 1; min-width: 320px;">
+            <div class="card-tags"><span class="tag tag-accent">推荐</span><span class="tag">家长共学</span><span class="tag">线上 + 线下</span></div>
+            <h3 style="color: var(--primary); font-size: 24px; margin: 8px 0 12px 0;">家庭艾灸 · 14 天入门课</h3>
+            <p style="color: var(--gray); margin-bottom: 20px;">学完在家给家人艾灸。常见 9 种家庭场景配穴方案。</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; font-size: 14px;">
+              <div>
+                <strong style="color: var(--primary);">📚 课程内容</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>14 节视频课（每节 15 分钟）</li>
+                  <li>艾灸基础理论</li>
+                  <li>9 种家庭场景配穴</li>
+                  <li>禁忌 + 注意事项</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">🔄 服务流程</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>① 报名后入群</li>
+                  <li>② 14 天视频 + 群答疑</li>
+                  <li>③ 1 次线下实操（90 分钟）</li>
+                  <li>④ 颁发家庭艾灸师证书</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💝 配套服务</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>中医师全程答疑</li>
+                  <li>赠送 1 套入门艾灸器材</li>
+                  <li>穴位图 + 食谱电子版</li>
+                  <li>长期群服务</li>
+                </ul>
+              </div>
+              <div>
+                <strong style="color: var(--primary);">💰 价格 + 效果</strong>
+                <ul style="margin: 8px 0 0 16px; color: var(--gray); line-height: 1.8;">
+                  <li>¥599 / 14 天 / 1 人</li>
+                  <li>家庭双人 898 元</li>
+                  <li>预期：14 天学会家庭艾灸</li>
+                  <li>不满意 7 天无理由退</li>
+                </ul>
+              </div>
+            </div>
+            href="details/tcm-cshoulder-60m.html" →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 技师团队 -->
+<section class="section-bg">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">TEAM</span>
+      <h2 class="section-title">中医师 + 技师团队</h2>
+      <p class="section-desc">5 位中医师 + 12 位技师，平均行业经验 8 年+</p>
+    </div>
+    <div class="grid-4">
+      <div class="card" style="text-align: center; padding: 24px;">
+        <div style="width: 80px; height: 80px; background: var(--primary); border-radius: 50%; margin: 0 auto 16px auto; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; font-weight: 700;">黄</div>
+        <h4 style="color: var(--primary); margin-bottom: 4px;">黄医师 · 首席中医</h4>
+        <p style="color: var(--gray); font-size: 13px;">中医主治医师 · 15 年</p>
+        <p style="font-size: 12px; color: var(--gray); margin-top: 8px;">擅长：体质调理 / 妇科</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 24px;">
+        <div style="width: 80px; height: 80px; background: var(--secondary); border-radius: 50%; margin: 0 auto 16px auto; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; font-weight: 700;">林</div>
+        <h4 style="color: var(--primary); margin-bottom: 4px;">林医师 · 中医内科</h4>
+        <p style="color: var(--gray); font-size: 13px;">中医师 · 10 年</p>
+        <p style="font-size: 12px; color: var(--gray); margin-top: 8px;">擅长：脾胃 / 失眠</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 24px;">
+        <div style="width: 80px; height: 80px; background: var(--accent); border-radius: 50%; margin: 0 auto 16px auto; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; font-weight: 700;">陈</div>
+        <h4 style="color: var(--primary); margin-bottom: 4px;">陈技师 · 推拿首席</h4>
+        <p style="color: var(--gray); font-size: 13px;">高级技师 · 12 年</p>
+        <p style="font-size: 12px; color: var(--gray); margin-top: 8px;">擅长：肩颈 / 腰背 / 复位</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 24px;">
+        <div style="width: 80px; height: 80px; background: #2a9d8f; border-radius: 50%; margin: 0 auto 16px auto; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; font-weight: 700;">赵</div>
+        <h4 style="color: var(--primary); margin-bottom: 4px;">赵技师 · 艾灸专家</h4>
+        <p style="color: var(--gray); font-size: 13px;">高级技师 · 9 年</p>
+        <p style="font-size: 12px; color: var(--gray); margin-top: 8px;">擅长：督脉灸 / 暖宫灸</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 用户见证 -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">TESTIMONIALS</span>
+      <h2 class="section-title">他们怎么说</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card" style="padding: 32px;">
+        <div style="color: var(--accent); font-size: 24px; margin-bottom: 12px;">★★★★★</div>
+        <p style="color: var(--dark); line-height: 1.7; margin-bottom: 20px;">"程序员每天对着电脑十几年，肩颈推拿 + 艾灸 10 次卡，半年后基本不疼了。陈技师手稳、专业。"</p>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">王</div>
+          <div>
+            <div style="font-weight: 600; color: var(--dark);">王先生 · 36 岁</div>
+            <div style="font-size: 12px; color: var(--gray);">肩颈调理 · 10 次卡</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="padding: 32px;">
+        <div style="color: var(--accent); font-size: 24px; margin-bottom: 12px;">★★★★★</div>
+        <p style="color: var(--dark); line-height: 1.7; margin-bottom: 20px;">"痛经 10 多年，8 周调理后基本不痛了。黄医师开的方子很对症，女技师手法也好。"</p>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">李</div>
+          <div>
+            <div style="font-weight: 600; color: var(--dark);">李女士 · 32 岁</div>
+            <div style="font-size: 12px; color: var(--gray);">女性调理 · 8 周</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="padding: 32px;">
+        <div style="color: var(--accent); font-size: 24px; margin-bottom: 12px;">★★★★★</div>
+        <p style="color: var(--dark); line-height: 1.7; margin-bottom: 20px;">"12 周体质调理，阳康后身体恢复很快。林医师每 2 周调一次方，比单纯艾灸店好很多。"</p>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">张</div>
+          <div>
+            <div style="font-weight: 600; color: var(--dark);">张女士 · 45 岁</div>
+            <div style="font-size: 12px; color: var(--gray);">体质调理 · 12 周</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="consult" class="section-primary">
+  <div class="container" style="text-align: center;">
+    <h2 class="section-title">9.9 元肩颈体验 · 到店即享</h2>
+    <p class="section-desc">9.9 元体验 · 免费体质测评 · 调理方案 1v1 咨询</p>
+    <div style="display: flex; gap: 12px; justify-content: center; margin-top: 32px; flex-wrap: wrap;">
+      <a href="#" class="btn btn-primary">9.9 元肩颈体验</a>
+      <a href="#" class="btn btn-ghost">免费体质测评</a>
+      <a href="#" class="btn btn-ghost">1v1 中医师咨询</a>
+    </div>
+    <p style="margin-top: 24px; color: white; font-size: 13px; opacity: 0.9;">加微信：HoushengHealth · 9:00-21:00 在线</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">厚生 HOUSHENG</div>
+      <p class="footer-desc">厚生万物 · 养心养身<br>营养 · 运动 · 功法 · 中医 · 心理 · 检测</p>
+    </div>
+    <div>
+      <h4>六大业务</h4>
+      <ul>
+        <li><a href="biz-nutrition.html">① 公共营养学</a></li>
+        <li><a href="biz-fitness.html">② 运动健康</a></li>
+        <li><a href="biz-gongfa.html">③ 传统功法</a></li>
+        <li><a href="biz-tcm.html">④ 中医理疗</a></li>
+        <li><a href="biz-mind.html">⑤ 心理睡眠</a></li>
+        <li><a href="biz-checkup.html">⑥ 检测慢病</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>快速入口</h4>
+      <ul>
+        <li><a href="shop.html">营养商城</a></li>
+        <li><a href="courses.html">课程中心</a></li>
+        <li><a href="therapy.html">调理服务</a></li>
+        <li><a href="checkup.html">健康检测</a></li>
+        <li><a href="brand.html">品牌 VI</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>联系咨询</h4>
+      <ul>
+        <li>客服微信：HoushengHealth</li>
+        <li>电话：400-XXX-XXXX</li>
+        <li>邮箱：hi@yourbrand.com</li>
+        <li>工作时间：9:00-21:00</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 厚生 HOUSHENG WELLNESS · 厚生万物 · 养心养身</div>
+</footer>
+
+</body>
+</html>

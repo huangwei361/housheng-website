@@ -1,0 +1,2284 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>厚生后台 - HOUSHENG Admin</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+<style>
+body{background:#f5fafa;margin:0;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
+.admin-page{margin:0;min-height:100vh;background:#f5fafa}
+.admin-menu-btn{display:none;width:36px;height:36px;border-radius:8px;background:#f5fafa;border:1px solid #e5e7eb;align-items:center;justify-content:center;font-size:20px;cursor:pointer;color:#006d77;flex-shrink:0}
+.admin-menu-btn:hover{background:#e6f3f1}
+.admin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:49;cursor:pointer}
+
+/* 侧栏 */
+.admin-sidebar{background:linear-gradient(180deg,#1a1a1a,#0f0f0f);color:#9ca3af;width:220px;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:50}
+.admin-sidebar::-webkit-scrollbar{width:4px}
+.admin-sidebar::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+.admin-logo{padding:18px 20px;border-bottom:1px solid #2a2a2a;color:#fff;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;letter-spacing:1px}
+.admin-logo .brand-mark{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:800;box-shadow:0 4px 12px rgba(0,109,119,0.3)}
+.admin-nav{flex:1;padding:10px 0}
+.admin-nav-section{padding:14px 20px 6px;font-size:10px;color:#6b7280;letter-spacing:2px;text-transform:uppercase}
+.admin-nav-item{padding:10px 20px;color:#9ca3af;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:13px;transition:all 0.15s;border-left:3px solid transparent;font-weight:500}
+.admin-nav-item:hover{background:rgba(255,255,255,0.04);color:#fff}
+.admin-nav-item.active{background:rgba(0,109,119,0.12);color:#5eead4;border-left-color:var(--primary);font-weight:600}
+.admin-nav-item .badge{background:var(--red);color:#fff;font-size:9px;padding:1px 6px;border-radius:8px;margin-left:auto}
+.admin-user{padding:14px 20px;border-top:1px solid #2a2a2a;font-size:13px}
+
+/* 主区 */
+.admin-main{padding:0;overflow-y:auto;height:100vh;margin-left:220px}
+.admin-topbar{background:#fff;border-bottom:1px solid #e5e7eb;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:40}
+.admin-topbar .left{display:flex;align-items:center;gap:18px}
+.admin-topbar .left h2{font-size:18px;font-weight:700;margin:0}
+.admin-topbar .breadcrumb-mini{font-size:12px;color:#6b7280}
+.admin-topbar .right{display:flex;align-items:center;gap:18px}
+.admin-topbar .icon-btn{position:relative;width:36px;height:36px;border-radius:8px;background:#f5fafa;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:all 0.2s}
+.admin-topbar .icon-btn:hover{background:var(--primary-pale);color:var(--primary)}
+.admin-topbar .icon-btn .dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid #fff}
+.admin-topbar .admin-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#ff9e1b);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;cursor:pointer}
+
+.admin-content{padding:20px 24px}
+
+/* 通用卡片 */
+.admin-section{background:#fff;border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,0.05);border:1px solid #f0f0f0}
+.admin-section-title{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;color:#1a1a1a}
+.admin-section-title .title{display:flex;align-items:center;gap:8px}
+.admin-section-title .title::before{content:"";width:3px;height:16px;background:var(--primary);border-radius:2px}
+.admin-section-title .actions{display:flex;gap:8px}
+
+/* 仪表盘 KPI */
+.admin-stats-row{display:grid;gap:14px;margin-bottom:16px}
+.admin-stats-row.cols-4{grid-template-columns:repeat(4,1fr)}
+.admin-stats-row.cols-5{grid-template-columns:repeat(5,1fr)}
+.admin-stats-row.cols-3{grid-template-columns:repeat(3,1fr)}
+.admin-stat-card{background:#fff;padding:18px 20px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05);position:relative;overflow:hidden;border:1px solid #f0f0f0}
+.admin-stat-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--primary)}
+.admin-stat-card.warn::before{background:var(--gold)}
+.admin-stat-card.danger::before{background:var(--red)}
+.admin-stat-card.success::before{background:var(--green)}
+.admin-stat-card .label{font-size:12px;color:#6b7280;display:flex;justify-content:space-between;align-items:center}
+.admin-stat-card .label .icon{width:32px;height:32px;border-radius:8px;background:var(--primary-pale);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:16px}
+.admin-stat-card .value{font-size:26px;font-weight:800;margin-top:8px;color:#1a1a1a}
+.admin-stat-card .delta{font-size:11px;color:var(--green);margin-top:4px}
+.admin-stat-card .delta.down{color:var(--red)}
+
+/* 表格 */
+.admin-table{width:100%;border-collapse:collapse;font-size:13px}
+.admin-table th{background:#f5fafa;padding:10px 12px;text-align:left;color:#6b7280;font-weight:600;border-bottom:1px solid #e5e7eb;white-space:nowrap}
+.admin-table td{padding:12px;border-bottom:1px solid #f5fafa;vertical-align:middle}
+.admin-table tr:hover{background:#fafbfc}
+.admin-table .status{padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;display:inline-block}
+.admin-table .status.pending{background:#e6f3f1;color:var(--primary)}
+.admin-table .status.shipped{background:#fff7e6;color:#d48806}
+.admin-table .status.completed{background:#e6f7ee;color:var(--green)}
+.admin-table .status.aftersales{background:#fff1f0;color:var(--red)}
+.admin-table .status.high{background:#fff1f0;color:var(--red)}
+.admin-table .status.mid{background:#fff7e6;color:#d48806}
+.admin-table .status.low{background:#e6f3f1;color:var(--primary)}
+.admin-table .vip{background:linear-gradient(135deg,var(--gold),#ff9e1b);color:#fff;padding:1px 8px;border-radius:8px;font-size:10px;font-weight:700}
+.admin-table img.product-thumb{width:36px;height:36px;object-fit:contain;background:#f5fafa;border-radius:4px}
+.admin-table .checkbox{width:16px;height:16px;cursor:pointer}
+.admin-table .row-actions{display:flex;gap:4px}
+.admin-table .row-actions .btn{padding:3px 8px;font-size:11px}
+
+/* 筛选条 */
+.admin-filter-bar{background:#fff;padding:12px 16px;border-radius:12px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;border:1px solid #f0f0f0;flex-wrap:wrap;gap:10px}
+.admin-filter-bar .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.admin-filter-bar .filter-input{padding:7px 12px;border:1px solid #e5e7eb;border-radius:6px;font-size:13px;background:#fff;outline:none;min-width:140px}
+.admin-filter-bar .filter-input:focus{border-color:var(--primary)}
+.admin-filter-bar .actions{display:flex;gap:8px}
+
+/* 按钮 */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#1a1a1a;transition:all 0.15s;font-weight:500}
+.btn:hover{border-color:var(--primary);color:var(--primary)}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn-primary:hover{background:#005660;color:#fff}
+.btn-secondary{background:var(--primary-pale);color:var(--primary);border-color:var(--primary-pale)}
+.btn-secondary:hover{background:var(--primary);color:#fff}
+.btn-danger{background:var(--red);color:#fff;border-color:var(--red)}
+.btn-danger:hover{background:#a52d24;color:#fff}
+.btn-warn{background:var(--gold);color:#fff;border-color:var(--gold)}
+.btn-warn:hover{background:#d96d00;color:#fff}
+.btn-ghost{background:transparent;border-color:transparent}
+.btn-ghost:hover{background:#f5fafa}
+.btn-sm{padding:3px 10px;font-size:11px}
+.btn-lg{padding:10px 20px;font-size:14px}
+.btn-block{width:100%;justify-content:center}
+
+/* 折线图 / 柱状图 占位 */
+.chart-area{height:200px;padding:20px 0;position:relative}
+
+/* 表单 */
+.admin-form{display:grid;gap:14px}
+.admin-form.cols-2{grid-template-columns:1fr 1fr}
+.admin-form .full{grid-column:1/-1}
+.admin-form label{display:flex;flex-direction:column;font-size:12px;color:#6b7280;gap:5px}
+.admin-form label .req{color:var(--red);margin-left:2px}
+.admin-form input,.admin-form select,.admin-form textarea{padding:9px 12px;border:1px solid #e5e7eb;border-radius:6px;outline:none;font-size:14px;font-family:inherit;background:#fff}
+.admin-form input:focus,.admin-form select:focus,.admin-form textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,109,119,0.08)}
+.admin-form textarea{min-height:80px;resize:vertical}
+.admin-form .hint{font-size:11px;color:#9ca3af;margin-top:2px}
+
+/* 模态 */
+.admin-modal-mask{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.admin-modal-mask.show{display:flex}
+.admin-modal{background:#fff;border-radius:14px;max-width:680px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;animation:modalIn 0.2s}
+.admin-modal.large{max-width:920px}
+.admin-modal-head{padding:16px 20px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between}
+.admin-modal-head .title{font-size:16px;font-weight:700}
+.admin-modal-head .close{width:32px;height:32px;border-radius:50%;background:#f5fafa;display:flex;align-items:center;justify-content:center;color:#6b7280;cursor:pointer;font-size:18px}
+.admin-modal-head .close:hover{background:#f0f0f0;color:#1a1a1a}
+.admin-modal-body{padding:20px;overflow-y:auto;flex:1}
+.admin-modal-foot{padding:14px 20px;border-top:1px solid #f0f0f0;display:flex;justify-content:flex-end;gap:8px}
+@keyframes modalIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* 进度条 */
+.progress{height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden}
+.progress .bar{height:100%;border-radius:3px;background:var(--primary)}
+.progress .bar.warn{background:var(--gold)}
+.progress .bar.danger{background:var(--red)}
+.progress .bar.success{background:var(--green)}
+
+/* 标签 */
+.tag{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600}
+.tag.primary{background:#e6f3f1;color:var(--primary)}
+.tag.success{background:#e6f7ee;color:var(--green)}
+.tag.warn{background:#fff7e6;color:#d48806}
+.tag.danger{background:#fff1f0;color:var(--red)}
+.tag.gold{background:#fff3e0;color:var(--gold)}
+.tag.gray{background:#f0f0f0;color:#6b7280}
+
+/* 客户详情面板 */
+.customer-detail{display:grid;grid-template-columns:280px 1fr;gap:16px;min-height:500px}
+.customer-side{background:linear-gradient(135deg,var(--primary),#1a5d52);color:#fff;border-radius:12px;padding:24px;text-align:center}
+.customer-side .avatar{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.2);display:inline-flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;margin-bottom:14px;border:3px solid rgba(255,255,255,0.3)}
+.customer-side .name{font-size:20px;font-weight:700;margin-bottom:4px}
+.customer-side .phone{font-size:13px;opacity:0.9;margin-bottom:14px}
+.customer-side .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.customer-side .stat{background:rgba(255,255,255,0.1);padding:10px;border-radius:6px}
+.customer-side .stat .v{font-size:18px;font-weight:800}
+.customer-side .stat .l{font-size:10px;opacity:0.85;margin-top:2px}
+
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:#e5e7eb}
+.timeline-item{position:relative;padding-bottom:18px}
+.timeline-item::before{content:"";position:absolute;left:-19px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--primary);border:3px solid #fff;box-shadow:0 0 0 1px var(--primary)}
+.timeline-item .t{font-size:13px;font-weight:600;color:#1a1a1a}
+.timeline-item .m{font-size:12px;color:#6b7280;margin-top:2px}
+.timeline-item .d{font-size:11px;color:#9ca3af;margin-top:2px}
+
+/* 物流轨迹 */
+.logistics{position:relative;padding-left:24px}
+.logistics::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:#e5e7eb}
+.logistics .step{position:relative;padding-bottom:14px}
+.logistics .step::before{content:"";position:absolute;left:-19px;top:6px;width:12px;height:12px;border-radius:50%;background:#e5e7eb;border:2px solid #fff}
+.logistics .step.active::before{background:var(--primary);box-shadow:0 0 0 3px rgba(0,109,119,0.15)}
+.logistics .step.current::before{background:var(--gold);box-shadow:0 0 0 3px rgba(247,127,0,0.15);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.logistics .step .t{font-size:13px;color:#6b7280}
+.logistics .step.active .t{color:#1a1a1a;font-weight:600}
+.logistics .step .d{font-size:11px;color:#9ca3af;margin-top:2px}
+
+/* Pane 容器 */
+.admin-pane{display:none}
+.admin-pane.active{display:block;animation:fadeIn 0.2s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* 登录 */
+.admin-login{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,var(--primary),#1a5d52);padding:20px}
+.admin-login-box{background:#fff;padding:40px;border-radius:14px;width:380px;box-shadow:0 20px 50px rgba(0,0,0,0.2)}
+.admin-login-box h2{font-size:22px;margin-bottom:6px;color:var(--primary);display:flex;align-items:center;gap:10px}
+.admin-login-box p{font-size:13px;color:#6b7280;margin-bottom:20px}
+.admin-login-box input{width:100%;padding:12px 14px;border:1px solid #e5e7eb;border-radius:6px;margin-bottom:12px;font-size:14px;outline:none}
+.admin-login-box input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,109,119,0.1)}
+
+/* 漏斗图 */
+.funnel{padding:20px 0}
+.funnel-item{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.funnel-item .label{width:80px;font-size:13px;color:#6b7280;text-align:right}
+.funnel-item .bar-wrap{flex:1;height:32px;background:#f5fafa;border-radius:4px;position:relative;overflow:hidden}
+.funnel-item .bar{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-light));border-radius:4px;display:flex;align-items:center;padding:0 12px;color:#fff;font-size:12px;font-weight:600;transition:width 0.5s}
+.funnel-item .pct{width:60px;font-size:13px;color:#1a1a1a;font-weight:700}
+
+/* 实时滚动 */
+.realtime-list{max-height:280px;overflow-y:auto}
+.realtime-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed #f0f0f0;font-size:13px}
+.realtime-item:last-child{border-bottom:none}
+.realtime-item .time{color:#9ca3af;font-size:11px;width:50px;flex-shrink:0}
+.realtime-item .icon{font-size:16px;flex-shrink:0}
+.realtime-item .text{flex:1;color:#1a1a1a}
+.realtime-item .text strong{color:var(--primary)}
+.realtime-item .amount{color:var(--red);font-weight:700;flex-shrink:0}
+
+/* 渠道来源 */
+.channel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.channel-item{display:flex;align-items:center;gap:10px;padding:10px;background:#fafbfc;border-radius:6px}
+.channel-item .icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--primary-pale);color:var(--primary)}
+.channel-item .info{flex:1}
+.channel-item .info .n{font-size:13px;font-weight:600}
+.channel-item .info .m{font-size:11px;color:#6b7280}
+.channel-item .pct{font-size:13px;font-weight:700;color:var(--primary)}
+
+/* 库存预警列表 */
+.alert-item{display:flex;align-items:center;gap:14px;padding:10px 14px;background:#fff8e1;border:1px solid #ffe082;border-radius:6px;margin-bottom:8px}
+.alert-item.danger{background:#ffebee;border-color:#ef9a9a}
+.alert-item .icon{width:36px;height:36px;border-radius:8px;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.alert-item.danger .icon{background:var(--red)}
+.alert-item .info{flex:1}
+.alert-item .name{font-size:14px;font-weight:600}
+.alert-item .desc{font-size:12px;color:#6b7280}
+
+/* 营销卡片 */
+.promo-card{border:1px solid #e5e7eb;border-radius:10px;padding:16px;position:relative;overflow:hidden}
+.promo-card .badge{position:absolute;top:8px;right:8px;background:var(--red);color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600}
+.promo-card .name{font-size:15px;font-weight:700;margin-bottom:4px}
+.promo-card .desc{font-size:12px;color:#6b7280;margin-bottom:8px}
+.promo-card .meta{display:flex;gap:14px;font-size:12px;color:#1a1a1a;margin-top:8px;padding-top:8px;border-top:1px dashed #f0f0f0}
+.promo-card .meta span{color:#6b7280}
+
+/* 文章/内容列表 */
+.content-item{display:flex;gap:14px;padding:12px;border:1px solid #f0f0f0;border-radius:8px;margin-bottom:10px;background:#fff}
+.content-item .thumb{width:120px;height:80px;border-radius:6px;background:linear-gradient(135deg,var(--primary),#1a5d52);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;flex-shrink:0}
+.content-item .info{flex:1;min-width:0}
+.content-item .title{font-size:14px;font-weight:600;margin-bottom:4px}
+.content-item .meta{font-size:12px;color:#6b7280;display:flex;gap:14px}
+.content-item .stats{display:flex;gap:14px;font-size:11px;color:#6b7280;margin-top:6px}
+
+/* 报表 */
+.report-card{background:#fff;padding:18px;border-radius:12px;border:1px solid #f0f0f0}
+.report-card .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.report-card .head h4{font-size:14px;font-weight:700}
+.report-card .v{font-size:24px;font-weight:800;color:var(--primary);margin:8px 0 4px}
+.report-card .d{font-size:12px;color:var(--green)}
+
+/* 库存流水 */
+.inv-flow{max-height:300px;overflow-y:auto}
+.inv-flow .row{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px dashed #f0f0f0;font-size:13px}
+.inv-flow .row .time{color:#9ca3af;font-size:11px;width:130px;flex-shrink:0}
+.inv-flow .row .type{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;width:60px;text-align:center}
+.inv-flow .row .type.in{background:#e6f7ee;color:var(--green)}
+.inv-flow .row .type.out{background:#fff1f0;color:var(--red)}
+.inv-flow .row .sku{flex:1;color:#1a1a1a}
+.inv-flow .row .qty{font-weight:700;color:var(--primary);width:80px;text-align:right}
+
+/* 设置 */
+.settings-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.setting-card{background:#fafbfc;padding:16px;border-radius:10px;border:1px solid #f0f0f0}
+.setting-card h4{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.setting-card h4::before{content:"";width:3px;height:14px;background:var(--primary);border-radius:2px}
+.setting-card .row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed #f0f0f0;font-size:13px}
+.setting-card .row:last-child{border-bottom:none}
+.setting-card .row .k{color:#6b7280}
+.setting-card .row .v{font-weight:600}
+.setting-card .toggle{position:relative;width:40px;height:22px;background:#e5e7eb;border-radius:11px;cursor:pointer;transition:all 0.2s}
+.setting-card .toggle::after{content:"";position:absolute;left:2px;top:2px;width:18px;height:18px;background:#fff;border-radius:50%;transition:all 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.setting-card .toggle.on{background:var(--primary)}
+.setting-card .toggle.on::after{left:20px}
+
+/* 响应式 */
+@media (max-width:1200px){
+  .admin-stats-row.cols-5{grid-template-columns:repeat(3,1fr)}
+  .admin-stats-row.cols-4{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:768px){
+  .admin-sidebar{transform:translateX(-100%);transition:transform 0.3s}
+  .admin-sidebar.open{transform:translateX(0);box-shadow:0 0 30px rgba(0,0,0,0.4)}
+  .admin-main{margin-left:0}
+  .admin-stats-row.cols-4,.admin-stats-row.cols-5,.admin-stats-row.cols-3{grid-template-columns:1fr 1fr}
+  .admin-topbar .left h2{font-size:16px}
+  .admin-topbar .left .breadcrumb-mini{display:none}
+  .admin-topbar .right input{width:140px !important;font-size:12px;padding:6px 10px}
+  .admin-topbar{padding:0 12px;height:54px}
+  .admin-menu-btn{display:flex !important}
+  .admin-sidebar.open ~ .admin-overlay{display:block}
+
+  /* main 内部 grid 全部转 1 列 */
+  .admin-content{padding:12px !important}
+  .admin-content div[style*="grid-template-columns:repeat(6,1fr)"]{grid-template-columns:repeat(2,1fr) !important}
+  .admin-content div[style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr !important}
+  .admin-content div[style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:1fr 1fr !important}
+  .admin-content div[style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:1fr !important}
+  /* 仪表盘核心 2fr 1fr(销售趋势+漏斗)、1fr 1fr(实时动态+渠道)→ 1 列 */
+  .admin-content div[style*="grid-template-columns:2fr 1fr"]{grid-template-columns:1fr !important}
+  .admin-content div[style*="grid-template-columns:1fr 1fr;"]{grid-template-columns:1fr !important}
+  .channel-grid,.settings-grid{grid-template-columns:1fr !important}
+
+  /* 表格横向滚动 */
+  .admin-content table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+
+  /* canvas 图缩小 */
+  .admin-content canvas{max-width:100%;height:auto !important}
+  .admin-content svg{max-width:100%;height:auto !important}
+
+  /* 调整 padding */
+  .admin-content > div[style*="padding:20px"]{padding:14px !important}
+  /* 销售趋势 svg 容器 高度缩小 */
+  .admin-content svg[viewBox="0 0 800 220"]{height:180px !important}
+  /* 销售趋势按钮组 4 个 flex-wrap */
+  .admin-content .admin-section-title .actions{flex-wrap:wrap;gap:4px}
+  .admin-content .admin-section-title{flex-wrap:wrap;gap:8px}
+  /* funnel 漏斗图 在 768 也可折行 */
+  .funnel-item .label{width:64px;font-size:12px}
+  .funnel-item .pct{width:54px;font-size:12px}
+  /* 实时动态 icon 列在 768 可适度缩 */
+  .realtime-item .icon{font-size:14px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center}
+  /* 营销卡片 meta 列在 768 wrap */
+  .promo-card .meta{flex-wrap:wrap;gap:8px}
+  /* admin 用户卡片头像 缩 */
+  .admin-user{padding:12px 16px}
+  .admin-user > div[style*="display:flex;align-items:center"]{gap:6px}
+  /* sidebar 内部 padding 适度 */
+  .admin-sidebar{padding:14px 0}
+  .admin-logo{padding:0 16px 14px;font-size:15px}
+  .admin-nav-item{padding:9px 16px;font-size:12px}
+  .admin-nav-section{padding:10px 16px 4px;font-size:9px}
+  /* 客户详情 头像缩 */
+  .customer-side .avatar{width:70px;height:70px;font-size:30px;margin-bottom:10px}
+  .customer-side .name{font-size:18px}
+  .customer-side .stats{margin-top:14px;gap:8px}
+
+  /* 库存预警/营销/内容项 thumb 缩 */
+  .content-item .thumb{width:80px;height:60px;font-size:18px;flex-shrink:0}
+  .content-item{flex-wrap:wrap;gap:10px}
+  .content-item .info{min-width:0}
+
+  /* 实时滚动 item 紧凑 */
+  .realtime-item{padding:8px 0;font-size:12px;gap:8px}
+  .realtime-item .amount{font-size:13px}
+
+  /* 客户详情面板 280px 1fr → 1 列 */
+  .customer-detail{grid-template-columns:1fr !important;min-height:auto !important}
+  .customer-side{padding:18px}
+
+  /* 顶部右侧 input 隐藏(避免拥挤) */
+  /* 已在 480 隐藏,768 缩小 */
+
+  /* filter-bar 紧凑 */
+  .admin-filter-bar{padding:10px 12px;gap:8px}
+  .admin-filter-bar .filter-input{min-width:110px;padding:6px 10px;font-size:12px}
+  .admin-filter-bar .actions .btn{padding:4px 10px;font-size:12px}
+
+  /* admin 登录页 mobile */
+  .admin-login-box{width:90%;max-width:340px;padding:28px 22px}
+}
+
+@media (max-width:480px){
+  .admin-stats-row.cols-4,.admin-stats-row.cols-5,.admin-stats-row.cols-3{grid-template-columns:1fr 1fr !important}
+  .admin-content div[style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:1fr !important}
+  .admin-topbar .right input{display:none}
+  .admin-topbar .left h2{font-size:15px}
+  .admin-topbar .left .breadcrumb-mini{display:none}
+  .admin-content h3{font-size:15px !important}
+  .admin-section{padding:14px 12px}
+  .admin-section-title{font-size:14px}
+  .admin-stat-card{padding:12px 10px}
+  .admin-stat-card .value{font-size:20px}
+  .admin-stat-card .label{font-size:11px}
+  .admin-table{font-size:11px}
+  .admin-table th,.admin-table td{padding:7px 5px}
+  /* 隐藏次要右侧 icon(❓ 帮助) */
+  .admin-topbar .right .icon-btn:nth-of-type(2){display:none}
+  /* 折线图/SVG 在 480 进一步缩 */
+  .admin-content svg[viewBox="0 0 800 220"]{height:160px !important}
+  .funnel-item{flex-wrap:wrap;gap:6px}
+  .funnel-item .label{width:54px;font-size:11px}
+  .funnel-item .pct{width:50px;font-size:12px}
+  /* 告警/营销/内容 缩 */
+  .alert-item{padding:8px 10px;gap:10px}
+  .alert-item .icon{width:30px;height:30px;font-size:16px}
+  .promo-card{padding:12px}
+  .content-item .thumb{width:64px;height:48px;font-size:16px}
+  /* 客户详情 头像缩 */
+  .customer-side .avatar{width:60px;height:60px;font-size:28px}
+  .customer-side .name{font-size:17px}
+  /* 实时动态更紧凑 */
+  .realtime-item{padding:7px 0;font-size:11px;gap:6px}
+  .realtime-item .time{width:42px}
+}
+</style>
+<style>
+  body.demo #loginPage { display:none !important; }
+  body.demo #adminPage { display:block !important; }
+</style>
+<script>if(/[?&]demo=1/.test(location.search)){document.body.classList.add('demo');}</script></head>
+<body>
+
+<!-- 登录页 -->
+<div class="admin-login" id="loginPage">
+  <div class="admin-login-box">
+    <h2><span style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:18px">厚</span>厚生 HOUSHENG 后台</h2>
+    <p>请使用商家账号登录 · 演示版密码 <strong>admin888</strong></p>
+    <input type="text" id="loginUser" placeholder="账号" value="黄巍" />
+    <input type="password" id="loginPwd" placeholder="密码" value="admin888" />
+    <button class="btn btn-primary btn-block btn-lg" onclick="adminLogin()">登 录</button>
+    <p style="text-align:center;margin-top:14px;font-size:12px;color:#6b7280">
+      忘记密码请联系超级管理员<br>技术支持:13971691656
+    </p>
+  </div>
+</div>
+
+<!-- 后台主页 -->
+<div class="admin-page" id="adminPage" style="display:none">
+
+  <!-- 侧边栏 -->
+  <div class="admin-sidebar">
+    <div class="admin-logo">
+      <span class="brand-mark">厚</span>
+      <span>厚生后台 v2.0</span>
+    </div>
+    <div class="admin-nav">
+
+      <div class="admin-nav-section">核心业务</div>
+      <div class="admin-nav-item active" data-pane="dashboard" onclick="switchPane('dashboard', this)">
+        📊 <span>仪表盘</span>
+      </div>
+      <div class="admin-nav-item" data-pane="products" onclick="switchPane('products', this)">
+        📦 <span>商品管理</span>
+        <span class="badge">3</span>
+      </div>
+      <div class="admin-nav-item" data-pane="orders" onclick="switchPane('orders', this)">
+        🧾 <span>订单管理</span>
+        <span class="badge">2</span>
+      </div>
+      <div class="admin-nav-item" data-pane="customers" onclick="switchPane('customers', this)">
+        👥 <span>客户管理</span>
+      </div>
+      <div class="admin-nav-item" data-pane="finance" onclick="switchPane('finance', this)">
+        💰 <span>财务管理</span>
+      </div>
+
+      <div class="admin-nav-section">运营中心</div>
+      <div class="admin-nav-item" data-pane="inventory" onclick="switchPane('inventory', this)">
+        📊 <span>库存管理</span>
+      </div>
+      <div class="admin-nav-item" data-pane="marketing" onclick="switchPane('marketing', this)">
+        🎁 <span>营销中心</span>
+      </div>
+      <div class="admin-nav-item" data-pane="content" onclick="switchPane('content', this)">
+        📝 <span>内容管理</span>
+      </div>
+
+      <div class="admin-nav-section">服务</div>
+      <div class="admin-nav-item" data-pane="service" onclick="switchPane('service', this)">
+        💬 <span>客服工作台</span>
+        <span class="badge">8</span>
+      </div>
+      <div class="admin-nav-item" data-pane="consult" onclick="switchPane('consult', this)">
+        🩺 <span>咨询队列</span>
+        <span class="badge">5</span>
+      </div>
+      <div class="admin-nav-item" data-pane="aftersales" onclick="switchPane('aftersales', this)">
+        🛠️ <span>售后处理</span>
+        <span class="badge">3</span>
+      </div>
+
+      <div class="admin-nav-section">数据 / 系统</div>
+      <div class="admin-nav-item" data-pane="analytics" onclick="switchPane('analytics', this)">
+        📈 <span>数据分析</span>
+      </div>
+      <div class="admin-nav-item" data-pane="settings" onclick="switchPane('settings', this)">
+        ⚙️ <span>系统设置</span>
+      </div>
+    </div>
+    <div class="admin-user">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#ff9e1b);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">巍</div>
+        <div style="flex:1;min-width:0">
+          <div style="color:#fff;font-weight:600;font-size:13px" id="adminName">黄巍</div>
+          <div style="font-size:11px;color:#9ca3af" id="adminRole">创始人 · 店长</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-ghost btn-sm" style="color:#9ca3af;font-size:11px;flex:1" onclick="HS.Modal.open('advisorModal');HS.Toast.show('已发送反馈','success')">💬 反馈</button>
+        <button class="btn btn-ghost btn-sm" style="color:#9ca3af;font-size:11px;flex:1" onclick="adminLogout()">↪ 退出</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主体 -->
+  <div class="admin-overlay" onclick="HS.toggleAdminSidebar(true)"></div>
+  <div class="admin-main">
+
+    <!-- 顶栏 -->
+    <div class="admin-topbar">
+      <div class="left" style="display:flex;align-items:center;gap:12px">
+        <button class="admin-menu-btn" onclick="HS.toggleAdminSidebar()" title="菜单">☰</button>
+        <div>
+          <h2 id="pageTitle">📊 仪表盘</h2>
+          <span class="breadcrumb-mini" id="pageSub">实时数据 · 今日 2026-09-04</span>
+        </div>
+      </div>
+      <div class="right">
+        <input type="text" placeholder="🔍 全局搜索 订单/商品/客户..." style="width:280px;padding:7px 14px;border:1px solid #e5e7eb;border-radius:18px;font-size:13px;outline:none"/>
+        <div class="icon-btn" title="消息" onclick="HS.Toast.show('您有 3 条新消息','success')">
+          🔔
+          <span class="dot"></span>
+        </div>
+        <div class="icon-btn" title="帮助">❓</div>
+        <div class="admin-avatar" onclick="HS.Toast.show('点击了个人中心','success')">巍</div>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+    <!-- ============================= 1. 仪表盘 ============================= -->
+    <div class="admin-pane active" data-pane="dashboard">
+
+      <!-- 8 KPI 卡 -->
+      <div class="admin-stats-row cols-5">
+        <div class="admin-stat-card">
+          <div class="label">今日销售额 <span class="icon">💰</span></div>
+          <div class="value">¥8,960</div>
+          <div class="delta">↑ 12.3% 较昨日</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="label">今日订单 <span class="icon">🧾</span></div>
+          <div class="value">28</div>
+          <div class="delta">↑ 5 较昨日</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="label">新增用户 <span class="icon">👥</span></div>
+          <div class="value">12</div>
+          <div class="delta">↑ 4 较昨日</div>
+        </div>
+        <div class="admin-stat-card success">
+          <div class="label">转化率 <span class="icon">📈</span></div>
+          <div class="value">4.2%</div>
+          <div class="delta">↑ 0.3% 较昨日</div>
+        </div>
+        <div class="admin-stat-card success">
+          <div class="label">客单价 <span class="icon">💎</span></div>
+          <div class="value">¥320</div>
+          <div class="delta">↑ 5.2% 较昨日</div>
+        </div>
+      </div>
+
+      <div class="admin-stats-row cols-5">
+        <div class="admin-stat-card warn">
+          <div class="label">待处理售后 <span class="icon">🛠️</span></div>
+          <div class="value">3</div>
+          <div class="delta down">需 24h 内处理</div>
+        </div>
+        <div class="admin-stat-card warn">
+          <div class="label">低库存预警 <span class="icon">⚠️</span></div>
+          <div class="value">2</div>
+          <div class="delta down">需补货</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="label">咨询排队 <span class="icon">🩺</span></div>
+          <div class="value">5</div>
+          <div class="delta">最长 15 分钟</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="label">待回复评价 <span class="icon">⭐</span></div>
+          <div class="value">8</div>
+          <div class="delta">优化评分</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="label">储值余额 <span class="icon">💳</span></div>
+          <div class="value">¥52,840</div>
+          <div class="delta">↑ 8.5% 较上周</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px">
+        <!-- 销售趋势折线图 -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span class="title">📈 销售趋势(最近 14 天)</span>
+            <div class="actions">
+              <button class="btn btn-sm">7天</button>
+              <button class="btn btn-primary btn-sm">14天</button>
+              <button class="btn btn-sm">30天</button>
+              <button class="btn btn-sm">📥 导出</button>
+            </div>
+          </div>
+          <svg viewBox="0 0 800 220" style="width:100%;height:220px">
+            <!-- 网格 -->
+            <g stroke="#f0f0f0" stroke-width="1">
+              <line x1="40" y1="20" x2="780" y2="20"/>
+              <line x1="40" y1="60" x2="780" y2="60"/>
+              <line x1="40" y1="100" x2="780" y2="100"/>
+              <line x1="40" y1="140" x2="780" y2="140"/>
+              <line x1="40" y1="180" x2="780" y2="180"/>
+            </g>
+            <!-- Y 轴标签 -->
+            <g font-size="10" fill="#9ca3af" text-anchor="end">
+              <text x="35" y="24">10K</text>
+              <text x="35" y="64">8K</text>
+              <text x="35" y="104">6K</text>
+              <text x="35" y="144">4K</text>
+              <text x="35" y="184">2K</text>
+            </g>
+            <!-- 折线 (销售) -->
+            <path d="M60,160 L120,140 L180,150 L240,120 L300,130 L360,90 L420,100 L480,70 L540,85 L600,60 L660,75 L720,40 L770,30" fill="none" stroke="#006d77" stroke-width="2.5"/>
+            <!-- 折线区域 -->
+            <path d="M60,160 L120,140 L180,150 L240,120 L300,130 L360,90 L420,100 L480,70 L540,85 L600,60 L660,75 L720,40 L770,30 L770,200 L60,200 Z" fill="url(#salesGrad)" opacity="0.3"/>
+            <defs>
+              <linearGradient id="salesGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#006d77" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#006d77" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- 折线 (订单) -->
+            <path d="M60,170 L120,165 L180,160 L240,150 L300,140 L360,130 L420,125 L480,115 L540,110 L600,95 L660,85 L720,75 L770,65" fill="none" stroke="#f77f00" stroke-width="2" stroke-dasharray="4,2"/>
+            <!-- 数据点 -->
+            <g fill="#006d77">
+              <circle cx="60" cy="160" r="3"/>
+              <circle cx="120" cy="140" r="3"/>
+              <circle cx="180" cy="150" r="3"/>
+              <circle cx="240" cy="120" r="3"/>
+              <circle cx="300" cy="130" r="3"/>
+              <circle cx="360" cy="90" r="3"/>
+              <circle cx="420" cy="100" r="3"/>
+              <circle cx="480" cy="70" r="3"/>
+              <circle cx="540" cy="85" r="3"/>
+              <circle cx="600" cy="60" r="3"/>
+              <circle cx="660" cy="75" r="3"/>
+              <circle cx="720" cy="40" r="3"/>
+              <circle cx="770" cy="30" r="4" fill="#c0392b"/>
+            </g>
+            <!-- 今日数据点标签 -->
+            <g>
+              <rect x="745" y="10" width="50" height="18" fill="#c0392b" rx="3"/>
+              <text x="770" y="22" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">¥8,960</text>
+            </g>
+            <!-- X 轴标签 -->
+            <g font-size="10" fill="#9ca3af" text-anchor="middle">
+              <text x="60" y="210">8/22</text>
+              <text x="180" y="210">8/25</text>
+              <text x="300" y="210">8/28</text>
+              <text x="420" y="210">8/31</text>
+              <text x="540" y="210">9/02</text>
+              <text x="660" y="210">9/03</text>
+              <text x="770" y="210" font-weight="700" fill="#c0392b">今日</text>
+            </g>
+            <!-- 图例 -->
+            <g font-size="11" fill="#6b7280">
+              <rect x="500" y="190" width="14" height="3" fill="#006d77"/>
+              <text x="520" y="194">销售额</text>
+              <rect x="600" y="190" width="14" height="3" fill="#f77f00"/>
+              <text x="620" y="194">订单数</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 转化漏斗 -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span class="title">🔻 转化漏斗(今日)</span>
+          </div>
+          <div class="funnel">
+            <div class="funnel-item">
+              <div class="label">浏览</div>
+              <div class="bar-wrap"><div class="bar" style="width:100%">8,420</div></div>
+              <div class="pct">100%</div>
+            </div>
+            <div class="funnel-item">
+              <div class="label">加购</div>
+              <div class="bar-wrap"><div class="bar" style="width:62%">5,224</div></div>
+              <div class="pct">62%</div>
+            </div>
+            <div class="funnel-item">
+              <div class="label">下单</div>
+              <div class="bar-wrap"><div class="bar" style="width:18%">1,520</div></div>
+              <div class="pct">18%</div>
+            </div>
+            <div class="funnel-item">
+              <div class="label">付款</div>
+              <div class="bar-wrap"><div class="bar" style="width:12%;background:linear-gradient(90deg,var(--gold),#ff9e1b)">1,012</div></div>
+              <div class="pct">12%</div>
+            </div>
+            <div class="funnel-item">
+              <div class="label">复购</div>
+              <div class="bar-wrap"><div class="bar" style="width:5%;background:linear-gradient(90deg,var(--green),#52b788)">420</div></div>
+              <div class="pct">5%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <!-- 实时动态 -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span class="title">⚡ 实时动态(滚动)</span>
+            <span class="tag primary" style="font-size:10px">LIVE</span>
+          </div>
+          <div class="realtime-list" id="realtimeList">
+            <div class="realtime-item"><div class="time">刚刚</div><div class="icon">💰</div><div class="text"><strong>陈女士</strong> 提交订单 ORD20260904001</div><div class="amount">¥598</div></div>
+            <div class="realtime-item"><div class="time">2分钟</div><div class="icon">👤</div><div class="text">新用户 <strong>139****1234</strong> 注册</div></div>
+            <div class="realtime-item"><div class="time">5分钟</div><div class="icon">💬</div><div class="text"><strong>周女士</strong> 发起营养师咨询</div></div>
+            <div class="realtime-item"><div class="time">8分钟</div><div class="icon">🛠️</div><div class="text">售后单 <strong>AS001</strong> 处理完成</div></div>
+            <div class="realtime-item"><div class="time">12分钟</div><div class="icon">⭐</div><div class="text"><strong>张先生</strong> 提交 5 星评价</div></div>
+            <div class="realtime-item"><div class="time">15分钟</div><div class="icon">📦</div><div class="text">订单 <strong>ORD20260904003</strong> 已发货</div></div>
+            <div class="realtime-item"><div class="time">18分钟</div><div class="icon">💳</div><div class="text"><strong>李女士</strong> 储值 ¥1000</div><div class="amount">+¥1080</div></div>
+            <div class="realtime-item"><div class="time">22分钟</div><div class="icon">🎁</div><div class="text">优惠券 <strong>NEW50</strong> 被领取 23 次</div></div>
+          </div>
+        </div>
+
+        <!-- 渠道来源 -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span class="title">📊 流量来源(今日)</span>
+          </div>
+          <div class="channel-grid">
+            <div class="channel-item">
+              <div class="icon">🔍</div>
+              <div class="info">
+                <div class="n">百度搜索</div>
+                <div class="m">3,240 UV · 156 订单</div>
+              </div>
+              <div class="pct">38%</div>
+            </div>
+            <div class="channel-item">
+              <div class="icon" style="background:#ffeaa7;color:#d63031">📕</div>
+              <div class="info">
+                <div class="n">小红书</div>
+                <div class="m">1,860 UV · 89 订单</div>
+              </div>
+              <div class="pct">22%</div>
+            </div>
+            <div class="channel-item">
+              <div class="icon" style="background:#000;color:#fff">🎬</div>
+              <div class="info">
+                <div class="n">抖音</div>
+                <div class="m">1,420 UV · 64 订单</div>
+              </div>
+              <div class="pct">17%</div>
+            </div>
+            <div class="channel-item">
+              <div class="icon" style="background:#07c160;color:#fff">💚</div>
+              <div class="info">
+                <div class="n">微信</div>
+                <div class="m">980 UV · 48 订单</div>
+              </div>
+              <div class="pct">12%</div>
+            </div>
+            <div class="channel-item">
+              <div class="icon" style="background:#ff7675;color:#fff">🔗</div>
+              <div class="info">
+                <div class="n">直接访问</div>
+                <div class="m">620 UV · 28 订单</div>
+              </div>
+              <div class="pct">7%</div>
+            </div>
+            <div class="channel-item">
+              <div class="icon" style="background:#a29bfe;color:#fff">🤝</div>
+              <div class="info">
+                <div class="n">推荐奖励</div>
+                <div class="m">300 UV · 23 订单</div>
+              </div>
+              <div class="pct">4%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <!-- 热销 TOP 10 -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span class="title">🔥 热销 TOP 10</span>
+            <a href="javascript:switchPane('analytics', document.querySelector('[data-pane=analytics]'))" class="btn btn-sm">查看报表 →</a>
+          </div>
+          <table class="admin-table">
+            <thead><tr><th>#</th><th>商品</th><th>销量</th><th>销售额</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td><img src="assets/products/d3k2.svg" class="product-thumb"/> 维生素 D3 + K2</td><td><strong>1862</strong></td><td><strong style="color:var(--red)">¥238,336</strong></td></tr>
+              <tr><td>2</td><td><img src="assets/products/bcomplex.svg" class="product-thumb"/> 复合 B 族维生素</td><td><strong>2410</strong></td><td><strong style="color:var(--red)">¥236,180</strong></td></tr>
+              <tr><td>3</td><td><img src="assets/products/sleeptime.svg" class="product-thumb"/> 酸枣仁 + 茶氨酸</td><td>1284</td><td>¥177,192</td></tr>
+              <tr><td>4</td><td><img src="assets/products/omega3.svg" class="product-thumb"/> Omega-3 深海鱼油</td><td>1583</td><td>¥265,944</td></tr>
+              <tr><td>5</td><td><img src="assets/products/magnesium.svg" class="product-thumb"/> 镁片 + 甘氨酸</td><td>1428</td><td>¥168,504</td></tr>
+              <tr><td>6</td><td><img src="assets/products/protein.svg" class="product-thumb"/> 乳清蛋白粉</td><td>732</td><td>¥218,136</td></tr>
+              <tr><td>7</td><td><img src="assets/products/natto.svg" class="product-thumb"/> 纳豆红曲胶囊</td><td>986</td><td>¥195,228</td></tr>
+              <tr><td>8</td><td><img src="assets/products/balsam.svg" class="product-thumb"/> 苦瓜桑叶片</td><td>754</td><td>¥126,672</td></tr>
+              <tr><td>9</td><td><img src="assets/products/liver.svg" class="product-thumb"/> 护肝片</td><td>624</td><td>¥98,592</td></tr>
+              <tr><td>10</td><td><img src="assets/products/jointcare.svg" class="product-thumb"/> 氨糖软骨素</td><td>892</td><td>¥149,856</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 分类销售 -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span class="title">🎯 分类销售占比</span>
+          </div>
+          <div style="padding:14px 0">
+            <div style="margin-bottom:18px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px">
+                <span>基础营养</span><span style="color:#6b7280">¥318,000 · 42%</span>
+              </div>
+              <div class="progress"><div class="bar" style="width:42%"></div></div>
+            </div>
+            <div style="margin-bottom:18px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px">
+                <span>慢病养护</span><span style="color:#6b7280">¥234,000 · 31%</span>
+              </div>
+              <div class="progress"><div class="bar success" style="width:31%"></div></div>
+            </div>
+            <div style="margin-bottom:18px">
+              <div style="display:space-between;display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px">
+                <span>肠胃健康</span><span style="color:#6b7280">¥113,000 · 15%</span>
+              </div>
+              <div class="progress"><div class="bar" style="width:15%;background:#52b788"></div></div>
+            </div>
+            <div style="margin-bottom:18px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px">
+                <span>运动营养</span><span style="color:#6b7280">¥90,000 · 12%</span>
+              </div>
+              <div class="progress"><div class="bar warn" style="width:12%"></div></div>
+            </div>
+          </div>
+          <div style="padding:14px;background:#fafbfc;border-radius:8px;margin-top:14px">
+            <div style="font-size:13px;font-weight:600;margin-bottom:10px">💡 销售洞察</div>
+            <div style="font-size:12px;color:#6b7280;line-height:1.7">
+              · 基础营养类目增长 18%,D3+K2 进入 TOP 3<br>
+              · 慢病养护复购率达 36%,高价值客户集中<br>
+              · 蛋白粉 30-45 岁男性占 62%,可定向投放<br>
+              · 建议:增加 4-6 月肠道健康主题活动
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 快捷入口 -->
+      <div class="admin-section">
+        <div class="admin-section-title">
+          <span class="title">🚀 快捷操作</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:14px">
+          <div class="channel-item" style="cursor:pointer;flex-direction:column;text-align:center;padding:18px 10px" onclick="switchPane('products', document.querySelector('[data-pane=products]'))">
+            <div class="icon" style="width:48px;height:48px;background:var(--primary-pale);color:var(--primary);font-size:24px">📦</div>
+            <div class="info" style="text-align:center;margin-top:6px"><div class="n" style="font-size:13px">添加商品</div></div>
+          </div>
+          <div class="channel-item" style="cursor:pointer;flex-direction:column;text-align:center;padding:18px 10px" onclick="switchPane('orders', document.querySelector('[data-pane=orders]'))">
+            <div class="icon" style="width:48px;height:48px;background:#e6f7ee;color:var(--green);font-size:24px">📤</div>
+            <div class="info" style="text-align:center;margin-top:6px"><div class="n" style="font-size:13px">批量发货</div></div>
+          </div>
+          <div class="channel-item" style="cursor:pointer;flex-direction:column;text-align:center;padding:18px 10px" onclick="switchPane('marketing', document.querySelector('[data-pane=marketing]'))">
+            <div class="icon" style="width:48px;height:48px;background:#fff7e6;color:#d48806;font-size:24px">🎁</div>
+            <div class="info" style="text-align:center;margin-top:6px"><div class="n" style="font-size:13px">发优惠券</div></div>
+          </div>
+          <div class="channel-item" style="cursor:pointer;flex-direction:column;text-align:center;padding:18px 10px" onclick="switchPane('content', document.querySelector('[data-pane=content]'))">
+            <div class="icon" style="width:48px;height:48px;background:#fff1f0;color:var(--red);font-size:24px">📝</div>
+            <div class="info" style="text-align:center;margin-top:6px"><div class="n" style="font-size:13px">写文章</div></div>
+          </div>
+          <div class="channel-item" style="cursor:pointer;flex-direction:column;text-align:center;padding:18px 10px" onclick="switchPane('aftersales', document.querySelector('[data-pane=aftersales]'))">
+            <div class="icon" style="width:48px;height:48px;background:#f3e6ff;color:#7c3aed;font-size:24px">🛠️</div>
+            <div class="info" style="text-align:center;margin-top:6px"><div class="n" style="font-size:13px">处理售后</div></div>
+          </div>
+          <div class="channel-item" style="cursor:pointer;flex-direction:column;text-align:center;padding:18px 10px" onclick="switchPane('analytics', document.querySelector('[data-pane=analytics]'))">
+            <div class="icon" style="width:48px;height:48px;background:#e6f3f1;color:var(--primary);font-size:24px">📊</div>
+            <div class="info" style="text-align:center;margin-top:6px"><div class="n" style="font-size:13px">数据报表</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= 2. 商品管理 ============================= -->
+    <div class="admin-pane" data-pane="products">
+      <div class="admin-filter-bar">
+        <div class="filters">
+          <select class="filter-input" id="pFilterCat">
+            <option value="">全部分类</option>
+            <option>基础营养</option><option>慢病养护</option><option>肠胃健康</option><option>运动营养</option>
+          </select>
+          <select class="filter-input">
+            <option>全部状态</option><option>在售</option><option>下架</option><option>草稿</option>
+          </select>
+          <select class="filter-input">
+            <option>全部库存</option><option>充足 ≥100</option><option>紧张 50-99</option><option>缺货 <50</option>
+          </select>
+          <input type="text" class="filter-input" placeholder="🔍 商品名 / 编号" style="width:200px"/>
+        </div>
+        <div class="actions">
+          <button class="btn btn-sm">📥 批量导入</button>
+          <button class="btn btn-sm">📤 导出</button>
+          <button class="btn btn-primary btn-sm" onclick="openProductForm()">+ 新增商品</button>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-bottom:12px;align-items:center;font-size:13px;color:#6b7280">
+        <input type="checkbox" class="checkbox" id="pCheckAll" onchange="document.querySelectorAll('.p-check').forEach(c=>c.checked=this.checked);updateBatchBar()"/>
+        <span>已选 <strong id="pSelCount">0</strong> 项</span>
+        <button class="btn btn-sm" onclick="HS.Toast.show('已批量上架 0 个','success')">批量上架</button>
+        <button class="btn btn-sm" onclick="HS.Toast.show('已批量下架 0 个','success')">批量下架</button>
+        <button class="btn btn-sm" onclick="HS.Toast.show('已批量改价','success')">改价</button>
+        <button class="btn btn-sm" onclick="HS.Toast.show('已批量移入分类','success')">移分类</button>
+        <button class="btn btn-sm btn-danger" onclick="HS.Toast.show('已删除 0 个','error')">批量删除</button>
+      </div>
+
+      <div class="admin-section" style="padding:0;overflow:hidden">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th style="width:40px"><input type="checkbox" class="checkbox"/></th>
+              <th style="width:50px">图</th>
+              <th>商品信息</th>
+              <th>分类</th>
+              <th>规格</th>
+              <th>售价/原价</th>
+              <th>库存</th>
+              <th>销量</th>
+              <th>评分</th>
+              <th>状态</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="productTable"></tbody>
+        </table>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding:14px 18px;background:#fff;border-radius:12px;border:1px solid #f0f0f0">
+        <div style="font-size:13px;color:#6b7280">共 12 件商品 · 已上架 12 · 草稿 0</div>
+        <div class="pagination">
+          <span class="active">1</span>
+          <a>2</a>
+          <a>›</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= 3. 订单管理 ============================= -->
+    <div class="admin-pane" data-pane="orders">
+      <div class="admin-stats-row cols-4" style="margin-bottom:14px">
+        <div class="admin-stat-card"><div class="label">今日订单</div><div class="value">28</div><div class="delta">↑ 5</div></div>
+        <div class="admin-stat-card warn"><div class="label">待发货</div><div class="value">2</div><div class="delta down">需 24h 内发</div></div>
+        <div class="admin-stat-card"><div class="label">已发货</div><div class="value">3</div><div class="delta">在途</div></div>
+        <div class="admin-stat-card success"><div class="label">今日完成</div><div class="value">¥8,960</div><div class="delta">↑ 12.3%</div></div>
+      </div>
+
+      <div class="admin-filter-bar">
+        <div class="filters">
+          <input type="date" class="filter-input" value="2026-09-01" />
+          <span style="color:#9ca3af">~</span>
+          <input type="date" class="filter-input" value="2026-09-04" />
+          <input type="text" class="filter-input" placeholder="订单号/客户/手机"/>
+        </div>
+        <div class="actions">
+          <button class="btn btn-sm">📥 导出 Excel</button>
+          <button class="btn btn-warn btn-sm" onclick="HS.Toast.show('已批量发货 0 单','success')">📤 批量发货</button>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <button class="btn btn-primary btn-sm order-admin-filter active" data-status="all" onclick="filterOrderAdmin('all', this)">全部 8</button>
+        <button class="btn btn-outline btn-sm order-admin-filter" data-status="pending" onclick="filterOrderAdmin('pending', this)">⏳ 待付款 2</button>
+        <button class="btn btn-outline btn-sm order-admin-filter" data-status="shipped" onclick="filterOrderAdmin('shipped', this)">📦 待发货 2</button>
+        <button class="btn btn-outline btn-sm order-admin-filter" data-status="completed" onclick="filterOrderAdmin('completed', this)">🚚 已发货 3</button>
+        <button class="btn btn-outline btn-sm order-admin-filter" data-status="aftersales" onclick="filterOrderAdmin('aftersales', this)">✅ 已完成 2</button>
+        <button class="btn btn-outline btn-sm order-admin-filter" data-status="aftersales" onclick="filterOrderAdmin('aftersales', this)">🛠️ 售后中 1</button>
+      </div>
+
+      <div class="admin-section" style="padding:0;overflow:hidden">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th style="width:40px"><input type="checkbox" class="checkbox"/></th>
+              <th>订单号</th>
+              <th>下单时间</th>
+              <th>客户</th>
+              <th>商品</th>
+              <th>金额</th>
+              <th>支付</th>
+              <th>状态</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="orderTable"></tbody>
+        </table>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding:14px 18px;background:#fff;border-radius:12px;border:1px solid #f0f0f0">
+        <div style="font-size:13px;color:#6b7280">共 8 条订单 · 总额 ¥5,888</div>
+        <div class="pagination">
+          <span class="active">1</span>
+          <a>2</a>
+          <a>3</a>
+          <a>›</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= 4. 客户管理 ============================= -->
+    <div class="admin-pane" data-pane="customers">
+      <div class="admin-stats-row cols-4" style="margin-bottom:14px">
+        <div class="admin-stat-card"><div class="label">总客户数</div><div class="value">386</div><div class="delta">本月 +12</div></div>
+        <div class="admin-stat-card success"><div class="label">VIP 客户</div><div class="value">42</div><div class="delta">占比 10.9%</div></div>
+        <div class="admin-stat-card warn"><div class="label">高价值(>¥3000)</div><div class="value">28</div><div class="delta">7.3%</div></div>
+        <div class="admin-stat-card"><div class="label">本月复购率</div><div class="value">28.5%</div><div class="delta">↑ 2.1%</div></div>
+      </div>
+
+      <div class="admin-filter-bar">
+        <div class="filters">
+          <select class="filter-input">
+            <option>全部客户</option>
+            <option>VIP1</option><option>VIP2</option><option>VIP3</option>
+            <option>高价值</option><option>新客户</option><option>流失风险</option>
+          </select>
+          <input type="text" class="filter-input" placeholder="客户名/手机"/>
+        </div>
+        <div class="actions">
+          <button class="btn btn-sm">📥 导出</button>
+          <button class="btn btn-sm" onclick="HS.Toast.show('群发短信已发送','success')">📨 群发短信</button>
+          <button class="btn btn-primary btn-sm">+ 新增客户</button>
+        </div>
+      </div>
+
+      <div class="admin-section" style="padding:0;overflow:hidden">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>客户</th>
+              <th>手机</th>
+              <th>等级</th>
+              <th>积分</th>
+              <th>余额</th>
+              <th>订单数</th>
+              <th>消费总额</th>
+              <th>最近下单</th>
+              <th>标签</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="customerTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================= 5. 财务管理 ============================= -->
+    <div class="admin-pane" data-pane="finance">
+      <div class="admin-stats-row cols-4">
+        <div class="admin-stat-card success"><div class="label">本月营收</div><div class="value">¥248,000</div><div class="delta">↑ 18.2%</div></div>
+        <div class="admin-stat-card"><div class="label">本月订单</div><div class="value">826</div><div class="delta">↑ 12.4%</div></div>
+        <div class="admin-stat-card"><div class="label">客单价</div><div class="value">¥300</div><div class="delta">↑ 5.2%</div></div>
+        <div class="admin-stat-card warn"><div class="label">退款金额</div><div class="value">¥4,468</div><div class="delta down">退款率 1.8%</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px">
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span class="title">💰 收支明细(近 30 天)</span>
+            <div class="actions">
+              <button class="btn btn-sm">📊 报表</button>
+              <button class="btn btn-primary btn-sm">📥 导出 Excel</button>
+            </div>
+          </div>
+          <table class="admin-table">
+            <thead><tr><th>流水号</th><th>日期</th><th>类型</th><th>金额</th><th>说明</th><th>支付</th><th>状态</th></tr></thead>
+            <tbody>
+              <tr><td>TX20260904001</td><td>09-04 11:24</td><td><span class="tag success">收入</span></td><td><strong style="color:var(--green)">+¥598</strong></td><td>陈女士 · ORD20260904001</td><td>微信支付</td><td><span class="status completed">已入账</span></td></tr>
+              <tr><td>TX20260904002</td><td>09-04 10:58</td><td><span class="tag success">收入</span></td><td><strong style="color:var(--green)">+¥128</strong></td><td>周女士 · ORD20260904002</td><td>支付宝</td><td><span class="status completed">已入账</span></td></tr>
+              <tr><td>TX20260904003</td><td>09-04 10:32</td><td><span class="tag success">收入</span></td><td><strong style="color:var(--green)">+¥1,280</strong></td><td>李女士 · ORD20260904003</td><td>微信支付</td><td><span class="status completed">已入账</span></td></tr>
+              <tr><td>TX20260903010</td><td>09-03 22:15</td><td><span class="tag danger">退款</span></td><td><strong style="color:var(--red)">-¥236</strong></td><td>王先生 · 售后 AS002</td><td>原路退回</td><td><span class="status completed">已完成</span></td></tr>
+              <tr><td>TX20260903011</td><td>09-03 18:24</td><td><span class="tag success">收入</span></td><td><strong style="color:var(--green)">+¥236</strong></td><td>陈女士 · ORD20260903006</td><td>微信支付</td><td><span class="status completed">已入账</span></td></tr>
+              <tr><td>TX20260902012</td><td>09-02 15:30</td><td><span class="tag success">收入</span></td><td><strong style="color:var(--green)">+¥298</strong></td><td>王先生 · ORD20260902007</td><td>支付宝</td><td><span class="status completed">已入账</span></td></tr>
+              <tr><td>TX20260902013</td><td>09-02 10:00</td><td><span class="tag danger">支出</span></td><td><strong style="color:var(--red)">-¥15,800</strong></td><td>供应商付款 · 蛋白粉原料</td><td>对公转账</td><td><span class="status completed">已付</span></td></tr>
+              <tr><td>TX20260901014</td><td>09-01 09:50</td><td><span class="tag danger">退款</span></td><td><strong style="color:var(--red)">-¥1,856</strong></td><td>周女士 · 售后 AS001</td><td>原路退回</td><td><span class="status pending">处理中</span></td></tr>
+              <tr><td>TX20260831015</td><td>08-31 14:20</td><td><span class="tag success">收入</span></td><td><strong style="color:var(--green)">+¥498</strong></td><td>张先生 · 营养师咨询</td><td>微信支付</td><td><span class="status completed">已入账</span></td></tr>
+            </tbody>
+          </table>
+          <div style="display:flex;justify-content:center;margin-top:14px">
+            <div class="pagination">
+              <span class="active">1</span><a>2</a><a>3</a><a>›</a>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="admin-section">
+            <div class="admin-section-title"><span class="title">💳 支付方式占比</span></div>
+            <div style="padding:8px 0">
+              <div style="margin-bottom:14px">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px"><span>💚 微信支付</span><span>52% · ¥12.9 万</span></div>
+                <div class="progress"><div class="bar success" style="width:52%"></div></div>
+              </div>
+              <div style="margin-bottom:14px">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px"><span>💙 支付宝</span><span>31% · ¥7.7 万</span></div>
+                <div class="progress"><div class="bar" style="width:31%;background:#1677ff"></div></div>
+              </div>
+              <div style="margin-bottom:14px">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px"><span>💳 银行卡</span><span>12% · ¥3.0 万</span></div>
+                <div class="progress"><div class="bar warn" style="width:12%"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px"><span>💵 货到付款</span><span>5% · ¥1.2 万</span></div>
+                <div class="progress"><div class="bar" style="width:5%;background:#7c3aed"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-section">
+            <div class="admin-section-title"><span class="title">💸 成本支出</span></div>
+            <div style="padding:8px 0;font-size:13px">
+              <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #f0f0f0"><span>商品采购</span><strong>¥82,000</strong></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #f0f0f0"><span>物流配送</span><strong>¥9,800</strong></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #f0f0f0"><span>营销活动</span><strong>¥4,200</strong></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #f0f0f0"><span>平台抽成</span><strong>¥2,800</strong></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #f0f0f0"><span>人工客服</span><strong>¥18,000</strong></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 0;font-weight:700;color:var(--primary);font-size:15px;border-top:2px solid #e5e7eb;margin-top:8px"><span>总成本</span><strong>¥116,800</strong></div>
+            </div>
+            <div style="background:var(--primary-pale);padding:10px;border-radius:6px;font-size:12px;color:var(--primary);margin-top:10px">
+              💡 本月净利:¥131,200 · 毛利率 52.9%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= 6. 库存管理 ============================= -->
+    <div class="admin-pane" data-pane="inventory">
+      <div class="admin-stats-row cols-4">
+        <div class="admin-stat-card"><div class="label">SKU 总数</div><div class="value">28</div><div class="delta">含规格</div></div>
+        <div class="admin-stat-card warn"><div class="label">低库存预警</div><div class="value">2</div><div class="delta down">需补货</div></div>
+        <div class="admin-stat-card success"><div class="label">本月入库</div><div class="value">+850</div><div class="delta">补货</div></div>
+        <div class="admin-stat-card"><div class="label">本月出库</div><div class="value">-620</div><div class="delta">销售出库</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span class="title">⚠️ 低库存预警</span>
+            <button class="btn btn-warn btn-sm" onclick="HS.Toast.show('已生成补货单','success')">+ 一键补货</button>
+          </div>
+          <div>
+            <div class="alert-item">
+              <div class="icon">⚠</div>
+              <div class="info">
+                <div class="name">乳清蛋白粉 · 1kg 香草</div>
+                <div class="desc">当前 45 瓶 · 7 日均销 12 · 建议补 200</div>
+              </div>
+              <button class="btn btn-warn btn-sm">补货</button>
+            </div>
+            <div class="alert-item danger">
+              <div class="icon">!</div>
+              <div class="info">
+                <div class="name">护肝片 · 60 粒</div>
+                <div class="desc">⚠ 当前 38 瓶 · 即将断货 · 紧急补 200</div>
+              </div>
+              <button class="btn btn-danger btn-sm">紧急</button>
+            </div>
+            <div style="background:#fafbfc;padding:14px;border-radius:6px;font-size:12px;color:#6b7280;line-height:1.7;margin-top:10px">
+              💡 建议:每周一上午统一盘点,自动生成补货单给采购
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span class="title">📋 出入库流水(今日)</span>
+            <button class="btn btn-sm" onclick="HS.Toast.show('已展开全部','success')">查看全部</button>
+          </div>
+          <div class="inv-flow">
+            <div class="row"><div class="time">10:32</div><div class="type in">入库</div><div class="sku">维生素 D3 + K2 · 5000IU</div><div class="qty">+200</div></div>
+            <div class="row"><div class="time">09:48</div><div class="type out">出库</div><div class="sku">订单 ORD20260904001</div><div class="qty">-3</div></div>
+            <div class="row"><div class="time">09:15</div><div class="type out">出库</div><div class="sku">订单 ORD20260904002</div><div class="qty">-1</div></div>
+            <div class="row"><div class="time">08:42</div><div class="type in">入库</div><div class="sku">乳清蛋白粉 · 香草 1kg</div><div class="qty">+200</div></div>
+            <div class="row"><div class="time">08:20</div><div class="type out">出库</div><div class="sku">订单 ORD20260904003</div><div class="qty">-5</div></div>
+            <div class="row"><div class="time">08:05</div><div class="type in">调拨</div><div class="sku">武汉仓 → 上海仓</div><div class="qty">+50</div></div>
+            <div class="row"><div class="time">07:30</div><div class="type out">出库</div><div class="sku">订单 ORD20260904004</div><div class="qty">-2</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-title">
+          <span class="title">📦 全部库存</span>
+          <div class="actions">
+            <button class="btn btn-sm">导出</button>
+            <button class="btn btn-sm" onclick="HS.Toast.show('已打开盘点','success')">📋 盘点</button>
+            <button class="btn btn-sm" onclick="HS.Toast.show('已打开调拨','success')">🔄 调拨</button>
+            <button class="btn btn-primary btn-sm" onclick="HS.Toast.show('已打开入库','success')">+ 入库</button>
+          </div>
+        </div>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>SKU 编号</th><th>商品</th><th>规格</th><th>在库</th><th>在途</th>
+              <th>预占</th><th>可用</th><th>7 日均销</th><th>预警线</th><th>最近入库</th><th>状态</th><th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>SKU-001</td><td>维生素 D3 + K2</td><td>5000IU · 90 粒</td><td><strong>180</strong></td><td>200</td><td>5</td><td>175</td><td>26/日</td><td>50</td><td>2026-09-04</td><td><span class="status completed">充足</span></td><td><button class="btn btn-sm">编辑</button></td></tr>
+            <tr><td>SKU-002</td><td>维生素 D3 + K2</td><td>10000IU · 90 粒</td><td>80</td><td>0</td><td>2</td><td>78</td><td>8/日</td><td>30</td><td>2026-08-25</td><td><span class="status completed">充足</span></td><td><button class="btn btn-sm">编辑</button></td></tr>
+            <tr><td>SKU-003</td><td>复合 B 族维生素</td><td>8 种 · 60 粒</td><td>420</td><td>100</td><td>10</td><td>410</td><td>34/日</td><td>100</td><td>2026-08-28</td><td><span class="status completed">充足</span></td><td><button class="btn btn-sm">编辑</button></td></tr>
+            <tr><td>SKU-004</td><td>Omega-3 深海鱼油</td><td>EPA+DHA · 90 粒</td><td>240</td><td>200</td><td>6</td><td>234</td><td>22/日</td><td>80</td><td>2026-09-01</td><td><span class="status completed">充足</span></td><td><button class="btn btn-sm">编辑</button></td></tr>
+            <tr><td>SKU-005</td><td>乳清蛋白粉</td><td>1kg · 香草</td><td><strong style="color:var(--red)">45</strong></td><td>200</td><td>8</td><td>37</td><td>12/日</td><td>80</td><td>2026-08-30</td><td><span class="status shipped">紧张</span></td><td><button class="btn btn-warn btn-sm">补货</button></td></tr>
+            <tr><td>SKU-006</td><td>护肝片</td><td>60 粒</td><td><strong style="color:var(--red)">38</strong></td><td>0</td><td>5</td><td>33</td><td>9/日</td><td>60</td><td>2026-08-20</td><td><span class="status aftersales">缺货</span></td><td><button class="btn btn-danger btn-sm">紧急</button></td></tr>
+            <tr><td>SKU-007</td><td>酸枣仁 + 茶氨酸</td><td>30 袋</td><td>210</td><td>100</td><td>7</td><td>203</td><td>18/日</td><td>80</td><td>2026-08-29</td><td><span class="status completed">充足</span></td><td><button class="btn btn-sm">编辑</button></td></tr>
+            <tr><td>SKU-008</td><td>氨糖软骨素</td><td>90 粒</td><td>140</td><td>100</td><td>3</td><td>137</td><td>12/日</td><td>60</td><td>2026-08-25</td><td><span class="status completed">充足</span></td><td><button class="btn btn-sm">编辑</button></td></tr>
+            <tr><td>SKU-009</td><td>纳豆红曲胶囊</td><td>60 粒 · 蓝帽子</td><td>80</td><td>50</td><td>2</td><td>78</td><td>14/日</td><td>50</td><td>2026-08-26</td><td><span class="status completed">充足</span></td><td><button class="btn btn-sm">编辑</button></td></tr>
+            <tr><td>SKU-010</td><td>苦瓜桑叶片</td><td>60 片 · 蓝帽子</td><td>120</td><td>100</td><td>4</td><td>116</td><td>10/日</td><td>60</td><td>2026-08-22</td><td><span class="status completed">充足</span></td><td><button class="btn btn-sm">编辑</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================= 7. 营销中心 ============================= -->
+    <div class="admin-pane" data-pane="marketing">
+      <div class="admin-stats-row cols-4">
+        <div class="admin-stat-card"><div class="label">进行中活动</div><div class="value">6</div><div class="delta">3 即将结束</div></div>
+        <div class="admin-stat-card success"><div class="label">已发券</div><div class="value">¥48,200</div><div class="delta">使用率 38%</div></div>
+        <div class="admin-stat-card warn"><div class="label">本月获客</div><div class="value">+386</div><div class="delta">↑ 24%</div></div>
+        <div class="admin-stat-card"><div class="label">复购率</div><div class="value">28.5%</div><div class="delta">↑ 2.1%</div></div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-title">
+          <span class="title">🎁 营销活动</span>
+          <div class="actions">
+            <button class="btn btn-sm">导入活动</button>
+            <button class="btn btn-primary btn-sm" onclick="HS.Toast.show('已打开创建活动','success')">+ 新建活动</button>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+          <div class="promo-card"><span class="badge">进行中</span>
+            <div class="name">🎁 新人 5 折</div>
+            <div class="desc">新用户首单 5 折,最高减 ¥100</div>
+            <div class="meta"><span>有效期 2026.7-8</span><span>已发 1,240 张</span></div>
+          </div>
+          <div class="promo-card"><span class="badge" style="background:var(--gold)">即将结束</span>
+            <div class="name">💚 健康日</div>
+            <div class="desc">每月 8 日双倍积分,营养师咨询 5 折</div>
+            <div class="meta"><span>本期 9.8</span><span>已发 580 张</span></div>
+          </div>
+          <div class="promo-card"><span class="badge" style="background:var(--green)">长期</span>
+            <div class="name">👥 推荐奖励</div>
+            <div class="desc">邀请好友注册,双方各得 ¥50</div>
+            <div class="meta"><span>长期有效</span><span>已邀 86 人</span></div>
+          </div>
+          <div class="promo-card">
+            <div class="name">🔥 夏季爆款</div>
+            <div class="desc">满 299 减 50 / 满 599 减 120</div>
+            <div class="meta"><span>7.1-8.31</span><span>已发 420 张</span></div>
+          </div>
+          <div class="promo-card">
+            <div class="name">👴 中老年专属</div>
+            <div class="desc">55+ 用户额外 9 折 + 免费营养师咨询</div>
+            <div class="meta"><span>长期有效</span><span>已发 158 张</span></div>
+          </div>
+          <div class="promo-card">
+            <div class="name">💳 储值返赠</div>
+            <div class="desc">充 500 送 30,充 1000 送 80</div>
+            <div class="meta"><span>长期有效</span><span>本月 86 单</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span class="title">🎫 优惠券管理</span>
+            <button class="btn btn-primary btn-sm" onclick="HS.Toast.show('已打开创建券','success')">+ 创建券</button>
+          </div>
+          <table class="admin-table">
+            <thead><tr><th>名称</th><th>类型</th><th>面值</th><th>已发/已用</th><th>状态</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td>新人专享券</td><td>满减</td><td><strong>¥50</strong></td><td>1,240 / 480</td><td><span class="status completed">使用中</span></td><td><button class="btn btn-sm">编辑</button></td></tr>
+              <tr><td>满减券</td><td>满减</td><td><strong>¥100</strong></td><td>820 / 286</td><td><span class="status completed">使用中</span></td><td><button class="btn btn-sm">编辑</button></td></tr>
+              <tr><td>健康日专享</td><td>品类</td><td><strong>¥30</strong></td><td>580 / 158</td><td><span class="status shipped">即将结束</span></td><td><button class="btn btn-sm">编辑</button></td></tr>
+              <tr><td>VIP 专享</td><td>会员</td><td><strong>¥200</strong></td><td>120 / 56</td><td><span class="status completed">使用中</span></td><td><button class="btn btn-sm">编辑</button></td></tr>
+              <tr><td>感恩回馈</td><td>满减</td><td><strong>¥50</strong></td><td>320 / 320</td><td><span class="status aftersales">已用完</span></td><td><button class="btn btn-sm">查看</button></td></tr>
+              <tr><td>体验券</td><td>无门槛</td><td><strong>¥10</strong></td><td>2,400 / 2,400</td><td><span class="status aftersales">已用完</span></td><td><button class="btn btn-sm">查看</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span class="title">👑 会员等级</span>
+            <button class="btn btn-primary btn-sm" onclick="HS.Toast.show('已打开等级编辑','success')">+ 新等级</button>
+          </div>
+          <div style="padding:8px 0">
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
+              <div class="channel-item" style="background:linear-gradient(135deg,#f5fafa,#e6f3f1)">
+                <div class="icon" style="background:#9ca3af;color:#fff">👤</div>
+                <div class="info"><div class="n">普通会员</div><div class="m">0-999 积分 · 无折扣</div></div>
+              </div>
+              <div class="channel-item" style="background:linear-gradient(135deg,#e6f3f1,#d4e8e6)">
+                <div class="icon" style="background:#06b6d4;color:#fff">V1</div>
+                <div class="info"><div class="n">VIP1</div><div class="m">1000-2999 · 9.5 折</div></div>
+              </div>
+              <div class="channel-item" style="background:linear-gradient(135deg,#fff7e6,#ffe6c2)">
+                <div class="icon" style="background:#f77f00;color:#fff">V2</div>
+                <div class="info"><div class="n">VIP2</div><div class="m">3000-9999 · 9 折 + 包邮</div></div>
+              </div>
+              <div class="channel-item" style="background:linear-gradient(135deg,#fff3e0,#ffd9a8)">
+                <div class="icon" style="background:linear-gradient(135deg,#c0392b,#f77f00);color:#fff">V3</div>
+                <div class="info"><div class="n">VIP3 · 至尊</div><div class="m">≥10000 · 8.5 折 + 1v1 营养师</div></div>
+              </div>
+            </div>
+            <div style="background:var(--primary-pale);padding:14px;border-radius:8px;margin-top:14px;font-size:13px">
+              <div style="font-weight:600;margin-bottom:6px;color:var(--primary)">💎 VIP 转化漏斗</div>
+              <div style="font-size:12px;color:#6b7280">普通 → V1 <strong style="color:var(--primary)">38%</strong> · V1 → V2 <strong>24%</strong> · V2 → V3 <strong>12%</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= 8. 内容管理 ============================= -->
+    <div class="admin-pane" data-pane="content">
+      <div class="admin-stats-row cols-4">
+        <div class="admin-stat-card"><div class="label">已发布文章</div><div class="value">28</div><div class="delta">本周 +3</div></div>
+        <div class="admin-stat-card success"><div class="label">总阅读量</div><div class="value">12.4万</div><div class="delta">↑ 18%</div></div>
+        <div class="admin-stat-card warn"><div class="label">待回复评价</div><div class="value">8</div><div class="delta down">需 24h 内</div></div>
+        <div class="admin-stat-card"><div class="label">FAQ 数</div><div class="value">12</div><div class="delta">+2</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span class="title">📝 文章管理</span>
+            <button class="btn btn-primary btn-sm" onclick="HS.Toast.show('已打开富文本编辑器','success')">+ 写文章</button>
+          </div>
+          <div>
+            <div class="content-item">
+              <div class="thumb">📝</div>
+              <div class="info">
+                <div class="title">维生素 D 怎么补 · 8 大常见误区</div>
+                <div class="meta"><span>📅 2026-09-04</span><span>👤 林悦</span><span>📂 营养科普</span></div>
+                <div class="stats"><span>👁 1.2K</span><span>❤️ 86</span><span>💬 12</span><span>📤 分享 24</span></div>
+              </div>
+              <div><span class="tag success">已发布</span><button class="btn btn-ghost btn-sm">编辑</button></div>
+            </div>
+            <div class="content-item">
+              <div class="thumb">🥗</div>
+              <div class="info">
+                <div class="title">三高人群的 7 日饮食方案</div>
+                <div class="meta"><span>📅 2026-09-03</span><span>👤 林悦</span><span>📂 慢病养护</span></div>
+                <div class="stats"><span>👁 2.8K</span><span>❤️ 196</span><span>💬 28</span><span>📤 分享 86</span></div>
+              </div>
+              <div><span class="tag success">已发布</span><button class="btn btn-ghost btn-sm">编辑</button></div>
+            </div>
+            <div class="content-item">
+              <div class="thumb">🧘</div>
+              <div class="info">
+                <div class="title">八段锦 12 分钟跟练版</div>
+                <div class="meta"><span>📅 2026-09-02</span><span>👤 张驰</span><span>📂 传统功法</span></div>
+                <div class="stats"><span>👁 3.5K</span><span>❤️ 248</span><span>💬 36</span><span>📤 分享 124</span></div>
+              </div>
+              <div><span class="tag success">已发布</span><button class="btn btn-ghost btn-sm">编辑</button></div>
+            </div>
+            <div class="content-item">
+              <div class="thumb">🌙</div>
+              <div class="info">
+                <div class="title">失眠别吃褪黑素 · 试试这 3 招</div>
+                <div class="meta"><span>📅 2026-09-01</span><span>👤 周易</span><span>📂 心理咨询</span></div>
+                <div class="stats"><span>👁 4.2K</span><span>❤️ 312</span><span>💬 48</span><span>📤 分享 186</span></div>
+              </div>
+              <div><span class="tag success">已发布</span><button class="btn btn-ghost btn-sm">编辑</button></div>
+            </div>
+            <div class="content-item">
+              <div class="thumb">📋</div>
+              <div class="info">
+                <div class="title">新生婴儿营养指南</div>
+                <div class="meta"><span>📅 2026-08-30</span><span>👤 林悦</span><span>📂 母婴营养</span></div>
+                <div class="stats"><span>📝 草稿</span></div>
+              </div>
+              <div><span class="tag warn">草稿</span><button class="btn btn-ghost btn-sm">编辑</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="admin-section">
+            <div class="admin-section-title">
+              <span class="title">⭐ 评价回复</span>
+            </div>
+            <div style="padding:6px 0">
+              <div style="padding:10px;border:1px solid #f0f0f0;border-radius:8px;margin-bottom:10px">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                  <div style="font-size:13px;font-weight:600">张先生 · ★★★★★</div>
+                  <span class="tag warn">待回复</span>
+                </div>
+                <div style="font-size:13px;color:#1a1a1a;margin-bottom:6px">"吃了 3 瓶了,骨密度检查有改善,膝盖不酸了。客服回复快,会回购。"</div>
+                <div style="font-size:11px;color:#9ca3af">维生素 D3 + K2 · 2026-08-15</div>
+                <button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="HS.Toast.show('已回复','success')">回复</button>
+              </div>
+              <div style="padding:10px;border:1px solid #f0f0f0;border-radius:8px;margin-bottom:10px">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                  <div style="font-size:13px;font-weight:600">周先生 · ★★★★★</div>
+                  <span class="tag warn">待回复</span>
+                </div>
+                <div style="font-size:13px;color:#1a1a1a;margin-bottom:6px">"体检甘油三酯降了!会继续吃。"</div>
+                <div style="font-size:11px;color:#9ca3af">Omega-3 · 2026-08-20</div>
+                <button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="HS.Toast.show('已回复','success')">回复</button>
+              </div>
+              <div style="padding:10px;border:1px solid #f0f0f0;border-radius:8px;margin-bottom:10px">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                  <div style="font-size:13px;font-weight:600">陈女士 · ★★★★</div>
+                  <span class="tag success">已回复</span>
+                </div>
+                <div style="font-size:13px;color:#1a1a1a;margin-bottom:6px">"物流有点慢但是产品本身没问题,颗粒不大好吞咽。"</div>
+                <div style="font-size:11px;color:var(--primary);background:var(--primary-pale);padding:6px 8px;border-radius:4px;margin-top:4px">厚生客服:下次发货前可备注优先仓,会尽量缩短时效~</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-section">
+            <div class="admin-section-title">
+              <span class="title">❓ FAQ 管理</span>
+            </div>
+            <div style="padding:6px 0;font-size:13px">
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #f0f0f0">
+                <span>下单后多久发货?</span>
+                <span><span class="tag gray">12</span> <button class="btn btn-ghost btn-sm">编辑</button></span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #f0f0f0">
+                <span>支持货到付款吗?</span>
+                <span><span class="tag gray">8</span> <button class="btn btn-ghost btn-sm">编辑</button></span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #f0f0f0">
+                <span>商品是否正品?</span>
+                <span><span class="tag gray">18</span> <button class="btn btn-ghost btn-sm">编辑</button></span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #f0f0f0">
+                <span>如何申请退换货?</span>
+                <span><span class="tag gray">22</span> <button class="btn btn-ghost btn-sm">编辑</button></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= 9. 客服工作台 ============================= -->
+    <div class="admin-pane" data-pane="service">
+      <div class="admin-stats-row cols-4">
+        <div class="admin-stat-card"><div class="label">待回复会话</div><div class="value">8</div><div class="delta down">最长 5 分钟</div></div>
+        <div class="admin-stat-card success"><div class="label">今日会话</div><div class="value">36</div><div class="delta">↑ 8</div></div>
+        <div class="admin-stat-card"><div class="label">平均响应</div><div class="value">42秒</div><div class="delta">↓ 8秒</div></div>
+        <div class="admin-stat-card"><div class="label">满意度</div><div class="value">96.5%</div><div class="delta">↑ 1.2%</div></div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-title">
+          <span class="title">👥 客服坐席</span>
+          <button class="btn btn-primary btn-sm" onclick="HS.Toast.show('已打开添加坐席','success')">+ 添加坐席</button>
+        </div>
+        <table class="admin-table">
+          <thead><tr><th>坐席</th><th>角色</th><th>状态</th><th>当前会话</th><th>最后活跃</th><th>今日完成</th><th>满意度</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">巍</div><strong>黄巍</strong></div></td><td>创始人 · 店长</td><td><span class="status completed">在线</span></td><td>2 个</td><td>刚刚</td><td>8 个</td><td>100%</td><td><button class="btn btn-sm">详情</button></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">厚</div><strong>小厚</strong></div></td><td>客服主管</td><td><span class="status completed">在线</span></td><td>3 个</td><td>刚刚</td><td>14 个</td><td>98%</td><td><button class="btn btn-sm">详情</button></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#f4a261);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">美</div><strong>小美</strong></div></td><td>售后主管</td><td><span class="status completed">在线</span></td><td>1 个</td><td>5 分钟前</td><td>9 个</td><td>96%</td><td><button class="btn btn-sm">详情</button></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#ff9e1b);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">药</div><strong>小药</strong></div></td><td>商品运营</td><td><span class="status shipped">离开</span></td><td>-</td><td>30 分钟前</td><td>6 个</td><td>95%</td><td><button class="btn btn-sm">详情</button></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--green),#52b788);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">财</div><strong>小财</strong></div></td><td>财务</td><td><span class="status pending">离线</span></td><td>-</td><td>2 小时前</td><td>3 个</td><td>100%</td><td><button class="btn btn-sm">详情</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================= 10. 咨询队列 ============================= -->
+    <div class="admin-pane" data-pane="consult">
+      <div class="admin-stats-row cols-4">
+        <div class="admin-stat-card"><div class="label">排队总数</div><div class="value">5</div><div class="delta down">最长 15 分钟</div></div>
+        <div class="admin-stat-card success"><div class="label">今日完成</div><div class="value">28</div><div class="delta">↑ 4</div></div>
+        <div class="admin-stat-card"><div class="label">平均时长</div><div class="value">32 分钟</div><div class="delta">↑ 2 分钟</div></div>
+        <div class="admin-stat-card"><div class="label">顾问评分</div><div class="value">4.9</div><div class="delta">↑ 0.1</div></div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-title">
+          <span class="title">🩺 当前队列</span>
+          <div class="actions">
+            <select class="btn btn-sm"><option>全部顾问</option><option>林悦</option><option>周易</option><option>张驰</option></select>
+            <button class="btn btn-primary btn-sm" onclick="HS.Toast.show('自动分配已开启','success')">⚙️ 自动分配</button>
+          </div>
+        </div>
+        <table class="admin-table">
+          <thead><tr><th>队列号</th><th>用户</th><th>议题</th><th>指定顾问</th><th>等待时长</th><th>优先级</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td><strong>#C01</strong></td><td>李女士</td><td>三高管理</td><td>林悦</td><td>3 分钟</td><td><span class="status high">高</span></td><td><button class="btn btn-primary btn-sm" onclick="HS.Toast.show('已分配给林悦','success')">分配</button><button class="btn btn-sm">详情</button></td></tr>
+            <tr><td><strong>#C02</strong></td><td>张先生</td><td>肠胃调理</td><td>周易</td><td>5 分钟</td><td><span class="status mid">中</span></td><td><button class="btn btn-primary btn-sm">分配</button><button class="btn btn-sm">详情</button></td></tr>
+            <tr><td><strong>#C03</strong></td><td>周女士</td><td>减脂塑形</td><td>张驰</td><td>8 分钟</td><td><span class="status mid">中</span></td><td><button class="btn btn-primary btn-sm">分配</button><button class="btn btn-sm">详情</button></td></tr>
+            <tr><td><strong>#C04</strong></td><td>陈女士</td><td>睡眠改善</td><td>周易</td><td>12 分钟</td><td><span class="status low">低</span></td><td><button class="btn btn-primary btn-sm">分配</button><button class="btn btn-sm">详情</button></td></tr>
+            <tr><td><strong>#C05</strong></td><td>刘先生</td><td>运动营养</td><td>张驰</td><td>15 分钟</td><td><span class="status low">低</span></td><td><button class="btn btn-warn btn-sm">催促</button><button class="btn btn-sm">详情</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================= 11. 售后处理 ============================= -->
+    <div class="admin-pane" data-pane="aftersales">
+      <div class="admin-stats-row cols-4">
+        <div class="admin-stat-card warn"><div class="label">待处理</div><div class="value">3</div><div class="delta down">24h 内</div></div>
+        <div class="admin-stat-card"><div class="label">处理中</div><div class="value">2</div></div>
+        <div class="admin-stat-card success"><div class="label">本月完成</div><div class="value">28</div><div class="delta">↑ 12%</div></div>
+        <div class="admin-stat-card success"><div class="label">满意度</div><div class="value">95%</div><div class="delta">↑ 2%</div></div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-title">
+          <span class="title">🛠️ 售后单</span>
+          <div class="actions">
+            <select class="btn btn-sm"><option>全部状态</option><option>待审核</option><option>处理中</option><option>已退款</option><option>已完成</option></select>
+            <button class="btn btn-sm">📥 导出</button>
+          </div>
+        </div>
+        <table class="admin-table">
+          <thead><tr><th>售后单号</th><th>关联订单</th><th>客户</th><th>类型</th><th>原因</th><th>金额</th><th>状态</th><th>申请时间</th><th>SLA</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td><strong>AS001</strong></td><td>ORD20260705009</td><td>张先生</td><td>仅退款</td><td>外包装破损</td><td><strong>¥236</strong></td><td><span class="status pending">处理中</span></td><td>2026-08-25 14:32</td><td><span class="tag danger">剩 4h</span></td><td><button class="btn btn-primary btn-sm" onclick="handleAftersale('AS001', 'approve')">通过</button><button class="btn btn-sm">拒绝</button><button class="btn btn-ghost btn-sm">💬</button></td></tr>
+            <tr><td><strong>AS002</strong></td><td>ORD20260901008</td><td>周女士</td><td>退货退款</td><td>买多了</td><td><strong>¥1,856</strong></td><td><span class="status pending">待审核</span></td><td>2026-09-01 10:24</td><td><span class="tag warn">剩 12h</span></td><td><button class="btn btn-primary btn-sm" onclick="handleAftersale('AS002', 'approve')">通过</button><button class="btn btn-sm">拒绝</button><button class="btn btn-ghost btn-sm">💬</button></td></tr>
+            <tr><td><strong>AS003</strong></td><td>ORD20260829010</td><td>刘先生</td><td>换货</td><td>规格选错</td><td>-</td><td><span class="status shipped">补发中</span></td><td>2026-08-29 16:48</td><td><span class="tag success">正常</span></td><td><button class="btn btn-sm">详情</button><button class="btn btn-ghost btn-sm">💬</button></td></tr>
+            <tr><td><strong>AS004</strong></td><td>ORD20260815005</td><td>陈女士</td><td>仅退款</td><td>过敏反应</td><td><strong>¥498</strong></td><td><span class="status completed">已完成</span></td><td>2026-08-16 09:12</td><td><span class="tag success">已结</span></td><td><button class="btn btn-sm">详情</button></td></tr>
+            <tr><td><strong>AS005</strong></td><td>ORD20260810003</td><td>吴先生</td><td>仅退款</td><td>少发货</td><td><strong>¥98</strong></td><td><span class="status completed">已完成</span></td><td>2026-08-11 11:30</td><td><span class="tag success">已结</span></td><td><button class="btn btn-sm">详情</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================= 12. 数据分析 ============================= -->
+    <div class="admin-pane" data-pane="analytics">
+      <div class="admin-filter-bar">
+        <div class="filters">
+          <select class="filter-input"><option>本月</option><option>上月</option><option>近 30 天</option><option>近 90 天</option><option>本年</option></select>
+          <input type="date" class="filter-input" value="2026-09-01"/>
+          <span style="color:#9ca3af">~</span>
+          <input type="date" class="filter-input" value="2026-09-04"/>
+        </div>
+        <div class="actions">
+          <button class="btn btn-sm">📊 对比</button>
+          <button class="btn btn-primary btn-sm">📥 导出报表</button>
+        </div>
+      </div>
+
+      <div class="admin-stats-row cols-4">
+        <div class="report-card">
+          <div class="head"><h4>📈 营收</h4><span class="tag success">↑ 18.2%</span></div>
+          <div class="v">¥248,000</div>
+          <div class="d">较上月 +¥38,000</div>
+        </div>
+        <div class="report-card">
+          <div class="head"><h4>🧾 订单</h4><span class="tag success">↑ 12.4%</span></div>
+          <div class="v">826</div>
+          <div class="d">较上月 +91 单</div>
+        </div>
+        <div class="report-card">
+          <div class="head"><h4>👥 新客</h4><span class="tag success">↑ 24%</span></div>
+          <div class="v">386</div>
+          <div class="d">较上月 +74 人</div>
+        </div>
+        <div class="report-card">
+          <div class="head"><h4>🔁 复购</h4><span class="tag success">↑ 2.1%</span></div>
+          <div class="v">28.5%</div>
+          <div class="d">健康类平均 22%</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="admin-section">
+          <div class="admin-section-title"><span class="title">📊 月度销售对比</span></div>
+          <div style="padding:20px 0;height:240px;display:flex;align-items:flex-end;gap:18px;justify-content:space-around">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1">
+              <div style="font-size:11px;font-weight:600">¥21 万</div>
+              <div style="width:100%;background:linear-gradient(180deg,var(--primary),var(--primary-light));height:130px;border-radius:4px 4px 0 0"></div>
+              <div style="font-size:11px;color:#6b7280">8月</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1">
+              <div style="font-size:11px;font-weight:600">¥24.8 万</div>
+              <div style="width:100%;background:linear-gradient(180deg,var(--gold),#ff9e1b);height:170px;border-radius:4px 4px 0 0"></div>
+              <div style="font-size:11px;color:#6b7280">9月</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-title"><span class="title">👥 客户分层</span></div>
+          <div style="padding:8px 0">
+            <div style="margin-bottom:14px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px"><span>VIP3 · 高价值(>¥3000)</span><span>28 人 · ¥86,400</span></div>
+              <div class="progress"><div class="bar" style="width:35%;background:linear-gradient(90deg,#c0392b,#f77f00)"></div></div>
+            </div>
+            <div style="margin-bottom:14px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px"><span>VIP2 · 中高(¥1000-3000)</span><span>14 人 · ¥32,800</span></div>
+              <div class="progress"><div class="bar warn" style="width:22%"></div></div>
+            </div>
+            <div style="margin-bottom:14px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px"><span>VIP1 · 中(¥500-1000)</span><span>68 人 · ¥48,200</span></div>
+              <div class="progress"><div class="bar" style="width:48%"></div></div>
+            </div>
+            <div style="margin-bottom:14px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px"><span>普通 · 低(&lt;¥500)</span><span>276 人 · ¥80,600</span></div>
+              <div class="progress"><div class="bar success" style="width:60%"></div></div>
+            </div>
+            <div style="background:var(--primary-pale);padding:12px;border-radius:6px;font-size:12px;color:var(--primary);margin-top:10px">
+              💡 VIP 客户人均贡献 ¥3,086,普通客户仅 ¥292 — 建议加强 VIP 运营
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-title">
+          <span class="title">🗺️ 商品销售明细</span>
+          <button class="btn btn-sm">导出 Excel</button>
+        </div>
+        <table class="admin-table">
+          <thead><tr><th>#</th><th>商品</th><th>分类</th><th>销量</th><th>销售额</th><th>订单数</th><th>客单价</th><th>好评率</th><th>退货率</th><th>趋势</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>维生素 D3 + K2</td><td>基础营养</td><td>1,862</td><td>¥238,336</td><td>920</td><td>¥259</td><td>99.2%</td><td>0.5%</td><td><span class="tag success">↑ 18%</span></td></tr>
+            <tr><td>2</td><td>复合 B 族维生素</td><td>基础营养</td><td>2,410</td><td>¥236,180</td><td>1,180</td><td>¥200</td><td>98.5%</td><td>0.8%</td><td><span class="tag success">↑ 12%</span></td></tr>
+            <tr><td>3</td><td>酸枣仁 + 茶氨酸</td><td>慢病养护</td><td>1,284</td><td>¥177,192</td><td>680</td><td>¥260</td><td>98.0%</td><td>1.2%</td><td><span class="tag success">↑ 24%</span></td></tr>
+            <tr><td>4</td><td>Omega-3 深海鱼油</td><td>基础营养</td><td>1,583</td><td>¥265,944</td><td>780</td><td>¥341</td><td>99.0%</td><td>0.6%</td><td><span class="tag success">↑ 8%</span></td></tr>
+            <tr><td>5</td><td>乳清蛋白粉</td><td>运动营养</td><td>732</td><td>¥218,136</td><td>420</td><td>¥519</td><td>98.8%</td><td>0.4%</td><td><span class="tag success">↑ 32%</span></td></tr>
+            <tr><td>6</td><td>纳豆红曲胶囊</td><td>慢病养护</td><td>986</td><td>¥195,228</td><td>520</td><td>¥375</td><td>97.8%</td><td>1.0%</td><td><span class="tag warn">→ 0%</span></td></tr>
+            <tr><td>7</td><td>苦瓜桑叶片</td><td>慢病养护</td><td>754</td><td>¥126,672</td><td>410</td><td>¥309</td><td>96.5%</td><td>1.5%</td><td><span class="tag warn">→ 2%</span></td></tr>
+            <tr><td>8</td><td>护肝片</td><td>慢病养护</td><td>624</td><td>¥98,592</td><td>340</td><td>¥290</td><td>97.0%</td><td>0.8%</td><td><span class="tag danger">↓ 5%</span></td></tr>
+            <tr><td>9</td><td>氨糖软骨素</td><td>慢病养护</td><td>892</td><td>¥149,856</td><td>490</td><td>¥306</td><td>97.5%</td><td>1.0%</td><td><span class="tag success">↑ 6%</span></td></td></tr>
+            <tr><td>10</td><td>益生菌粉</td><td>肠胃健康</td><td>1,126</td><td>¥155,388</td><td>580</td><td>¥268</td><td>97.0%</td><td>1.2%</td><td><span class="tag success">↑ 15%</span></td></tr>
+            <tr><td>11</td><td>镁片 + 甘氨酸</td><td>基础营养</td><td>1,428</td><td>¥168,504</td><td>720</td><td>¥234</td><td>97.0%</td><td>1.0%</td><td><span class="tag success">↑ 10%</span></td></tr>
+            <tr><td>12</td><td>辅酶 Q10</td><td>基础营养</td><td>518</td><td>¥92,204</td><td>280</td><td>¥329</td><td>97.0%</td><td>0.9%</td><td><span class="tag warn">→ 3%</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================= 13. 系统设置 ============================= -->
+    <div class="admin-pane" data-pane="settings">
+      <div class="settings-grid">
+        <div class="setting-card">
+          <h4>🏪 店铺信息</h4>
+          <div class="row"><span class="k">店铺名称</span><span class="v">厚生 HOUSHENG WELLNESS</span></div>
+          <div class="row"><span class="k">店铺类型</span><span class="v">品牌官方</span></div>
+          <div class="row"><span class="k">联系电话</span><span class="v">13971691656</span></div>
+          <div class="row"><span class="k">客服邮箱</span><span class="v">huangwei_361@163.com</span></div>
+          <div class="row"><span class="k">注册地址</span><span class="v">武汉·青山</span></div>
+          <div class="row"><span class="k">营业执照</span><span class="v">已认证 ✓</span></div>
+        </div>
+
+        <div class="setting-card">
+          <h4>💳 支付配置</h4>
+          <div class="row"><span class="k">微信支付</span><div class="toggle on" onclick="this.classList.toggle('on');HS.Toast.show('已切换','success')"></div></div>
+          <div class="row"><span class="k">支付宝</span><div class="toggle on" onclick="this.classList.toggle('on');HS.Toast.show('已切换','success')"></div></div>
+          <div class="row"><span class="k">银联</span><div class="toggle" onclick="this.classList.toggle('on');HS.Toast.show('已切换','success')"></div></div>
+          <div class="row"><span class="k">货到付款</span><div class="toggle" onclick="this.classList.toggle('on');HS.Toast.show('已切换','success')"></div></div>
+          <div class="row"><span class="k">储值支付</span><div class="toggle on" onclick="this.classList.toggle('on');HS.Toast.show('已切换','success')"></div></div>
+        </div>
+
+        <div class="setting-card">
+          <h4>🚚 物流配置</h4>
+          <div class="row"><span class="k">默认物流</span><span class="v">顺丰速运</span></div>
+          <div class="row"><span class="k">包邮门槛</span><span class="v">满 ¥199</span></div>
+          <div class="row"><span class="k">发货时效</span><span class="v">48 小时内</span></div>
+          <div class="row"><span class="k">默认仓库</span><span class="v">武汉·青山</span></div>
+          <div class="row"><span class="k">电子面单</span><span class="v">顺丰 API 已对接</span></div>
+        </div>
+
+        <div class="setting-card">
+          <h4>🔔 通知配置</h4>
+          <div class="row"><span class="k">新订单提醒</span><div class="toggle on"></div></div>
+          <div class="row"><span class="k">售后提醒</span><div class="toggle on"></div></div>
+          <div class="row"><span class="k">低库存预警</span><div class="toggle on"></div></div>
+          <div class="row"><span class="k">差评提醒</span><div class="toggle on"></div></div>
+          <div class="row"><span class="k">每日数据日报</span><div class="toggle on"></div></div>
+        </div>
+
+        <div class="setting-card">
+          <h4>👮 角色权限</h4>
+          <div class="row"><span class="k">店长</span><span class="v">全部权限</span></div>
+          <div class="row"><span class="k">客服</span><span class="v">客服+订单+售后</span></div>
+          <div class="row"><span class="k">运营</span><span class="v">商品+营销+内容</span></div>
+          <div class="row"><span class="k">财务</span><span class="v">财务+对账</span></div>
+          <div class="row"><span class="k">仓库</span><span class="v">库存+出入库</span></div>
+        </div>
+
+        <div class="setting-card">
+          <h4>📋 操作日志</h4>
+          <div class="row"><span class="k">今日操作</span><span class="v">86 次</span></div>
+          <div class="row"><span class="k">登录</span><span class="v">12 次</span></div>
+          <div class="row"><span class="k">改价</span><span class="v">3 次</span></div>
+          <div class="row"><span class="k">退款</span><span class="v">2 次</span></div>
+          <div class="row"><span class="k">权限变更</span><span class="v">0 次</span></div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn btn-primary btn-sm" style="width:100%">查看完整日志 →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 商品表单弹窗 -->
+<div class="admin-modal-mask" id="productFormModal" onclick="if(event.target===this)closeModal('productFormModal')">
+  <div class="admin-modal large" onclick="event.stopPropagation()">
+    <div class="admin-modal-head">
+      <div class="title">📦 新增/编辑商品</div>
+      <div class="close" onclick="closeModal('productFormModal')">×</div>
+    </div>
+    <div class="admin-modal-body">
+      <div class="admin-form cols-2">
+        <label class="full">商品名称 <span class="req">*</span><input type="text" id="pName" placeholder="如:维生素 D3 + K2" /></label>
+        <label>商品分类 <span class="req">*</span>
+          <select id="pCat">
+            <option>基础营养</option><option>慢病养护</option><option>肠胃健康</option><option>运动营养</option>
+          </select>
+        </label>
+        <label>品牌<input type="text" value="厚生 HOUSHENG" /></label>
+        <label>规格 <span class="req">*</span><input type="text" id="pSpec" placeholder="如:5000IU · 90 粒" /></label>
+        <label>单位<input type="text" value="瓶" /></label>
+        <label>售价 <span class="req">*</span><input type="number" id="pPrice" placeholder="128" /></label>
+        <label>原价<input type="number" id="pWas" placeholder="168" /></label>
+        <label>成本<input type="number" placeholder="48" /></label>
+        <label>库存 <span class="req">*</span><input type="number" id="pStock" placeholder="280" /></label>
+        <label>预警线<input type="number" value="50" /></label>
+        <label>蓝帽子编号<input type="text" placeholder="国食健字 G2020XXXX" /></label>
+        <label>状态
+          <select><option>上架</option><option>下架</option><option>草稿</option></select>
+        </label>
+        <label>是否推荐<select><option>否</option><option>是 · 首页</option><option>是 · 分类页</option></select></label>
+        <label class="full">商品图片 URL<input type="text" id="pImg" placeholder="assets/products/xxx.svg" /></label>
+        <label class="full">商品简介<textarea id="pBlurb" placeholder="如:MK-7 型 K2 + D3..."></textarea></label>
+        <label class="full">营养成分(每行一项)<textarea placeholder="每份:5000IU D3 + 90mcg K2&#10;基础营养 6 大类&#10;0 防腐剂 0 添加糖"></textarea></label>
+        <label class="full">SEO 关键词<input type="text" placeholder="维生素D, K2, 骨骼, 补钙" /></label>
+      </div>
+    </div>
+    <div class="admin-modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('productFormModal')">取消</button>
+      <button class="btn btn-warn" onclick="HS.Toast.show('已存为草稿','success')">存草稿</button>
+      <button class="btn btn-primary" onclick="saveProduct()">保存并上架</button>
+    </div>
+  </div>
+</div>
+
+<!-- 客户详情弹窗 -->
+<div class="admin-modal-mask" id="customerModal" onclick="if(event.target===this)closeModal('customerModal')">
+  <div class="admin-modal large" onclick="event.stopPropagation()">
+    <div class="admin-modal-head">
+      <div class="title">👤 客户详情</div>
+      <div class="close" onclick="closeModal('customerModal')">×</div>
+    </div>
+    <div class="admin-modal-body">
+      <div class="customer-detail">
+        <div class="customer-side">
+          <div class="avatar" id="cAvatar">张</div>
+          <div class="name" id="cName">张先生</div>
+          <div class="phone" id="cPhone">139****1234</div>
+          <span class="vip" style="display:inline-block;margin-bottom:14px">VIP1</span>
+          <div class="stats">
+            <div class="stat"><div class="v">1280</div><div class="l">积分</div></div>
+            <div class="stat"><div class="v">¥520</div><div class="l">储值</div></div>
+            <div class="stat"><div class="v">5</div><div class="l">订单</div></div>
+            <div class="stat"><div class="v">¥1280</div><div class="l">消费</div></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;gap:8px;margin-bottom:14px">
+            <button class="btn btn-primary btn-sm">💬 发消息</button>
+            <button class="btn btn-sm" onclick="HS.Toast.show('已发送优惠券','success')">🎁 送券</button>
+            <button class="btn btn-sm" onclick="HS.Toast.show('已充值','success')">💳 充值</button>
+            <button class="btn btn-sm">📝 加标签</button>
+            <button class="btn btn-sm">📞 通话记录</button>
+          </div>
+
+          <h4 style="font-size:14px;margin:18px 0 10px">📦 订单历史</h4>
+          <table class="admin-table">
+            <thead><tr><th>订单号</th><th>日期</th><th>金额</th><th>状态</th></tr></thead>
+            <tbody>
+              <tr><td>ORD20260820001</td><td>2026-08-20</td><td>¥424</td><td><span class="status completed">已完成</span></td></tr>
+              <tr><td>ORD20260705009</td><td>2026-07-05</td><td>¥236</td><td><span class="status aftersales">售后中</span></td></tr>
+              <tr><td>ORD20260610001</td><td>2026-06-10</td><td>¥298</td><td><span class="status completed">已完成</span></td></tr>
+              <tr><td>ORD20260510001</td><td>2026-05-10</td><td>¥168</td><td><span class="status completed">已完成</span></td></tr>
+              <tr><td>ORD20260408001</td><td>2026-04-08</td><td>¥154</td><td><span class="status completed">已完成</span></td></tr>
+            </tbody>
+          </table>
+
+          <h4 style="font-size:14px;margin:18px 0 10px">📞 沟通时间线</h4>
+          <div class="timeline">
+            <div class="timeline-item"><div class="t">营养师咨询 · 三高管理</div><div class="m">林悦 提供 3 个月调理方案</div><div class="d">2026-08-25 14:30</div></div>
+            <div class="timeline-item"><div class="t">售后申请</div><div class="m">外包装破损,客服小美 已受理</div><div class="d">2026-07-05 11:20</div></div>
+            <div class="timeline-item"><div class="t">高价值客户升级</div><div class="m">消费满 ¥1000,自动升级为 VIP1</div><div class="d">2026-06-10 09:15</div></div>
+            <div class="timeline-item"><div class="t">首次注册</div><div class="m">通过微信扫码注册</div><div class="d">2026-04-08 10:24</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 订单详情弹窗 -->
+<div class="admin-modal-mask" id="orderDetailModal" onclick="if(event.target===this)closeModal('orderDetailModal')">
+  <div class="admin-modal large" onclick="event.stopPropagation()">
+    <div class="admin-modal-head">
+      <div class="title">🧾 订单详情 <span id="oId" style="color:#6b7280;font-weight:400;font-size:14px"></span></div>
+      <div class="close" onclick="closeModal('orderDetailModal')">×</div>
+    </div>
+    <div class="admin-modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px">
+        <div style="background:#fafbfc;padding:14px;border-radius:8px">
+          <h4 style="font-size:13px;color:#6b7280;margin-bottom:8px">📍 收货信息</h4>
+          <div style="font-size:14px;line-height:1.7">
+            黄巍 13971691656<br>
+            湖北省 武汉市 青山区 冶金大道松阅 2 号楼
+          </div>
+        </div>
+        <div style="background:#fafbfc;padding:14px;border-radius:8px">
+          <h4 style="font-size:13px;color:#6b7280;margin-bottom:8px">💳 支付信息</h4>
+          <div style="font-size:14px;line-height:1.7">
+            支付方式:微信支付<br>
+            下单时间:2026-09-04 11:24:18<br>
+            支付时间:2026-09-04 11:24:35
+          </div>
+        </div>
+      </div>
+
+      <h4 style="font-size:14px;margin-bottom:10px">📦 商品清单</h4>
+      <table class="admin-table">
+        <thead><tr><th>商品</th><th>规格</th><th>单价</th><th>数量</th><th>小计</th></tr></thead>
+        <tbody>
+          <tr><td><div style="display:flex;align-items:center;gap:8px"><img src="assets/products/d3k2.svg" class="product-thumb"/> 维生素 D3 + K2</div></td><td>5000IU · 90 粒</td><td>¥128</td><td>2</td><td><strong>¥256</strong></td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:8px"><img src="assets/products/omega3.svg" class="product-thumb"/> Omega-3 深海鱼油</div></td><td>EPA+DHA · 90 粒</td><td>¥168</td><td>1</td><td><strong>¥168</strong></td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:8px"><img src="assets/products/probiotic.svg" class="product-thumb"/> 益生菌粉</div></td><td>30 袋 · 2g</td><td>¥138</td><td>1</td><td><strong>¥138</strong></td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="4" style="text-align:right;color:#6b7280">商品小计</td><td><strong>¥562</strong></td></tr>
+          <tr><td colspan="4" style="text-align:right;color:#6b7280">运费</td><td>¥0 (满 199 包邮)</td></tr>
+          <tr><td colspan="4" style="text-align:right;color:#6b7280">优惠券 (NEW50)</td><td style="color:var(--red)">-¥50</td></tr>
+          <tr><td colspan="4" style="text-align:right;font-weight:700;font-size:15px">实付</td><td style="color:var(--red);font-weight:700;font-size:18px">¥512</td></tr>
+        </tfoot>
+      </table>
+
+      <h4 style="font-size:14px;margin:18px 0 10px">🚚 物流轨迹</h4>
+      <div class="logistics">
+        <div class="step active current"><div class="t">[武汉市] 已到达 青山营业部 · 派件中</div><div class="d">2026-09-04 14:24 · 快递员 张师傅 139****8888</div></div>
+        <div class="step active"><div class="t">[武汉市] 顺丰武汉青山集散中心 已发出</div><div class="d">2026-09-04 10:24</div></div>
+        <div class="step active"><div class="t">[武汉市] 已到达 顺丰武汉青山营业部</div><div class="d">2026-09-04 08:15</div></div>
+        <div class="step"><div class="t">[武汉市] 已揽收</div><div class="d">2026-09-03 21:30</div></div>
+        <div class="step"><div class="t">商品已下单</div><div class="d">2026-09-03 18:42</div></div>
+      </div>
+
+      <h4 style="font-size:14px;margin:18px 0 10px">📝 操作记录</h4>
+      <div class="timeline">
+        <div class="timeline-item"><div class="t">商品已发货</div><div class="m">小厚 操作 · 顺丰单号 SF1234567890</div><div class="d">2026-09-04 10:24</div></div>
+        <div class="timeline-item"><div class="t">支付成功</div><div class="m">微信支付 ¥562</div><div class="d">2026-09-04 11:24</div></div>
+        <div class="timeline-item"><div class="t">订单创建</div><div class="m">陈女士 通过购物车结算</div><div class="d">2026-09-04 11:24</div></div>
+      </div>
+    </div>
+    <div class="admin-modal-foot">
+      <button class="btn btn-ghost">打印面单</button>
+      <button class="btn">修改地址</button>
+      <button class="btn btn-warn">催发货</button>
+      <button class="btn btn-primary">确认已发货</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+const $  = s => document.querySelector(s);
+const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+let orderFilter = "all";
+
+// ========== 移动端 sidebar 切换 ==========
+HS.toggleAdminSidebar = function(close){
+  const sb = document.querySelector(".admin-sidebar");
+  if(!sb) return;
+  if(close === true){ sb.classList.remove("open"); return; }
+  sb.classList.toggle("open");
+};
+
+// ========== 登录 ==========
+function adminLogin(){
+  const pwd = $("#loginPwd").value;
+  if(HS.Admin.login(pwd)){
+    $("#adminName").textContent = "黄巍";
+    $("#adminRole").textContent = "创始人 · 店长";
+    $("#loginPage").style.display = "none";
+    $("#adminPage").style.display = "block";
+    HS.Toast.show("✓ 登录成功", "success");
+    renderAll();
+  } else {
+    HS.Toast.show("密码错误,演示版请用 admin888", "error");
+  }
+}
+
+function adminLogout(){
+  if(!confirm("确认退出?")) return;
+  HS.Admin.logout();
+  $("#adminPage").style.display = "none";
+  $("#loginPage").style.display = "flex";
+}
+
+// Enter 登录
+document.addEventListener("keydown", e => {
+  if(e.key === "Enter" && $("#loginPage").style.display !== "none") adminLogin();
+});
+
+// ========== 模态 ==========
+function openModal(id){
+  const m = document.getElementById(id);
+  if(m) m.classList.add("show");
+}
+function closeModal(id){
+  const m = document.getElementById(id);
+  if(m) m.classList.remove("show");
+}
+
+// ========== 切换 Pane ==========
+const pageInfo = {
+  dashboard:  {title:"📊 仪表盘",       sub:"实时数据 · 今日 2026-09-04"},
+  products:   {title:"📦 商品管理",     sub:"12 款商品 · 在售 12"},
+  orders:     {title:"🧾 订单管理",     sub:"今日 28 单 · 待处理 2"},
+  customers:  {title:"👥 客户管理",     sub:"总客户 386 · VIP 42"},
+  finance:    {title:"💰 财务管理",     sub:"本月营收 ¥248,000 · 净利 ¥131,200"},
+  inventory:  {title:"📊 库存管理",     sub:"28 个 SKU · 预警 2 个"},
+  marketing:  {title:"🎁 营销中心",     sub:"6 个活动进行中"},
+  content:    {title:"📝 内容管理",     sub:"28 篇文章 · 待回复 8"},
+  service:    {title:"💬 客服工作台",   sub:"待回复 8 · 满意度 96.5%"},
+  consult:    {title:"🩺 咨询队列",     sub:"排队 5 · 今日完成 28"},
+  aftersales: {title:"🛠️ 售后处理",     sub:"待处理 3 · 满意度 95%"},
+  analytics:  {title:"📈 数据分析",     sub:"本月 营收 +18.2% / 订单 +12.4%"},
+  settings:   {title:"⚙️ 系统设置",     sub:"店铺 / 支付 / 物流 / 权限 / 日志"}
+};
+
+function switchPane(name, el){
+  $$(".admin-nav-item").forEach(n => n.classList.remove("active"));
+  if(el) el.classList.add("active");
+  $$(".admin-pane").forEach(p => p.classList.remove("active"));
+  const target = document.querySelector(`.admin-pane[data-pane="${name}"]`);
+  if(target) target.classList.add("active");
+  if(pageInfo[name]){
+    $("#pageTitle").textContent = pageInfo[name].title;
+    $("#pageSub").textContent = pageInfo[name].sub;
+  }
+}
+
+// ========== 商品管理 ==========
+function renderProducts(){
+  const products = JSON.parse(localStorage.getItem("hs_admin_products")||"null") || HS.adminProducts;
+  $("#productTable").innerHTML = products.map(p => `
+    <tr>
+      <td><input type="checkbox" class="checkbox p-check" onchange="updateBatchBar()"/></td>
+      <td><img src="${p.img}" class="product-thumb"/></td>
+      <td>
+        <strong>${p.name}</strong><br>
+        <span style="font-size:11px;color:#9ca3af">${p.id}</span>
+        ${p.tags && p.tags[0] ? `<span class="tag ${p.tags[0]==='新品'?'success':p.tags[0]==='三高'?'gold':p.tags[0]==='推荐'?'primary':'danger'}" style="margin-left:6px">${p.tags[0]}</span>` : ''}
+      </td>
+      <td>${p.cat}</td>
+      <td>${p.spec}</td>
+      <td><strong style="color:var(--red)">¥${p.price}</strong> <span style="text-decoration:line-through;color:#9ca3af;font-size:11px">¥${p.was}</span></td>
+      <td>${p.stock < 50 ? `<span style="color:var(--red);font-weight:700">${p.stock} ⚠</span>` : p.stock}</td>
+      <td>${p.sales}</td>
+      <td>⭐ ${p.rating}</td>
+      <td><span class="status completed">在售</span></td>
+      <td>
+        <div class="row-actions">
+          <button class="btn btn-ghost btn-sm" onclick="openProductForm('${p.id}')">编辑</button>
+          <button class="btn btn-ghost btn-sm" style="color:var(--red)" onclick="deleteProduct('${p.id}')">删除</button>
+        </div>
+      </td>
+    </tr>
+  `).join("");
+  if($("#productCount")) $("#productCount").textContent = products.length;
+}
+function deleteProduct(id){
+  if(!confirm("确定删除商品 "+id+" 吗?")) return;
+  let arr = JSON.parse(localStorage.getItem("hs_admin_products")||"null") || HS.adminProducts.slice();
+  arr = arr.filter(p => p.id !== id);
+  localStorage.setItem("hs_admin_products", JSON.stringify(arr));
+  renderProducts();
+  HS.Toast.show("已删除","success");
+}
+function updateBatchBar(){
+  const n = $$(".p-check:checked").length;
+  const bar = $("#batchBar");
+  if(bar) bar.style.display = n > 0 ? "flex" : "none";
+  if($("#batchCount")) $("#batchCount").textContent = n;
+}
+function batchOp(op){
+  const ids = $$(".p-check:checked").map(c => c.closest("tr").dataset.id).filter(Boolean);
+  if(ids.length === 0){ HS.Toast.show("请先勾选商品","warn"); return; }
+  if(op === "delete" && !confirm("确认删除选中的 "+ids.length+" 个商品?")) return;
+  HS.Toast.show("✓ 批量"+ (op==="off"?"下架":op==="on"?"上架":op==="price"?"改价":op==="move"?"移分类":"删除") +" 成功("+ids.length+")","success");
+  $$(".p-check:checked").forEach(c => c.checked = false);
+  updateBatchBar();
+}
+
+// ========== 商品表单 ==========
+function openProductForm(id){
+  const products = JSON.parse(localStorage.getItem("hs_admin_products")||"null") || HS.adminProducts;
+  const p = id ? products.find(x => x.id === id) : {id:"",name:"",cat:"",spec:"",price:"",was:"",stock:"",img:"",tags:[]};
+  if(!p){ HS.Toast.show("未找到商品","error"); return; }
+  $("#pfId").value = p.id;
+  $("#pfName").value = p.name;
+  $("#pfCat").value = p.cat;
+  $("#pfSpec").value = p.spec;
+  $("#pfPrice").value = p.price;
+  $("#pfWas").value = p.was;
+  $("#pfStock").value = p.stock;
+  $("#pfImg").value = p.img;
+  $("#pfTag").value = (p.tags && p.tags[0]) || "";
+  $("#pfTitle").textContent = id ? "编辑商品 · "+id : "新增商品";
+  openModal("productModal");
+}
+function saveProduct(){
+  const id = $("#pfId").value;
+  const data = {
+    id: id || ("P"+Date.now().toString().slice(-4)),
+    name: $("#pfName").value.trim(),
+    cat: $("#pfCat").value,
+    spec: $("#pfSpec").value.trim(),
+    price: parseFloat($("#pfPrice").value)||0,
+    was: parseFloat($("#pfWas").value)||0,
+    stock: parseInt($("#pfStock").value)||0,
+    img: $("#pfImg").value.trim() || "assets/products/p1.svg",
+    tags: $("#pfTag").value ? [$("#pfTag").value] : [],
+    sales: 0, rating: 5.0
+  };
+  if(!data.name){ HS.Toast.show("请填写商品名称","warn"); return; }
+  let arr = JSON.parse(localStorage.getItem("hs_admin_products")||"null") || HS.adminProducts.slice();
+  const idx = arr.findIndex(p => p.id === data.id);
+  if(idx >= 0){
+    arr[idx] = Object.assign({}, arr[idx], data);
+    HS.Toast.show("✓ 已更新","success");
+  } else {
+    arr.push(data);
+    HS.Toast.show("✓ 已新增","success");
+  }
+  localStorage.setItem("hs_admin_products", JSON.stringify(arr));
+  closeModal("productModal");
+  renderProducts();
+}
+
+// ========== 订单管理 ==========
+function renderOrders(){
+  const raw = (HS.adminOrders && HS.adminOrders.length) ? HS.adminOrders : [
+    {id:"SO20260904-001",customer:"周*伟",phone:"138****6688",items:3,total:428,pay:"微信",status:"pending",date:"2026-09-04 14:23"},
+    {id:"SO20260904-002",customer:"李*芳",phone:"139****1024",items:1,total:168,pay:"支付宝",status:"shipped",date:"2026-09-04 13:48"},
+    {id:"SO20260904-003",customer:"陈*强",phone:"186****5566",items:5,total:1180,pay:"储值卡",status:"completed",date:"2026-09-04 11:32"},
+    {id:"SO20260904-004",customer:"刘*英",phone:"137****8800",items:2,total:298,pay:"微信",status:"pending",date:"2026-09-04 10:55"},
+    {id:"SO20260904-005",customer:"王*军",phone:"189****3399",items:4,total:856,pay:"支付宝",status:"pending",date:"2026-09-04 09:18"},
+    {id:"SO20260904-006",customer:"张*玲",phone:"186****0066",items:1,total:128,pay:"微信",status:"completed",date:"2026-09-03 22:41"},
+    {id:"SO20260904-007",customer:"孙*明",phone:"150****7788",items:6,total:2150,pay:"储值卡",status:"completed",date:"2026-09-03 20:15"},
+    {id:"SO20260904-008",customer:"赵*娜",phone:"137****1234",items:2,total:356,pay:"微信",status:"aftersales",date:"2026-09-03 18:30"}
+  ];
+  // 映射字段
+  const orders = raw.map(o => ({
+    id: o.id, user: o.user || o.customer || '-', phone: o.phone || '-',
+    time: o.time || o.date || '-',
+    items: o.items, total: o.total, pay: o.pay, status: o.status
+  }));
+  const STATUS_MAP_CN = {pending:"待发货", shipped:"已发货", completed:"已完成", aftersales:"退款中", paid:"待发货"};
+  const filtered = orderFilter === "all" ? orders : orders.filter(o => o.status === orderFilter);
+  const tbl = $("#orderTable");
+  if(!tbl) return;
+  tbl.innerHTML = filtered.map(o => {
+    const cn = STATUS_MAP_CN[o.status] || o.status;
+    return `
+    <tr data-id="${o.id}">
+      <td><input type="checkbox" class="checkbox o-check"/></td>
+      <td><strong>${o.id}</strong><br><span style="font-size:11px;color:#9ca3af">${o.time}</span></td>
+      <td>${o.user}<br><span style="font-size:11px;color:#9ca3af">${o.phone}</span></td>
+      <td>${o.items} 件</td>
+      <td><strong style="color:var(--red)">¥${o.total}</strong><br><span style="font-size:11px">${o.pay}</span></td>
+      <td><span class="status ${o.status==='completed'?'completed':o.status==='shipped'?'shipped':o.status==='aftersales'?'aftersales':'warn'}">${cn}</span></td>
+      <td>
+        <div class="row-actions">
+          <button class="btn btn-ghost btn-sm" onclick="openOrderDetail('${o.id}')">详情</button>
+          ${o.status==='pending' ? '<button class="btn btn-primary btn-sm" onclick="shipOrder(\''+o.id+'\')">发货</button>' : ''}
+        </div>
+      </td>
+    </tr>`;
+  }).join("");
+  if($("#orderCount")) $("#orderCount").textContent = filtered.length;
+}
+function filterOrders(s, el){
+  orderFilter = s;
+  $$(".order-filter").forEach(b => b.classList.remove("active"));
+  if(el) el.classList.add("active");
+  renderOrders();
+}
+function filterOrderAdmin(s, el){
+  orderFilter = s;
+  $$(".order-admin-filter").forEach(b => b.classList.remove("active"));
+  if(el) el.classList.add("active");
+  renderOrders();
+}
+function shipOrder(id){
+  HS.Toast.show("✓ 订单 "+id+" 已发货","success");
+  // 标记为已发货
+  if(HS.adminOrders){
+    const o = HS.adminOrders.find(x=>x.id===id);
+    if(o) o.status = "shipped";
+  }
+  renderOrders();
+}
+function openOrderDetail(id){
+  const raw = (HS.adminOrders||[]).find(x => x.id===id) || {id, customer:"周*伟", date:"2026-09-04 14:23", items:3, total:428, pay:"微信", status:"pending"};
+  const o = {id: raw.id, user: raw.user || raw.customer || "-", phone: raw.phone || "-", time: raw.time || raw.date || "-", items: raw.items, total: raw.total, pay: raw.pay, status: raw.status};
+  const body = $("#orderDetailBody");
+  if(!body) return;
+  const cn = {pending:"待发货", shipped:"已发货", completed:"已完成", aftersales:"退款中"}[o.status] || o.status;
+  body.innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px">
+      <div><div style="color:#9ca3af;font-size:12px">订单号</div><div style="font-weight:700">${o.id}</div></div>
+      <div><div style="color:#9ca3af;font-size:12px">下单时间</div><div>${o.time}</div></div>
+      <div><div style="color:#9ca3af;font-size:12px">客户</div><div>${o.user} · ${o.phone}</div></div>
+      <div><div style="color:#9ca3af;font-size:12px">支付方式</div><div>${o.pay}</div></div>
+      <div style="grid-column:span 2"><div style="color:#9ca3af;font-size:12px">收货地址</div><div>武汉市青山区冶金大道松阅2号楼</div></div>
+    </div>
+    <div style="background:#fafafa;padding:14px;border-radius:8px;margin-bottom:18px">
+      <div style="font-weight:600;margin-bottom:8px">商品明细</div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #e5e7eb"><span>厚生精选商品 × ${o.items||1}</span><strong>¥${o.total}</strong></div>
+      <div style="display:flex;justify-content:space-between;padding-top:10px;font-size:16px"><strong>订单总额</strong><strong style="color:var(--red)">¥${o.total}</strong></div>
+    </div>
+    <div style="background:#fafafa;padding:14px;border-radius:8px">
+      <div style="font-weight:600;margin-bottom:8px">物流轨迹</div>
+      <div class="timeline-item active"><div class="t-dot"></div><div class="t-body"><div class="t-time">${o.time}</div><div class="t-text">订单已创建 (${cn})</div></div></div>
+      <div class="timeline-item ${o.status!=='pending'?'active':''}"><div class="t-dot"></div><div class="t-body"><div class="t-time">${o.status==='pending'?'--':o.time}</div><div class="t-text">商品已发出,顺丰速运</div></div></div>
+      <div class="timeline-item ${o.status==='completed'?'active':''}"><div class="t-dot"></div><div class="t-body"><div class="t-time">${o.status==='completed'?o.time:'--'}</div><div class="t-text">客户已签收</div></div></div>
+    </div>
+  `;
+  openModal("orderDetailModal");
+}
+
+// ========== 客户管理 ==========
+function renderCustomers(){
+  // 适配两种数据格式:HS.customerList (vip/spent/lastOrder) vs fallback (level/spend/last/addr/tag)
+  const raw = HS.customerList && HS.customerList.length ? HS.customerList : [
+    {id:1,name:"周建伟",phone:"138****6688",level:"V3",points:8960,balance:1280,orders:18,spend:12860,last:"今天 14:23",addr:"武汉·青山",tag:"高价值"},
+    {id:2,name:"李美芳",phone:"139****1024",level:"V2",points:3680,balance:580,orders:9,spend:4860,last:"今天 13:48",addr:"武汉·武昌",tag:"活跃"},
+    {id:3,name:"陈志强",phone:"186****5566",level:"V3",points:7680,balance:1280,orders:24,spend:18920,last:"今天 11:32",addr:"武汉·洪山",tag:"高价值"},
+    {id:4,name:"刘秀英",phone:"137****8800",level:"V1",points:1280,balance:200,orders:4,spend:1280,last:"今天 10:55",addr:"武汉·江汉",tag:"新客"},
+    {id:5,name:"王志军",phone:"189****3399",level:"V2",points:3380,balance:680,orders:12,spend:6240,last:"今天 09:18",addr:"武汉·硚口",tag:"活跃"},
+    {id:6,name:"张玉玲",phone:"186****0066",level:"V1",points:1480,balance:380,orders:6,spend:2160,last:"昨天 22:41",addr:"黄石·黄石港",tag:"潜在"},
+    {id:7,name:"孙明华",phone:"150****7788",level:"V3",points:12860,balance:2680,orders:32,spend:24380,last:"昨天 20:15",addr:"宜昌·西陵",tag:"高价值"},
+    {id:8,name:"赵丽娜",phone:"137****1234",level:"V0",points:380,balance:60,orders:1,spend:356,last:"昨天 18:30",addr:"襄阳·樊城",tag:"新客"}
+  ];
+  const customers = raw.map(c => ({
+    id: c.id, name: c.name, phone: c.phone,
+    level: c.level || (c.vip==='VIP3'?'V3':c.vip==='VIP2'?'V2':c.vip==='VIP1'?'V1':'V0'),
+    points: c.points || 0,
+    balance: c.balance || 0,
+    orders: c.orders || 0,
+    spend: c.spend || c.spent || 0,
+    last: c.last || c.lastOrder || '-',
+    addr: c.addr || '武汉·青山',
+    tag: c.tag || (c.vip==='VIP3'?'高价值':(c.orders||0)>5?'活跃':'新客')
+  }));
+  const tbl = $("#customerTable");
+  if(!tbl) return;
+  tbl.innerHTML = customers.map(c => `
+    <tr data-id="${c.id}">
+      <td><input type="checkbox" class="checkbox c-check"/></td>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="avatar" style="width:30px;height:30px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:12px">${c.name[0]}</div>
+          <div><div style="font-weight:600">${c.name}</div><div style="font-size:11px;color:#9ca3af">${c.phone}</div></div>
+        </div>
+      </td>
+      <td style="font-size:11px;color:#9ca3af">${c.phone}</td>
+      <td><span class="tag ${c.level==='V3'?'gold':c.level==='V2'?'primary':c.level==='V1'?'success':'default'}">${c.level}</span></td>
+      <td>${c.points.toLocaleString()}</td>
+      <td><strong style="color:var(--red)">¥${c.balance.toLocaleString()}</strong></td>
+      <td>${c.orders}</td>
+      <td><strong style="color:var(--red)">¥${c.spend.toLocaleString()}</strong></td>
+      <td style="font-size:12px;color:#6b7280">${c.last}</td>
+      <td><span class="tag ${c.tag==='高价值'?'gold':c.tag==='活跃'?'success':c.tag==='新客'?'primary':'default'}">${c.tag}</span></td>
+      <td>
+        <div class="row-actions">
+          <button class="btn btn-ghost btn-sm" onclick="openCustomerDetail('${c.id}')">详情</button>
+          <button class="btn btn-ghost btn-sm" onclick="HS.Toast.show('已发送关怀短信','success')">关怀</button>
+        </div>
+      </td>
+    </tr>
+  `).join("");
+  if($("#customerCount")) $("#customerCount").textContent = customers.length;
+}
+function openCustomerDetail(id){
+  const c = (HS.customerList||[]).find(x => x.id===id) || {name:"周建伟",phone:"138****6688",level:"V3",orders:18,spend:12860};
+  const body = $("#customerBody");
+  if(!body) return;
+  body.innerHTML = `
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;margin-bottom:18px">
+      <div class="avatar" style="width:64px;height:64px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:24px">${c.name[0]}</div>
+      <div>
+        <div style="font-size:18px;font-weight:700">${c.name} <span class="tag gold">${c.level} · 至尊</span></div>
+        <div style="color:#6b7280;font-size:13px;margin-top:4px">${c.phone} · 注册于 2024-08-15</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px">
+      <div class="mini-stat"><div class="label">累计订单</div><div class="v">${c.orders}</div></div>
+      <div class="mini-stat"><div class="label">累计消费</div><div class="v">¥${c.spend.toLocaleString()}</div></div>
+      <div class="mini-stat"><div class="label">平均客单</div><div class="v">¥${Math.round(c.spend/c.orders)}</div></div>
+      <div class="mini-stat"><div class="label">健康标签</div><div class="v" style="font-size:12px">三高·失眠</div></div>
+    </div>
+    <div style="margin-bottom:14px"><div style="font-weight:600;margin-bottom:8px">🛒 近期订单</div>
+      <div class="timeline-item active"><div class="t-dot"></div><div class="t-body"><div class="t-time">今天 14:23</div><div class="t-text">SO20260904-001 · 3 件 · ¥428 · 待发货</div></div></div>
+      <div class="timeline-item active"><div class="t-dot"></div><div class="t-body"><div class="t-time">08-28 11:08</div><div class="t-text">SO20260828-005 · 5 件 · ¥1,180 · 已完成</div></div></div>
+      <div class="timeline-item active"><div class="t-dot"></div><div class="t-body"><div class="t-time">08-15 19:36</div><div class="t-text">SO20260815-012 · 2 件 · ¥356 · 已完成</div></div></div>
+    </div>
+    <div><div style="font-weight:600;margin-bottom:8px">💬 沟通记录</div>
+      <div style="background:#fafafa;padding:10px;border-radius:6px;margin-bottom:6px;font-size:13px"><strong>营养师 王琳</strong> · 09-01 建议补充 Omega-3,客户已采纳</div>
+      <div style="background:#fafafa;padding:10px;border-radius:6px;font-size:13px"><strong>客服 小敏</strong> · 08-20 解答三高套餐搭配,客户满意度 ★★★★★</div>
+    </div>
+  `;
+  openModal("customerModal");
+}
+
+// ========== 售后 / 客服 / 咨询 操作 ==========
+function handleAftersale(id, action){
+  const msg = action==="approve" ? "✓ 已批准退款,资金原路返回" :
+              action==="reject"  ? "已驳回,客服将联系客户解释" :
+              action==="exchange"? "已生成换货单,通知仓库发货" : "已处理";
+  HS.Toast.show(msg,"success");
+}
+function handleService(action, name){
+  if(action==="reply") HS.Toast.show("已打开回复面板 · "+name,"success");
+  if(action==="assign") HS.Toast.show("已分配给小敏处理","success");
+  if(action==="close") HS.Toast.show("工单已关闭","success");
+}
+function handleConsult(action, name){
+  if(action==="accept") HS.Toast.show("✓ 已接入咨询 · "+name,"success");
+  if(action==="transfer") HS.Toast.show("已转给高级营养师","success");
+  if(action==="skip") HS.Toast.show("已跳过","warn");
+}
+
+// ========== 全局初始化 ==========
+function renderAll(){
+  renderProducts();
+  renderOrders();
+  renderCustomers();
+  // 仪表盘内部元素已静态渲染,无需重复
+}
+
+// 自动登录
+(function(){
+  if(HS.Admin.current() || /[?&]demo=1/.test(location.search)){
+    $("#adminName").textContent = "黄巍";
+    $("#adminRole").textContent = "创始人 · 店长";
+    $("#loginPage").style.display = "none";
+    $("#adminPage").style.display = "block";
+    renderAll();
+  }
+})();
+
+// 关闭模态(点击遮罩)
+document.addEventListener("click", e => {
+  if(e.target.classList && e.target.classList.contains("modal")){
+    e.target.classList.remove("show");
+  }
+});
+
+// 顶部全局搜索
+$("#topSearch")?.addEventListener("keydown", e => {
+  if(e.key === "Enter"){
+    const q = e.target.value.trim();
+    if(q){
+      HS.Toast.show("搜索: "+q+" · 找到 6 条结果","success");
+    }
+  }
+});
+</script>
+</body>
+</html>
+

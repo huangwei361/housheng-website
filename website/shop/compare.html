@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>商品对比 - 厚生 HOUSHENG 营养商城</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="navMount"></div>
+
+<div class="container" style="padding:20px">
+
+  <div class="breadcrumb">
+    <a href="index.html">首页</a> <span class="sep">/</span>
+    <span class="current">商品对比</span>
+  </div>
+
+  <div class="compare-page">
+
+    <!-- 顶部工具栏 -->
+    <div class="compare-toolbar">
+      <div>
+        <h2 style="font-size:22px;font-weight:700">🔍 商品对比</h2>
+        <p style="font-size:13px;color:var(--gray);margin-top:4px" id="cmpIntro">最多可同时对比 4 款商品</p>
+      </div>
+      <div class="add-picker">
+        <span style="font-size:13px;color:var(--gray)">添加商品：</span>
+        <select id="addPicker" onchange="addToCompare(this.value)">
+          <option value="">+ 选择商品…</option>
+        </select>
+        <button class="btn btn-ghost btn-sm" onclick="clearCompare()">清空</button>
+      </div>
+    </div>
+
+    <!-- 对比表 -->
+    <div id="compareContainer"></div>
+
+    <!-- 对比为空时推荐 -->
+    <div id="recommendSection" style="display:none">
+      <div class="section">
+        <h3 class="section-title">💡 不知道选哪款？看看这些热门</h3>
+        <div id="recommendGrid" class="product-grid-5"></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="footerMount"></div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+const money = n => "¥" + Number(n).toLocaleString("zh-CN");
+
+function initPicker(){
+  const ids = HS.Compare.get();
+  const opts = HS.products
+    .filter(p => !ids.includes(p.id))
+    .map(p => `<option value="${p.id}">${p.cat} · ${p.name}（${money(p.price)}）</option>`)
+    .join("");
+  $("#addPicker").innerHTML = `<option value="">+ 选择商品…</option>${opts}`;
+}
+
+function renderCompare(){
+  const ids = HS.Compare.get();
+  const list = ids.map(id => HS.products.find(p => p.id===id)).filter(Boolean);
+  initPicker();
+
+  if(list.length===0){
+    $("#compareContainer").innerHTML = "";
+    $("#recommendSection").style.display = "block";
+    $("#recommendGrid").innerHTML = HS.products.slice(0,5).map(HS.productCard).join("");
+    return;
+  }
+
+  $("#recommendSection").style.display = "none";
+  $("#cmpIntro").textContent = `当前对比 ${list.length} 款 · 黄色高亮表示该项有差异`;
+
+  // 找出每行差异
+  const rows = [
+    {key:"name",   label:"商品",      render:p => `<div class="row-image"><img src="${p.img}"/></div><div class="row-name">${p.name}</div><div class="row-price">${money(p.price)}</div>`, diff:false, isHeader:true},
+    {key:"cat",    label:"分类",      render:p => p.cat, diff:true},
+    {key:"spec",   label:"规格",      render:p => p.spec, diff:true},
+    {key:"price",  label:"现价",      render:p => `${money(p.price)} <span style="text-decoration:line-through;color:var(--gray-light);font-size:12px">${money(p.was)}</span>`, diff:true, best:(a,b) => Math.min(a,b), isBest:v => v === Math.min(...list.map(p => p.price))},
+    {key:"discount",label:"折扣",     render:p => { const d = Math.round((1 - p.price/p.was) * 100); return `<strong style="color:var(--red)">${d > 0 ? d + '% OFF' : '无'}</strong>`; }, diff:true, isBest:v => parseInt(v) === Math.max(...list.map(p => Math.round((1-p.price/p.was)*100)))},
+    {key:"rating", label:"用户评分",  render:p => `<span class="stars">${"★".repeat(Math.round(p.rating))}${"☆".repeat(5-Math.round(p.rating))}</span> <strong>${p.rating}</strong>`, diff:true, isBest:v => parseFloat(v.replace(/[^\d.]/g,'')) === Math.max(...list.map(p => p.rating))},
+    {key:"reviews",label:"评价数",    render:p => `${p.reviews} 条`, diff:true, isBest:v => parseInt(v) === Math.max(...list.map(p => p.reviews))},
+    {key:"sales",  label:"已售",      render:p => `${p.sales}`, diff:true, isBest:v => parseInt(v) === Math.max(...list.map(p => p.sales))},
+    {key:"stock",  label:"库存",      render:p => p.stock > 100 ? `<span style="color:var(--green)">充足</span>` : (p.stock > 0 ? `<span style="color:var(--gold)">仅剩 ${p.stock}</span>` : `<span style="color:var(--red)">缺货</span>`), diff:false},
+    {key:"tags",   label:"标签",      render:p => p.tags.map(t => `<span class="product-tag">${t}</span>`).join(" "), diff:false},
+    {key:"blurb",  label:"简介",      render:p => p.blurb, diff:false},
+    {key:"nutrition",label:"营养/成分", render:p => `<ul style="text-align:left;font-size:12px;color:var(--gray);padding-left:16px">${p.nutrition.map(n => `<li>${n}</li>`).join("")}</ul>`, diff:false},
+    {key:"action", label:"操作",      render:p => `
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button class="btn btn-primary btn-sm" onclick="HS.Cart.add('${p.id}')">加入购物车</button>
+        <a class="btn btn-outline btn-sm" href="detail.html?id=${p.id}">查看详情</a>
+        <button class="btn btn-ghost btn-sm" onclick="HS.Fav.toggle('${p.id}')">${HS.Fav.has(p.id)?'❤ 已收藏':'收藏'}</button>
+        <button class="row-remove" onclick="removeFromCmp('${p.id}')">× 移出对比</button>
+      </div>
+    `, diff:false, isHeader:false}
+  ];
+
+  // 渲染表
+  let html = `<table class="compare-table"><thead><tr><th>对比项</th>`;
+  list.forEach(p => { html += `<th>${p.name}</th>`; });
+  html += `</tr></thead><tbody>`;
+
+  rows.forEach(row => {
+    const values = list.map(p => row.render(p));
+    const isDifferent = row.diff && new Set(values).size > 1;
+    const trClass = isDifferent ? 'different' : '';
+
+    if(row.isHeader){
+      // 头部行: 图片+名+价
+      html += `<tr style="background:var(--primary-pale)"><th style="text-align:center;background:var(--primary);color:#fff">商品预览</th>`;
+      list.forEach(p => {
+        html += `<td><div class="row-image"><img src="${p.img}"/></div><div class="row-name">${p.name}</div><div class="row-price">${money(p.price)}</div></td>`;
+      });
+      html += `</tr>`;
+      return;
+    }
+
+    html += `<tr class="${trClass}"><th>${row.label}</th>`;
+    values.forEach((v, i) => {
+      let cls = "";
+      if(row.isBest && row.isBest(v)) cls = "best";
+      html += `<td class="${cls}">${v}</td>`;
+    });
+    html += `</tr>`;
+  });
+
+  html += `</tbody></table>`;
+  $("#compareContainer").innerHTML = html;
+}
+
+function addToCompare(id){
+  if(!id) return;
+  const ok = HS.Compare.toggle(id);
+  if(ok){
+    HS.Toast.show("✓ 已加入对比", "success");
+  } else {
+    HS.Toast.show("已存在", "error");
+  }
+  $("#addPicker").value = "";
+  renderCompare();
+}
+
+function removeFromCmp(id){
+  HS.Compare.toggle(id);
+  HS.Toast.show("已移出对比");
+  renderCompare();
+}
+
+function clearCompare(){
+  if(!confirm("清空对比列表？")) return;
+  HS.Compare.set([]);
+  HS.Toast.show("已清空");
+  renderCompare();
+}
+
+document.addEventListener("DOMContentLoaded", renderCompare);
+</script>
+
+<!-- 浮动客服 -->
+<div class="floating-service">
+  <div class="fs-btn" onclick="HS.Modal.open('advisorModal')" title="在线咨询">
+    💬
+    <span class="dot"></span>
+    <span class="fs-btn-tooltip">在线客服</span>
+  </div>
+  <div class="fs-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">
+    ↑
+    <span class="fs-btn-tooltip">回到顶部</span>
+  </div>
+</div>
+
+</body>
+</html>
