@@ -1,0 +1,27 @@
+{
+  "name": "厚生 HOUSHENG · 全周期健康管理",
+  "short_name": "厚生 HOUSHENG",
+  "description": "中产家庭的全周期健康管理伙伴 — 营养·运动·功法·中医·心理·检测",
+  "start_url": "/housheng-website/website/index.html",
+  "scope": "/housheng-website/website/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#006d77",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "logo-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "lifestyle", "shopping"],
+  "lang": "zh-CN"
+}

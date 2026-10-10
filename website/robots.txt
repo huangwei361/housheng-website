@@ -1,0 +1,5 @@
+# 厚生 HOUSHENG
+User-agent: *
+Allow: /
+
+Sitemap: https://huangwei361.github.io/housheng-website/website/sitemap.xml

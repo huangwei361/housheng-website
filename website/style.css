@@ -587,3 +587,61 @@ section {
   section { padding: 60px 16px; }
   .hero { padding: 60px 16px 80px; }
 }
+
+/* ===== 暗色模式 ===== */
+:root[data-theme="dark"] {
+  --primary: #4dd0c7;
+  --primary-dark: #006d77;
+  --primary-light: #6ee0d4;
+  --secondary: #5a8c87;
+  --accent: #f0a78d;
+  --accent-dark: #e29578;
+  --light: #2a3537;
+  --bg: #1a2325;
+  --white: #1e2a2c;
+  --dark: #e8eef0;
+  --gray: #b0b8ba;
+  --light-gray: #2f3a3c;
+  --border: #3a4547;
+}
+[data-theme="dark"] body { background: #1e2a2c; color: #e8eef0; }
+[data-theme="dark"] .nav { background: #1a2325; }
+[data-theme="dark"] .nav-inner { color: #e8eef0; }
+[data-theme="dark"] .nav-menu a { color: #b0b8ba; }
+[data-theme="dark"] .nav-menu a:hover, [data-theme="dark"] .nav-menu a.active { color: #4dd0c7; }
+[data-theme="dark"] .nav-cta { background: #4dd0c7; color: #1a2325; }
+[data-theme="dark"] .hero { background: linear-gradient(135deg, #006d77 0%, #004f57 100%); }
+[data-theme="dark"] .card { background: #2a3537; color: #e8eef0; border-color: #3a4547; }
+[data-theme="dark"] .card-title { color: #e8eef0; }
+[data-theme="dark"] .card-desc { color: #b0b8ba; }
+[data-theme="dark"] .section { background: transparent; }
+[data-theme="dark"] .section-bg { background: #232e30; }
+[data-theme="dark"] .section-title { color: #e8eef0; }
+[data-theme="dark"] .section-desc { color: #b0b8ba; }
+[data-theme="dark"] .metric-block { background: transparent; }
+[data-theme="dark"] .metric-num { color: #4dd0c7; }
+[data-theme="dark"] .footer { background: #141a1b; color: #b0b8ba; }
+[data-theme="dark"] .footer h4 { color: #e8eef0; }
+[data-theme="dark"] .breadcrumb { color: #b0b8ba; }
+[data-theme="dark"] .breadcrumb a { color: #4dd0c7; }
+[data-theme="dark"] .btn-outline { background: transparent; color: #4dd0c7; border-color: #4dd0c7; }
+[data-theme="dark"] .btn-ghost { color: #b0b8ba; }
+[data-theme="dark"] .btn-ghost:hover { color: #4dd0c7; }
+[data-theme="dark"] .product-card { background: #2a3537; border-color: #3a4547; }
+[data-theme="dark"] .product-name { color: #e8eef0; }
+[data-theme="dark"] .price-now { color: #f0a78d; }
+[data-theme="dark"] .coupon { background: linear-gradient(135deg, #2a3537, #232e30); }
+[data-theme="dark"] .coupon-left { border-right-color: #4dd0c7; }
+[data-theme="dark"] input, [data-theme="dark"] select, [data-theme="dark"] textarea {
+  background: #1e2a2c; color: #e8eef0; border-color: #3a4547;
+}
+
+/* 切换按钮(浮动右下角) */
+.theme-toggle {
+  position: fixed; right: 20px; bottom: 80px; z-index: 999;
+  width: 44px; height: 44px; border-radius: 50%; cursor: pointer;
+  background: #fff; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; transition: all 0.2s;
+}
+.theme-toggle:hover { transform: scale(1.08); }

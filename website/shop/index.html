@@ -4,6 +4,23 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>厚生 HOUSHENG · 营养商城 · 首页</title>
+  <meta name="description" content="中产家庭的全周期健康管理伙伴 — 营养·运动·功法·中医·心理·检测">
+  <meta name="keywords" content="厚生,健康管理">
+  <meta name="author" content="厚生 HOUSHENG">
+  <meta name="theme-color" content="#006d77">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="厚生 HOUSHENG">
+  <meta property="og:title" content="厚生 HOUSHENG">
+  <meta property="og:description" content="中产家庭的全周期健康管理伙伴 — 营养·运动·功法·中医·心理·检测">
+  <meta property="og:url" content="https://huangwei361.github.io/housheng-website/website/shop/index.html">
+  <meta property="og:image" content="https://huangwei361.github.io/housheng-website/website/og-cover.png">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="厚生 HOUSHENG">
+  <meta name="twitter:description" content="中产家庭的全周期健康管理伙伴 — 营养·运动·功法·中医·心理·检测">
+  <meta name="twitter:image" content="https://huangwei361.github.io/housheng-website/website/og-cover.png">
+  <link rel="canonical" href="https://huangwei361.github.io/housheng-website/website/shop/index.html">
+  <link rel="manifest" href="website/shop/manifest.json">
 <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
@@ -246,5 +263,14 @@ document.getElementById("advisorGrid").innerHTML = HS.advisors.map(a => `
 // 慢病专区
 document.getElementById("careGrid").innerHTML = HS.products.filter(p => p.cat==="慢病养护").map(HS.productCard).join("");
 </script>
+
+<script>
+if('serviceWorker' in navigator){
+  <script src="../darkmode.js"></script>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('website/shop/sw.js').catch(()=>{});
+}
+}</script>
 </body>
 </html>
