@@ -40,6 +40,7 @@
     <ul class="nav-menu">
       <li><a href="index.html">首页</a></li>
       <li><a href="shop/index.html">营养商城</a></li>
+      <li><a href="news.html">健康资讯</a></li>
       <li><a href="biz-gongfa.html">课程中心</a></li>
       <li><a href="biz-tcm.html">调理服务</a></li>
       <li><a href="biz-checkup.html">健康检测</a></li>
@@ -591,13 +592,11 @@
 </footer>
 
 
+<script src="./darkmode.js"></script>
 <script>
 if('serviceWorker' in navigator){
-  <script src="./darkmode.js"></script>
-<script>
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('website/sw.js').catch(()=>{});
+  navigator.serviceWorker.register('./sw.js').catch(()=>{});
 }
-}</script>
+</script>
 </body>
 </html>

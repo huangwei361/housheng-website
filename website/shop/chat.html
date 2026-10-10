@@ -199,13 +199,11 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 
+<script src="../darkmode.js"></script>
 <script>
 if('serviceWorker' in navigator){
-  <script src="../darkmode.js"></script>
-<script>
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('website/shop/sw.js').catch(()=>{});
+  navigator.serviceWorker.register('../sw.js').catch(()=>{});
 }
-}</script>
+</script>
 </body>
 </html>

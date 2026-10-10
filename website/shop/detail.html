@@ -269,8 +269,21 @@ document.getElementById("qaList").innerHTML = HS.faq.map((f, i) => `
   </div>
 `;
 
-// 猜你喜欢
-document.getElementById("recoGrid").innerHTML = HS.products.filter(x => x.id !== id).sort(() => Math.random()-0.5).slice(0,4).map(HS.productCard).join("");
+// 猜你喜欢(同分类优先 + 标签相似 + 随机补充)
+const cur = HS.products.find(x => x.id === id);
+let recoPool = HS.products.filter(x => x.id !== id);
+recoPool.sort((a, b) => {
+  let sa = 0, sb = 0;
+  if (a.cat === cur?.cat) sa += 10;
+  if (b.cat === cur?.cat) sb += 10;
+  if ((a.tags||[]).some(t => (cur?.tags||[]).includes(t))) sa += 3;
+  if ((b.tags||[]).some(t => (cur?.tags||[]).includes(t))) sb += 3;
+  sa += (a.rating || 0) * 0.5;
+  sb += (b.rating || 0) * 0.5;
+  if (sa === sb) return Math.random() - 0.5;
+  return sb - sa;
+});
+document.getElementById("recoGrid").innerHTML = recoPool.slice(0, 4).map(HS.productCard).join("");
 
 // 营养师
 document.getElementById("advisorGrid").innerHTML = HS.advisors.map(a => `
@@ -411,13 +424,11 @@ document.getElementById("cmpBtn").style.color = HS.Compare.has(p.id) ? "var(--pr
 .filter-chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}
 </style>
 
+<script src="../darkmode.js"></script>
 <script>
 if('serviceWorker' in navigator){
-  <script src="../darkmode.js"></script>
-<script>
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('website/shop/sw.js').catch(()=>{});
+  navigator.serviceWorker.register('../sw.js').catch(()=>{});
 }
-}</script>
+</script>
 </body>
 </html>

@@ -239,13 +239,11 @@
 </footer>
 
 
+<script src="../darkmode.js"></script>
 <script>
 if('serviceWorker' in navigator){
-  <script src="../darkmode.js"></script>
-<script>
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('website/details/sw.js').catch(()=>{});
+  navigator.serviceWorker.register('../sw.js').catch(()=>{});
 }
-}</script>
+</script>
 </body>
 </html>

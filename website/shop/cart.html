@@ -130,6 +130,17 @@ function render(){
   }
   document.querySelector("aside").style.display = "block";
 
+  // 满减提示 banner
+  const sub0 = HS.Cart.total();
+  const tips = [];
+  if(sub0 < 199) tips.push({need: 199 - sub0, msg: "再买 ¥" + (199 - sub0) + " 享 <b>免运费</b>"});
+  if(sub0 < 299) tips.push({need: 299 - sub0, msg: "满 ¥299 立减 <b>¥30</b>"});
+  if(sub0 < 599) tips.push({need: 599 - sub0, msg: "满 ¥599 立减 <b>¥80</b>"});
+  if(tips.length){
+    const banner = `<div style="background:linear-gradient(135deg,#fff7e6,#ffe8b3);padding:12px 18px;border-radius:8px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:13px"><span style="font-size:18px">🎁</span><div style="flex:1;color:#8b5a00">${tips.map(t=>`<div>${t.msg}</div>`).join('')}</div><a href="product.html" class="btn btn-warn btn-sm" style="background:var(--gold);color:#fff;border:none">去凑单 →</a></div>`;
+    document.getElementById("cartList").insertAdjacentHTML("beforebegin", banner);
+  }
+
   // 列表
   document.getElementById("cartList").innerHTML = `
     <div style="padding:14px 18px;background:var(--bg);display:flex;align-items:center;gap:14px;font-size:13px">
@@ -300,13 +311,11 @@ HS.checkout = () => {
 render();
 </script>
 
+<script src="../darkmode.js"></script>
 <script>
 if('serviceWorker' in navigator){
-  <script src="../darkmode.js"></script>
-<script>
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('website/shop/sw.js').catch(()=>{});
+  navigator.serviceWorker.register('../sw.js').catch(()=>{});
 }
-}</script>
+</script>
 </body>
 </html>

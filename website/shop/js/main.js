@@ -420,6 +420,99 @@
     location.href = "product.html?q=" + encodeURIComponent(kw);
   }
 
+  // 搜索建议(实时模糊匹配)
+  const Search = {
+    active: -1,
+    el: null,
+    items: [],
+    init(){
+      const input = $("#navSearchInput");
+      if(!input || document.getElementById("searchSuggest")) return;
+      this.el = document.createElement("div");
+      this.el.id = "searchSuggest";
+      this.el.style.cssText = "position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;box-shadow:0 8px 24px rgba(0,0,0,0.12);max-height:380px;overflow-y:auto;z-index:99;display:none";
+      const wrap = input.parentElement;
+      wrap.style.position = "relative";
+      wrap.appendChild(this.el);
+      input.addEventListener("input", () => this.suggest(input.value));
+      input.addEventListener("focus", () => this.suggest(input.value));
+      input.addEventListener("blur", () => setTimeout(() => this.el.style.display="none", 200));
+      input.addEventListener("keydown", e => {
+        if(e.key === "ArrowDown"){ e.preventDefault(); this.move(1) }
+        else if(e.key === "ArrowUp"){ e.preventDefault(); this.move(-1) }
+        else if(e.key === "Enter"){ if(this.active>=0){ e.preventDefault(); this.go() } }
+        else if(e.key === "Escape"){ this.el.style.display="none" }
+      });
+    },
+    suggest(q){
+      if(!this.el) return;
+      const recent = JSON.parse(localStorage.getItem(LS.recent)||"[]");
+      const ql = (q||"").toLowerCase().trim();
+      let html = "";
+      let items = [];
+      if(!ql){
+        if(recent.length){
+          html += `<div style="padding:10px 16px;color:#9ca3af;font-size:12px">最近搜索</div>`;
+          recent.slice(0,5).forEach(k => {
+            html += `<div class="ss-item" data-kw="${esc(k)}"><span style="color:#6b7280">🕐</span> ${esc(k)}</div>`;
+          });
+        }
+        html += `<div style="padding:10px 16px;color:#9ca3af;font-size:12px">热门搜索</div>`;
+        ["助眠","三高","护肝","益生菌","Omega-3","蛋白粉","八段锦"].forEach(k => {
+          html += `<div class="ss-item" data-kw="${k}"><span style="color:#f77f00">🔥</span> ${k}</div>`;
+        });
+      } else {
+        items = HS.products.filter(p =>
+          p.name.toLowerCase().includes(ql) ||
+          p.cat.toLowerCase().includes(ql) ||
+          (p.tags||[]).some(t => t.toLowerCase().includes(ql)) ||
+          (p.blurb||"").toLowerCase().includes(ql)
+        ).slice(0, 8);
+        if(items.length === 0){
+          html = `<div style="padding:18px;text-align:center;color:#9ca3af;font-size:13px">没找到 "${esc(q)}" 相关商品</div>`;
+        } else {
+          items.forEach(p => {
+            html += `<div class="ss-item" data-id="${p.id}"><img src="${p.img}" style="width:36px;height:36px;object-fit:contain;background:#f5fafa;border-radius:4px;flex-shrink:0"/><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;color:#1a1a1a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.name)}</div><div style="font-size:11px;color:#6b7280">${esc(p.cat)} · ¥${p.price}</div></div></div>`;
+          });
+        }
+      }
+      this.el.innerHTML = html;
+      this.el.style.display = "block";
+      this.items = items;
+      this.active = -1;
+      this.bindItems();
+    },
+    bindItems(){
+      if(!this.el) return;
+      this.el.querySelectorAll(".ss-item").forEach(el => {
+        el.style.cssText = "padding:10px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;gap:10px";
+        el.addEventListener("mouseenter", () => {
+          this.el.querySelectorAll(".ss-item").forEach(e => e.style.background = "");
+          el.style.background = "#f5fafa";
+          this.active = Array.from(el.parentElement.children).indexOf(el);
+        });
+        el.addEventListener("click", () => {
+          const id = el.dataset.id;
+          if(id){ location.href = "detail.html?id=" + id } else {
+            $("#navSearchInput").value = el.dataset.kw;
+            doSearch();
+          }
+        });
+      });
+    },
+    move(d){
+      if(!this.items.length && !this.el.querySelector(".ss-item")) return;
+      const items = this.el.querySelectorAll(".ss-item");
+      items.forEach(e => e.style.background = "");
+      this.active = (this.active + d + items.length) % items.length;
+      items[this.active].style.background = "#e6f3f1";
+    },
+    go(){
+      const items = this.el.querySelectorAll(".ss-item");
+      if(items[this.active]) items[this.active].click();
+    }
+  };
+
   // ========== 商品卡渲染 ==========
   function productCard(p){
     const inFav = Fav.has(p.id);
@@ -486,6 +579,9 @@
     Chat.init();
     Chat.updateBadge();
 
+    // 搜索建议
+    Search.init();
+
     // 财务初始化
     Account.init();
 
@@ -525,6 +621,7 @@
   HS.Toast = Toast;
   HS.productCard = productCard;
   HS.doSearch = doSearch;
+  HS.Search = Search;
   HS.init = init;
   HS.esc = esc;        // escape HTML helper, available globally
   HS.money = money;    // ¥ formatter
